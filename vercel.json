@@ -1,0 +1,6 @@
+{
+  "rewrites": [
+    { "source": "/", "destination": "/Crescent%20Moon%20-%20Home.dc.html" },
+    { "source": "/menu", "destination": "/Crescent%20Moon%20-%20Menu.dc.html" }
+  ]
+}
