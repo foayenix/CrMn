@@ -4,6 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script src="./support.js"></script>
+<script src="./theme-toggle.js"></script>
+<script src="./booking-widget.js"></script>
 </head>
 <body>
 <x-dc>
@@ -22,14 +24,47 @@
   @media (max-width: 640px) {
     #hero-est, #hero-loc { display: none; }
   }
+
+  :root {
+    --cm-dark-hero: #241019;
+    --cm-dark-line: #2B1420;
+    --cm-dark-line-rgb: 43, 20, 32;
+    --cm-dark-deep: #1d0e16;
+  }
+  html[data-cm-theme="navy"] {
+    --cm-dark-hero: #0E1E33;
+    --cm-dark-line: #14294A;
+    --cm-dark-line-rgb: 20, 41, 74;
+    --cm-dark-deep: #0A1626;
+  }
+  html[data-cm-theme="green"] {
+    --cm-dark-hero: #10241B;
+    --cm-dark-line: #15392A;
+    --cm-dark-line-rgb: 21, 57, 42;
+    --cm-dark-deep: #0A1F15;
+  }
+  #cm-theme-switcher { position: fixed; right: clamp(14px,2vw,26px); bottom: clamp(14px,2vw,26px); z-index: 999999; display: flex; align-items: center; gap: 8px; background: #F7F4EC; border: 1px solid rgba(28,21,18,.15); border-radius: 999px; padding: 6px 10px 6px 12px; box-shadow: 0 12px 30px rgba(28,21,18,.22); font-family: 'IBM Plex Mono', monospace; }
+  #cm-theme-switcher span { font-size: 10px; letter-spacing: .08em; text-transform: uppercase; color: #1C1512; user-select: none; }
+  #cm-theme-switcher button { width: 24px; height: 24px; border-radius: 50%; border: 2px solid transparent; cursor: pointer; padding: 0; }
+  #cm-theme-switcher button[data-active="true"] { border-color: #1C1512; }
+  #cm-theme-switcher button[data-swatch="wine"] { background: #241019; }
+  #cm-theme-switcher button[data-swatch="navy"] { background: #0E1E33; }
+  #cm-theme-switcher button[data-swatch="green"] { background: #10241B; }
+
+  .cm-chip { font-family: 'IBM Plex Mono', monospace; font-size: 13px; padding: 9px 18px; border: 1px solid rgba(247,244,236,.2); background: transparent; color: rgba(247,244,236,.85); cursor: pointer; }
+  .cm-chip.is-active { border-color: #A8875A; background: rgba(168,135,90,.14); color: #F7F4EC; }
+  .cm-custom-box { display: flex; align-items: center; gap: 8px; font-family: 'IBM Plex Mono', monospace; font-size: 13px; padding: 9px 14px; border: 1px solid rgba(247,244,236,.2); color: rgba(247,244,236,.85); cursor: text; }
+  .cm-custom-box.is-active { border-color: #A8875A; background: rgba(168,135,90,.14); }
+  .cm-custom-box input { width: 40px; background: transparent; border: none; color: #F7F4EC; font-family: 'IBM Plex Mono', monospace; font-size: 13px; outline: none; }
+  .cm-custom-box input::-webkit-outer-spin-button, .cm-custom-box input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
 </style>
 </helmet>
 
 <div data-screen-label="Home" style="background:#EDE6D6; color:#1C1512; font-family:'Hanken Grotesk', sans-serif; font-weight:300; overflow-x:hidden;">
 
   <!-- ============ OPENER ============ -->
-  <section style="position:relative; min-height:100svh; display:flex; flex-direction:column; justify-content:space-between; background-color:#241019; background-image:repeating-linear-gradient(128deg, rgba(168,135,90,.10) 0 1px, transparent 1px 17px); color:#F7F4EC; padding:clamp(22px,3.5vw,44px);">
-    <div style="position:absolute; inset:0; background:linear-gradient(180deg, rgba(28,21,18,.4) 0%, rgba(43,20,32,.15) 40%, rgba(43,20,32,.5) 100%); pointer-events:none;"></div>
+  <section style="position:relative; min-height:100svh; display:flex; flex-direction:column; justify-content:space-between; background-color:var(--cm-dark-hero); background-image:repeating-linear-gradient(128deg, rgba(168,135,90,.10) 0 1px, transparent 1px 17px); color:#F7F4EC; padding:clamp(22px,3.5vw,44px);">
+    <div style="position:absolute; inset:0; background:linear-gradient(180deg, rgba(28,21,18,.4) 0%, rgba(var(--cm-dark-line-rgb),.15) 40%, rgba(var(--cm-dark-line-rgb),.5) 100%); pointer-events:none;"></div>
     <svg viewBox="0 0 460 440" aria-hidden="true" style="position:absolute; right:clamp(8px,5vw,80px); top:50%; transform:translateY(-54%) rotate(-4deg); width:clamp(210px,36vw,480px); height:auto; pointer-events:none;">
       <path d="M 230 74 A 138 138 0 1 0 230 350 A 102 138 0 1 1 230 74 Z" fill="rgba(168,135,90,.08)" stroke="#EDE6D6" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></path>
       <circle cx="124" cy="182" r="4.5" fill="#EDE6D6"></circle>
@@ -74,13 +109,13 @@
     <div style="flex:1.35 1 460px; min-height:clamp(360px,50vw,660px); background-color:#E3DAC5; background-image:repeating-linear-gradient(128deg, rgba(28,21,18,.06) 0 1px, transparent 1px 17px); display:flex; align-items:center; justify-content:center; padding:clamp(28px,4vw,64px);">
       <div style="width:100%; max-width:440px; background:#F7F4EC; border:1px solid rgba(28,21,18,.12); padding:clamp(26px,3vw,44px); box-shadow:0 24px 60px rgba(28,21,18,.14);">
         <svg viewBox="0 0 110 100" aria-hidden="true" style="width:76px; height:auto; display:block; margin-bottom:14px; transform:rotate(-3deg);">
-          <path d="M 20 92 L 20 44 Q 20 36 27 34 L 27 16 L 36 16 L 36 34 Q 43 36 43 44 L 43 92 Z" fill="none" stroke="#2B1420" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"></path>
-          <path d="M 20 56 L 43 56 M 20 76 L 43 76" stroke="#2B1420" stroke-width="2" stroke-linecap="round"></path>
-          <path d="M 60 42 L 98 40 Q 97 68 80 72 Q 63 70 60 42 Z" fill="none" stroke="#2B1420" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"></path>
+          <path d="M 20 92 L 20 44 Q 20 36 27 34 L 27 16 L 36 16 L 36 34 Q 43 36 43 44 L 43 92 Z" fill="none" stroke="var(--cm-dark-line)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"></path>
+          <path d="M 20 56 L 43 56 M 20 76 L 43 76" stroke="var(--cm-dark-line)" stroke-width="2" stroke-linecap="round"></path>
+          <path d="M 60 42 L 98 40 Q 97 68 80 72 Q 63 70 60 42 Z" fill="none" stroke="var(--cm-dark-line)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"></path>
           <path d="M 65 52 Q 79 58 94 50" fill="none" stroke="#A8875A" stroke-width="2" stroke-linecap="round"></path>
-          <path d="M 80 72 L 81 88 M 70 91 Q 81 96 92 90" stroke="#2B1420" stroke-width="2.5" stroke-linecap="round" fill="none"></path>
-          <circle cx="72" cy="28" r="2.5" fill="none" stroke="#2B1420" stroke-width="1.8"></circle>
-          <circle cx="84" cy="20" r="2" fill="none" stroke="#2B1420" stroke-width="1.8"></circle>
+          <path d="M 80 72 L 81 88 M 70 91 Q 81 96 92 90" stroke="var(--cm-dark-line)" stroke-width="2.5" stroke-linecap="round" fill="none"></path>
+          <circle cx="72" cy="28" r="2.5" fill="none" stroke="var(--cm-dark-line)" stroke-width="1.8"></circle>
+          <circle cx="84" cy="20" r="2" fill="none" stroke="var(--cm-dark-line)" stroke-width="1.8"></circle>
           <path d="M 100 14 Q 101 21 108 22 Q 101 23 100 30 Q 99 23 92 22 Q 99 21 100 14 Z" fill="#A8875A"></path>
         </svg>
         <div style="font-family:'IBM Plex Mono', monospace; font-size:10.5px; letter-spacing:.28em; text-transform:uppercase; color:#A8875A; margin-bottom:18px;">By the glass tonight</div>
@@ -121,13 +156,13 @@
         <circle cx="180" cy="52" r="3.4" fill="#A8875A"></circle>
         <circle cx="200" cy="52" r="3.4" fill="#A8875A"></circle>
         <path d="M 175 66 Q 190 79 205 66" fill="none" stroke="#A8875A" stroke-width="3" stroke-linecap="round"></path>
-        <path d="M 66 226 L 62 172 Q 61 156 76 156 Q 90 156 90 172 L 90 184 Q 190 176 290 184 L 290 172 Q 290 156 304 156 Q 319 156 318 172 L 314 226 Q 190 240 66 226 Z" fill="none" stroke="#2B1420" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></path>
-        <path d="M 190 186 Q 189 208 191 230" fill="none" stroke="#2B1420" stroke-width="2.5" stroke-linecap="round"></path>
-        <path d="M 78 232 L 76 248 M 302 232 L 304 248" stroke="#2B1420" stroke-width="3" stroke-linecap="round"></path>
-        <path d="M 336 218 L 366 218 L 361 250 L 341 250 Z" fill="none" stroke="#2B1420" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"></path>
+        <path d="M 66 226 L 62 172 Q 61 156 76 156 Q 90 156 90 172 L 90 184 Q 190 176 290 184 L 290 172 Q 290 156 304 156 Q 319 156 318 172 L 314 226 Q 190 240 66 226 Z" fill="none" stroke="var(--cm-dark-line)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></path>
+        <path d="M 190 186 Q 189 208 191 230" fill="none" stroke="var(--cm-dark-line)" stroke-width="2.5" stroke-linecap="round"></path>
+        <path d="M 78 232 L 76 248 M 302 232 L 304 248" stroke="var(--cm-dark-line)" stroke-width="3" stroke-linecap="round"></path>
+        <path d="M 336 218 L 366 218 L 361 250 L 341 250 Z" fill="none" stroke="var(--cm-dark-line)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"></path>
         <path d="M 351 216 Q 338 192 344 174 M 351 216 Q 352 186 361 172 M 351 216 Q 364 196 370 184" fill="none" stroke="#5C6B57" stroke-width="2.5" stroke-linecap="round"></path>
         <path d="M 40 120 Q 41 129 50 130 Q 41 131 40 140 Q 39 131 30 130 Q 39 129 40 120 Z" fill="#A8875A"></path>
-        <path d="M 300 108 Q 312 98 324 108 T 348 108" fill="none" stroke="rgba(43,20,32,.45)" stroke-width="2.5" stroke-linecap="round"></path>
+        <path d="M 300 108 Q 312 98 324 108 T 348 108" fill="none" stroke="rgba(var(--cm-dark-line-rgb),.45)" stroke-width="2.5" stroke-linecap="round"></path>
       </svg>
     </div>
     <div style="flex:1 1 340px; display:flex; align-items:center; padding:clamp(40px,6vw,96px) clamp(28px,5vw,80px);">
@@ -141,7 +176,7 @@
   </section>
 
   <!-- ============ SOUL NIGHT — full-bleed band ============ -->
-  <section style="position:relative; min-height:clamp(360px,46vw,560px); display:flex; align-items:flex-end; background-color:#1d0e16; background-image:repeating-linear-gradient(128deg, rgba(168,135,90,.09) 0 1px, transparent 1px 17px); color:#F7F4EC; padding:clamp(34px,6vw,90px);">
+  <section style="position:relative; min-height:clamp(360px,46vw,560px); display:flex; align-items:flex-end; background-color:var(--cm-dark-deep); background-image:repeating-linear-gradient(128deg, rgba(168,135,90,.09) 0 1px, transparent 1px 17px); color:#F7F4EC; padding:clamp(34px,6vw,90px);">
     <div style="position:absolute; inset:0; background:linear-gradient(90deg, rgba(29,14,22,.5) 0%, rgba(29,14,22,0) 70%);"></div>
     <svg viewBox="0 0 380 320" aria-hidden="true" style="position:absolute; right:clamp(8px,6vw,110px); top:50%; transform:translateY(-50%); width:clamp(190px,30vw,380px); height:auto; pointer-events:none;">
       <path d="M 186 0 L 186 26" stroke="#EDE6D6" stroke-width="2.5" stroke-linecap="round"></path>
@@ -181,12 +216,12 @@
       <div style="display:flex; flex-wrap:wrap; gap:16px 32px; justify-content:space-between; align-items:baseline; margin-bottom:clamp(28px,4vw,48px);">
         <div>
           <svg viewBox="0 0 230 52" aria-hidden="true" style="width:170px; height:auto; display:block; margin-bottom:16px;">
-            <path d="M 6 10 Q 115 36 224 10" fill="none" stroke="#2B1420" stroke-width="2.5" stroke-linecap="round"></path>
-            <path d="M 30 15 L 38 34 L 46 17 Z" fill="#A8875A" stroke="#2B1420" stroke-width="2" stroke-linejoin="round"></path>
-            <path d="M 68 21 L 76 40 L 84 22 Z" fill="none" stroke="#2B1420" stroke-width="2" stroke-linejoin="round"></path>
-            <path d="M 106 24 L 114 43 L 122 24 Z" fill="#5C6B57" stroke="#2B1420" stroke-width="2" stroke-linejoin="round"></path>
-            <path d="M 144 22 L 152 41 L 160 21 Z" fill="none" stroke="#2B1420" stroke-width="2" stroke-linejoin="round"></path>
-            <path d="M 182 17 L 190 34 L 198 15 Z" fill="#A8875A" stroke="#2B1420" stroke-width="2" stroke-linejoin="round"></path>
+            <path d="M 6 10 Q 115 36 224 10" fill="none" stroke="var(--cm-dark-line)" stroke-width="2.5" stroke-linecap="round"></path>
+            <path d="M 30 15 L 38 34 L 46 17 Z" fill="#A8875A" stroke="var(--cm-dark-line)" stroke-width="2" stroke-linejoin="round"></path>
+            <path d="M 68 21 L 76 40 L 84 22 Z" fill="none" stroke="var(--cm-dark-line)" stroke-width="2" stroke-linejoin="round"></path>
+            <path d="M 106 24 L 114 43 L 122 24 Z" fill="#5C6B57" stroke="var(--cm-dark-line)" stroke-width="2" stroke-linejoin="round"></path>
+            <path d="M 144 22 L 152 41 L 160 21 Z" fill="none" stroke="var(--cm-dark-line)" stroke-width="2" stroke-linejoin="round"></path>
+            <path d="M 182 17 L 190 34 L 198 15 Z" fill="#A8875A" stroke="var(--cm-dark-line)" stroke-width="2" stroke-linejoin="round"></path>
           </svg>
           <div style="font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:.28em; text-transform:uppercase; color:#A8875A; margin-bottom:20px;">What's On</div>
           <h2 style="margin:0; font-family:'Cormorant', serif; font-weight:400; font-size:clamp(38px,4.6vw,64px); line-height:1.02; letter-spacing:-.01em;">This month at the Moon</h2>
@@ -227,14 +262,14 @@
     <div style="flex:1.35 1 460px; min-height:clamp(360px,50vw,660px); background-color:#E3DAC5; background-image:repeating-linear-gradient(128deg, rgba(28,21,18,.06) 0 1px, transparent 1px 17px); display:flex; align-items:center; justify-content:center; padding:clamp(28px,4vw,64px);">
       <div style="width:100%; max-width:440px; background:#F7F4EC; border:1px solid rgba(28,21,18,.12); padding:clamp(26px,3vw,44px); box-shadow:0 24px 60px rgba(28,21,18,.14);">
         <svg viewBox="0 0 130 80" aria-hidden="true" style="width:86px; height:auto; display:block; margin-bottom:14px; transform:rotate(-2deg);">
-          <path d="M 6 76 L 78 34 L 78 76 Z" fill="none" stroke="#2B1420" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></path>
-          <circle cx="61" cy="56" r="5.5" fill="rgba(43,20,32,.3)" stroke="#2B1420" stroke-width="2"></circle>
-          <circle cx="44" cy="68" r="4" fill="rgba(43,20,32,.3)" stroke="#2B1420" stroke-width="2"></circle>
+          <path d="M 6 76 L 78 34 L 78 76 Z" fill="none" stroke="var(--cm-dark-line)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></path>
+          <circle cx="61" cy="56" r="5.5" fill="rgba(var(--cm-dark-line-rgb),.3)" stroke="var(--cm-dark-line)" stroke-width="2"></circle>
+          <circle cx="44" cy="68" r="4" fill="rgba(var(--cm-dark-line-rgb),.3)" stroke="var(--cm-dark-line)" stroke-width="2"></circle>
           <circle cx="100" cy="66" r="9" fill="none" stroke="#5C6B57" stroke-width="3"></circle>
           <circle cx="119" cy="72" r="7" fill="none" stroke="#5C6B57" stroke-width="3"></circle>
           <circle cx="100" cy="66" r="2.2" fill="#5C6B57"></circle>
-          <path d="M 100 64 L 110 30" stroke="#2B1420" stroke-width="2.5" stroke-linecap="round"></path>
-          <circle cx="110" cy="27" r="3" fill="#2B1420"></circle>
+          <path d="M 100 64 L 110 30" stroke="var(--cm-dark-line)" stroke-width="2.5" stroke-linecap="round"></path>
+          <circle cx="110" cy="27" r="3" fill="var(--cm-dark-line)"></circle>
           <path d="M 24 20 Q 25 27 32 28 Q 25 29 24 36 Q 23 29 16 28 Q 23 27 24 20 Z" fill="#A8875A"></path>
         </svg>
         <div style="font-family:'IBM Plex Mono', monospace; font-size:10.5px; letter-spacing:.28em; text-transform:uppercase; color:#5C6B57; margin-bottom:18px;">From the counter</div>
@@ -267,7 +302,7 @@
   </div>
 
   <!-- ============ BOOKING — quiet Cal.com module ============ -->
-  <section id="book" style="background:#2B1420; color:#F7F4EC; padding:clamp(52px,8vw,120px) clamp(28px,5vw,80px);">
+  <section id="book" style="background:var(--cm-dark-line); color:#F7F4EC; padding:clamp(52px,8vw,120px) clamp(28px,5vw,80px);">
     <div style="max-width:960px; margin:0 auto; display:flex; flex-wrap:wrap; gap:clamp(36px,5vw,72px); align-items:flex-start;">
       <div style="flex:1 1 300px; max-width:38ch;">
         <svg viewBox="0 0 90 84" aria-hidden="true" style="width:62px; height:auto; display:block; margin-bottom:16px; transform:rotate(-5deg);">
@@ -278,7 +313,7 @@
         </svg>
         <div style="font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:.28em; text-transform:uppercase; color:#A8875A; margin-bottom:22px;">Reserve</div>
         <h2 style="margin:0 0 20px; font-family:'Cormorant', serif; font-weight:300; font-size:clamp(36px,5vw,64px); line-height:1; letter-spacing:-.01em;">A table for the evening</h2>
-        <p style="margin:0; font-size:clamp(15px,1.3vw,17px); line-height:1.7; color:rgba(247,244,236,.78);">Tables seat two to eight and go quickly — tell us how many of you, pick a time, and we'll hold it. Larger party or the whole Lounge? Email <a href="mailto:bookings@crescentmoonwinebar.co.uk" style="color:#A8875A;">bookings@crescentmoonwinebar.co.uk</a>.</p>
+        <p style="margin:0; font-size:clamp(15px,1.3vw,17px); line-height:1.7; color:rgba(247,244,236,.78);">Tables seat two to eight and go quickly — pick a size or tell us the exact number, choose a time, and we'll hold it. Booking out the whole Lounge? Email <a href="mailto:bookings@crescentmoonwinebar.co.uk" style="color:#A8875A;">bookings@crescentmoonwinebar.co.uk</a>.</p>
       </div>
 
       <!-- quiet embedded-widget placeholder (Cal.com, restyled) -->
@@ -289,13 +324,17 @@
         </div>
 
         <div style="font-family:'IBM Plex Mono', monospace; font-size:10.5px; letter-spacing:.14em; text-transform:uppercase; color:#A8875A; margin-bottom:12px;">How many of you?</div>
-        <div style="display:flex; flex-wrap:wrap; gap:8px; margin-bottom:24px;">
-          <span style="font-family:'IBM Plex Mono', monospace; font-size:13px; padding:9px 18px; border:1px solid #A8875A; background:rgba(168,135,90,.14); color:#F7F4EC;">2</span>
-          <span style="font-family:'IBM Plex Mono', monospace; font-size:13px; padding:9px 18px; border:1px solid rgba(247,244,236,.2); color:rgba(247,244,236,.85);">4</span>
-          <span style="font-family:'IBM Plex Mono', monospace; font-size:13px; padding:9px 18px; border:1px solid rgba(247,244,236,.2); color:rgba(247,244,236,.85);">6</span>
-          <span style="font-family:'IBM Plex Mono', monospace; font-size:13px; padding:9px 18px; border:1px solid rgba(247,244,236,.2); color:rgba(247,244,236,.85);">8</span>
-          <span style="font-family:'IBM Plex Mono', monospace; font-size:13px; padding:9px 18px; border:1px solid rgba(247,244,236,.12); color:rgba(247,244,236,.5);">More&nbsp;— email us</span>
+        <div id="cm-party-group" style="display:flex; flex-wrap:wrap; gap:8px; margin-bottom:14px;">
+          <button type="button" class="cm-chip is-active">2</button>
+          <button type="button" class="cm-chip">4</button>
+          <button type="button" class="cm-chip">6</button>
+          <button type="button" class="cm-chip">8</button>
+          <label id="cm-custom-wrap" class="cm-custom-box">
+            <span style="color:rgba(247,244,236,.5);">Other</span>
+            <input id="cm-custom-size" type="number" min="1" max="50" placeholder="#">
+          </label>
         </div>
+        <p style="margin:0 0 24px; font-family:'IBM Plex Mono', monospace; font-size:10.5px; letter-spacing:.05em; color:rgba(247,244,236,.42); line-height:1.6;">Downstairs bar: 9 tables, up to 50 seated — 1 table for 8, 4 tables for 4, 2 tables for 6, 2 tables for 2. The Lounge upstairs holds up to 20 for private bookings.</p>
 
         <div style="display:grid; grid-template-columns:repeat(4, 1fr); gap:8px; margin-bottom:24px;">
           <div style="font-family:'IBM Plex Mono', monospace; font-size:13px; text-align:center; padding:12px 0; color:rgba(247,244,236,.4);">Th 9</div>

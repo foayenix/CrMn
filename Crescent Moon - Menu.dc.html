@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script src="./support.js"></script>
+<script src="./theme-toggle.js"></script>
 </head>
 <body>
 <x-dc>
@@ -19,13 +20,39 @@
   a { color: #5C6B57; text-decoration: none; transition: color .25s ease; }
   a:hover { color: #1C1512; }
   ::selection { background: #A8875A; color: #F7F4EC; }
+
+  :root {
+    --cm-dark-hero: #241019;
+    --cm-dark-line: #2B1420;
+    --cm-dark-line-rgb: 43, 20, 32;
+    --cm-dark-deep: #1d0e16;
+  }
+  html[data-cm-theme="navy"] {
+    --cm-dark-hero: #0E1E33;
+    --cm-dark-line: #14294A;
+    --cm-dark-line-rgb: 20, 41, 74;
+    --cm-dark-deep: #0A1626;
+  }
+  html[data-cm-theme="green"] {
+    --cm-dark-hero: #10241B;
+    --cm-dark-line: #15392A;
+    --cm-dark-line-rgb: 21, 57, 42;
+    --cm-dark-deep: #0A1F15;
+  }
+  #cm-theme-switcher { position: fixed; right: clamp(14px,2vw,26px); bottom: clamp(14px,2vw,26px); z-index: 999999; display: flex; align-items: center; gap: 8px; background: #F7F4EC; border: 1px solid rgba(28,21,18,.15); border-radius: 999px; padding: 6px 10px 6px 12px; box-shadow: 0 12px 30px rgba(28,21,18,.22); font-family: 'IBM Plex Mono', monospace; }
+  #cm-theme-switcher span { font-size: 10px; letter-spacing: .08em; text-transform: uppercase; color: #1C1512; user-select: none; }
+  #cm-theme-switcher button { width: 24px; height: 24px; border-radius: 50%; border: 2px solid transparent; cursor: pointer; padding: 0; }
+  #cm-theme-switcher button[data-active="true"] { border-color: #1C1512; }
+  #cm-theme-switcher button[data-swatch="wine"] { background: #241019; }
+  #cm-theme-switcher button[data-swatch="navy"] { background: #0E1E33; }
+  #cm-theme-switcher button[data-swatch="green"] { background: #10241B; }
 </style>
 </helmet>
 
 <div data-screen-label="Menu" style="background:#EDE6D6; color:#1C1512; font-family:'Hanken Grotesk', sans-serif; font-weight:300; overflow-x:hidden;">
 
   <!-- ===== HEADER ===== -->
-  <header style="background:#241019; color:#F7F4EC; padding:clamp(22px,3.5vw,44px) clamp(28px,5vw,80px) clamp(44px,6vw,80px);">
+  <header style="background:var(--cm-dark-hero); color:#F7F4EC; padding:clamp(22px,3.5vw,44px) clamp(28px,5vw,80px) clamp(44px,6vw,80px);">
     <div style="max-width:880px; margin:0 auto;">
       <div style="display:flex; justify-content:space-between; align-items:baseline; font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:.22em; text-transform:uppercase;">
         <a href="Crescent Moon - Home.dc.html" style="color:rgba(247,244,236,.72);">←&nbsp;Crescent Moon</a>
@@ -370,7 +397,7 @@
     </section>
 
     <!-- ===== THE LOUNGE ===== -->
-    <section style="background:#2B1420; color:#F7F4EC; padding:clamp(36px,5vw,64px); text-align:center;">
+    <section style="background:var(--cm-dark-line); color:#F7F4EC; padding:clamp(36px,5vw,64px); text-align:center;">
       <div style="font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:.28em; text-transform:uppercase; color:#A8875A; margin-bottom:18px;">Private hire</div>
       <h2 style="margin:0 0 16px; font-family:'Cormorant', serif; font-weight:300; font-size:clamp(32px,4vw,52px); line-height:1;">The Lounge</h2>
       <p style="margin:0 auto 22px; max-width:44ch; font-size:15px; line-height:1.7; color:rgba(247,244,236,.78);">The first floor, all yours. Enquire with the team for availability.</p>
