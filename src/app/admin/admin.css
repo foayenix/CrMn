@@ -1,0 +1,281 @@
+/* Admin area — shares the brand palette/fonts with the public site but its own
+   clean, dense, utilitarian layout. */
+
+.admin-root {
+  --ink: #1c1512;
+  --line: rgba(28, 21, 18, 0.14);
+  --line-strong: rgba(28, 21, 18, 0.28);
+  --paper: #f7f4ec;
+  --sand: #ede6d6;
+  --gold: #a8875a;
+  --green: #5c6b57;
+  --wine: #2b1420;
+  --danger: #9d3b2f;
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  color: var(--ink);
+  background: var(--sand);
+  min-height: 100vh;
+}
+
+.admin-serif {
+  font-family: "Cormorant", Georgia, serif;
+}
+
+/* ---- layout ---- */
+.admin-shell {
+  display: grid;
+  grid-template-columns: 232px 1fr;
+  min-height: 100vh;
+}
+.admin-sidebar {
+  background: var(--wine);
+  color: var(--paper);
+  padding: 26px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+}
+.admin-brand {
+  font-family: "Cormorant", serif;
+  font-size: 26px;
+  line-height: 1.05;
+  margin: 0 0 4px;
+}
+.admin-brand small {
+  display: block;
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 9.5px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(247, 244, 236, 0.5);
+  margin-top: 8px;
+}
+.admin-nav {
+  margin-top: 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.admin-nav a {
+  display: block;
+  padding: 10px 12px;
+  color: rgba(247, 244, 236, 0.82);
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  border-radius: 4px;
+}
+.admin-nav a:hover {
+  background: rgba(247, 244, 236, 0.08);
+  color: #fff;
+}
+.admin-nav a.active {
+  background: rgba(168, 135, 90, 0.22);
+  color: #fff;
+}
+.admin-sidebar-footer {
+  margin-top: auto;
+  padding-top: 18px;
+  border-top: 1px solid rgba(247, 244, 236, 0.14);
+}
+.admin-main {
+  padding: 34px clamp(20px, 4vw, 52px);
+  max-width: 1200px;
+}
+.admin-h1 {
+  font-family: "Cormorant", serif;
+  font-weight: 400;
+  font-size: clamp(30px, 4vw, 46px);
+  margin: 0 0 6px;
+  letter-spacing: -0.01em;
+}
+.admin-sub {
+  color: rgba(28, 21, 18, 0.6);
+  font-size: 12.5px;
+  margin: 0 0 28px;
+  line-height: 1.6;
+}
+
+/* ---- cards / tables / forms ---- */
+.card {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  padding: 22px;
+  margin-bottom: 20px;
+}
+.card h2 {
+  font-family: "Cormorant", serif;
+  font-weight: 400;
+  font-size: 24px;
+  margin: 0 0 14px;
+}
+label.field {
+  display: block;
+  margin-bottom: 16px;
+}
+label.field span {
+  display: block;
+  font-size: 10.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--green);
+  margin-bottom: 6px;
+}
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="number"],
+input[type="time"],
+input[type="date"],
+textarea,
+select {
+  width: 100%;
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 14px;
+  padding: 10px 12px;
+  border: 1px solid var(--line-strong);
+  background: #fff;
+  color: var(--ink);
+  border-radius: 3px;
+}
+textarea {
+  min-height: 72px;
+  resize: vertical;
+}
+.btn {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 10px 18px;
+  border: 1px solid var(--ink);
+  background: var(--ink);
+  color: var(--paper);
+  cursor: pointer;
+  border-radius: 3px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.btn:hover {
+  background: var(--wine);
+  border-color: var(--wine);
+}
+.btn.ghost {
+  background: transparent;
+  color: var(--ink);
+}
+.btn.ghost:hover {
+  background: rgba(28, 21, 18, 0.06);
+  color: var(--ink);
+}
+.btn.danger {
+  background: transparent;
+  color: var(--danger);
+  border-color: var(--danger);
+}
+.btn.danger:hover {
+  background: var(--danger);
+  color: #fff;
+}
+.btn.sm {
+  padding: 6px 12px;
+  font-size: 10.5px;
+}
+.row-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+table.grid {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12.5px;
+}
+table.grid th,
+table.grid td {
+  border: 1px solid var(--line);
+  padding: 8px 10px;
+  text-align: left;
+  vertical-align: top;
+}
+table.grid th {
+  background: var(--sand);
+  font-size: 10.5px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--green);
+}
+
+.alert {
+  padding: 10px 14px;
+  border-radius: 3px;
+  font-size: 12.5px;
+  margin-bottom: 16px;
+}
+.alert.error {
+  background: rgba(157, 59, 47, 0.1);
+  border: 1px solid rgba(157, 59, 47, 0.4);
+  color: var(--danger);
+}
+.alert.ok {
+  background: rgba(92, 107, 87, 0.12);
+  border: 1px solid rgba(92, 107, 87, 0.4);
+  color: var(--green);
+}
+.badge {
+  font-size: 9.5px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 3px 8px;
+  border-radius: 999px;
+  border: 1px solid var(--line-strong);
+}
+.badge.off {
+  color: rgba(28, 21, 18, 0.45);
+}
+.muted {
+  color: rgba(28, 21, 18, 0.5);
+}
+
+/* ---- login ---- */
+.login-wrap {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+}
+.login-card {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  padding: 36px;
+  width: 100%;
+  max-width: 380px;
+}
+
+@media (max-width: 720px) {
+  .admin-shell {
+    grid-template-columns: 1fr;
+  }
+  .admin-sidebar {
+    position: static;
+    height: auto;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .admin-nav {
+    margin-top: 0;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+  .admin-sidebar-footer {
+    margin: 0;
+    padding: 0;
+    border: none;
+  }
+}
