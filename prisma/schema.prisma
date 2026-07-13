@@ -92,6 +92,13 @@ model Shift {
   @@index([staffMemberId, date])
 }
 
+// Per-day header note on the rota, e.g. "1st England Game" — matches the notes
+// the Excel sheet puts in the day header row.
+model DayNote {
+  date DateTime @id @db.Date
+  note String
+}
+
 // ---------------------------------------------------------------------------
 // Phase 6 (+ general) — key/value settings the boss controls, e.g. the shared
 // staff PIN hash and the staff-view slug.
