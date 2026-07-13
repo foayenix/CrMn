@@ -1,0 +1,44 @@
+/* Base + theme styles ported verbatim from the original static site. */
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body { background: #EDE6D6; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+  img { display: block; max-width: 100%; }
+  a { color: #5C6B57; text-decoration: none; transition: color .25s ease; }
+  a:hover { color: #1C1512; }
+  ::selection { background: #A8875A; color: #F7F4EC; }
+  @media (max-width: 640px) {
+    #hero-est, #hero-loc { display: none; }
+  }
+
+  :root {
+    --cm-dark-hero: #241019;
+    --cm-dark-line: #2B1420;
+    --cm-dark-line-rgb: 43, 20, 32;
+    --cm-dark-deep: #1d0e16;
+  }
+  html[data-cm-theme="navy"] {
+    --cm-dark-hero: #0E1E33;
+    --cm-dark-line: #14294A;
+    --cm-dark-line-rgb: 20, 41, 74;
+    --cm-dark-deep: #0A1626;
+  }
+  html[data-cm-theme="green"] {
+    --cm-dark-hero: #10241B;
+    --cm-dark-line: #15392A;
+    --cm-dark-line-rgb: 21, 57, 42;
+    --cm-dark-deep: #0A1F15;
+  }
+  #cm-theme-switcher { position: fixed; right: clamp(14px,2vw,26px); bottom: clamp(14px,2vw,26px); z-index: 999999; display: flex; align-items: center; gap: 8px; background: #F7F4EC; border: 1px solid rgba(28,21,18,.15); border-radius: 999px; padding: 6px 10px 6px 12px; box-shadow: 0 12px 30px rgba(28,21,18,.22); font-family: 'IBM Plex Mono', monospace; }
+  #cm-theme-switcher span { font-size: 10px; letter-spacing: .08em; text-transform: uppercase; color: #1C1512; user-select: none; }
+  #cm-theme-switcher button { width: 24px; height: 24px; border-radius: 50%; border: 2px solid transparent; cursor: pointer; padding: 0; }
+  #cm-theme-switcher button[data-active="true"] { border-color: #1C1512; }
+  #cm-theme-switcher button[data-swatch="wine"] { background: #241019; }
+  #cm-theme-switcher button[data-swatch="navy"] { background: #0E1E33; }
+  #cm-theme-switcher button[data-swatch="green"] { background: #10241B; }
+
+  .cm-chip { font-family: 'IBM Plex Mono', monospace; font-size: 13px; padding: 9px 18px; border: 1px solid rgba(247,244,236,.2); background: transparent; color: rgba(247,244,236,.85); cursor: pointer; }
+  .cm-chip.is-active { border-color: #A8875A; background: rgba(168,135,90,.14); color: #F7F4EC; }
+  .cm-custom-box { display: flex; align-items: center; gap: 8px; font-family: 'IBM Plex Mono', monospace; font-size: 13px; padding: 9px 14px; border: 1px solid rgba(247,244,236,.2); color: rgba(247,244,236,.85); cursor: text; }
+  .cm-custom-box.is-active { border-color: #A8875A; background: rgba(168,135,90,.14); }
+  .cm-custom-box input { width: 40px; background: transparent; border: none; color: #F7F4EC; font-family: 'IBM Plex Mono', monospace; font-size: 13px; outline: none; }
+  .cm-custom-box input::-webkit-outer-spin-button, .cm-custom-box input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }

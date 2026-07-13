@@ -1,0 +1,103 @@
+// Crescent Moon admin backend — data model.
+// One database (Postgres) for the whole admin app. cal.diy and Plausible keep
+// their OWN separate databases; we never touch those schemas — we read cal.diy
+// over its API only.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ---------------------------------------------------------------------------
+// Phase 1 — the single boss login. There is intentionally only ever one row.
+// ---------------------------------------------------------------------------
+model AdminUser {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  passwordHash String
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+// ---------------------------------------------------------------------------
+// Phase 2 — "What's On" CMS entries. The public homepage renders these live.
+// ---------------------------------------------------------------------------
+model WhatsOnEntry {
+  id          String   @id @default(cuid())
+  // e.g. "Soul Night"
+  title       String
+  // e.g. "Records, low light, no rush."
+  description String
+  // The frequency label shown on the left, e.g. "Sundays" / "Monthly" / "Dates vary".
+  schedule    String
+  // Optional concrete date for one-off events.
+  date        DateTime?
+  active      Boolean  @default(true)
+  // Lower sortOrder shows first.
+  sortOrder   Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([active, sortOrder])
+}
+
+// ---------------------------------------------------------------------------
+// Phase 3 — rota. Staff members + their shifts. We keep history: deactivating
+// a staff member never deletes past shifts.
+// ---------------------------------------------------------------------------
+model StaffMember {
+  id        String   @id @default(cuid())
+  name      String
+  active    Boolean  @default(true)
+  // Ordering down the side of the grid.
+  sortOrder Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  shifts    Shift[]
+
+  @@index([active, sortOrder])
+}
+
+enum ShiftKind {
+  WORKING // an actual time range with hours
+  CLOSED // venue closed that day
+  UNAVAILABLE // staff not available
+  HOLIDAY // on holiday (optionally a range via holidayEnd)
+}
+
+model Shift {
+  id            String      @id @default(cuid())
+  staffMember   StaffMember @relation(fields: [staffMemberId], references: [id])
+  staffMemberId String
+  // The calendar day this cell belongs to (date-only; time lives in start/end).
+  date          DateTime    @db.Date
+  kind          ShiftKind   @default(WORKING)
+  // For WORKING shifts: stored as minutes-from-midnight so hours math is exact.
+  startMinutes  Int?
+  endMinutes    Int?
+  // For HOLIDAY spanning multiple days.
+  holidayEnd    DateTime?   @db.Date
+  // "shift 1" / "shift 2" split-shift ordering within a single day.
+  slot          Int         @default(1)
+  // Free text like "CCC", "TBC", "1st England Game".
+  notes         String?
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+
+  @@index([date])
+  @@index([staffMemberId, date])
+}
+
+// ---------------------------------------------------------------------------
+// Phase 6 (+ general) — key/value settings the boss controls, e.g. the shared
+// staff PIN hash and the staff-view slug.
+// ---------------------------------------------------------------------------
+model Setting {
+  key       String   @id
+  value     String
+  updatedAt DateTime @updatedAt
+}
