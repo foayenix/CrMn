@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { useActionState } from "react";
 import {
@@ -326,12 +326,14 @@ function SlotForm({
   const [state, action, pending] = useActionState<SaveShiftState, FormData>(saveShift, {});
   const [kind, setKind] = useState<Shift["kind"]>(shift?.kind ?? "WORKING");
 
+  // Close the modal once a save succeeds (the dispatch itself returns void).
+  useEffect(() => {
+    if (state.ok) onDone();
+  }, [state.ok, onDone]);
+
   return (
     <form
-      action={async (fd) => {
-        const res = await action(fd);
-        if (res?.ok) onDone();
-      }}
+      action={action}
       style={{ borderTop: shift ? "1px solid var(--line)" : "none", paddingTop: shift ? 12 : 0, marginTop: shift ? 12 : 0 }}
     >
       {shift && <input type="hidden" name="id" value={shift.id} />}

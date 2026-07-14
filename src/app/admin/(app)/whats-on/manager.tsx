@@ -1,6 +1,6 @@
 "use client";
 
-import { useActionState, useState } from "react";
+import { useActionState, useEffect, useState } from "react";
 import {
   createEntry,
   updateEntry,
@@ -56,6 +56,10 @@ function AddForm() {
   const [state, action, pending] = useActionState<EntryFormState, FormData>(createEntry, {});
   const [open, setOpen] = useState(false);
 
+  useEffect(() => {
+    if (state.ok) setOpen(false);
+  }, [state.ok]);
+
   if (!open) {
     return (
       <button className="btn" onClick={() => setOpen(true)} style={{ marginBottom: 20 }}>
@@ -67,12 +71,7 @@ function AddForm() {
     <div className="card">
       <h2>New entry</h2>
       {state.error && <div className="alert error">{state.error}</div>}
-      <form
-        action={async (fd) => {
-          await action(fd);
-          setOpen(false);
-        }}
-      >
+      <form action={action}>
         <EntryFields entry={empty} />
         <div className="row-actions">
           <button className="btn" type="submit" disabled={pending}>
@@ -91,16 +90,15 @@ function EditRow({ entry, isFirst, isLast }: { entry: Entry; isFirst: boolean; i
   const [editing, setEditing] = useState(false);
   const [state, action, pending] = useActionState<EntryFormState, FormData>(updateEntry, {});
 
+  useEffect(() => {
+    if (state.ok) setEditing(false);
+  }, [state.ok]);
+
   if (editing) {
     return (
       <div className="card" style={{ borderColor: "var(--gold)" }}>
         {state.error && <div className="alert error">{state.error}</div>}
-        <form
-          action={async (fd) => {
-            await action(fd);
-            setEditing(false);
-          }}
-        >
+        <form action={action}>
           <input type="hidden" name="id" value={entry.id} />
           <EntryFields entry={entry} />
           <div className="row-actions">

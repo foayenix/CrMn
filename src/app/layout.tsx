@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -12,6 +13,9 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const plausibleUrl = process.env.NEXT_PUBLIC_PLAUSIBLE_URL;
+  const plausibleDomain = process.env.NEXT_PUBLIC_PLAUSIBLE_DOMAIN;
+
   return (
     <html lang="en">
       <head>
@@ -22,7 +26,18 @@ export default function RootLayout({
           rel="stylesheet"
         />
       </head>
-      <body>{children}</body>
+      <body>
+        {children}
+        {/* Self-hosted Plausible tracking — only when configured. */}
+        {plausibleUrl && plausibleDomain && (
+          <Script
+            defer
+            data-domain={plausibleDomain}
+            src={`${plausibleUrl.replace(/\/$/, "")}/js/script.js`}
+            strategy="afterInteractive"
+          />
+        )}
+      </body>
     </html>
   );
 }

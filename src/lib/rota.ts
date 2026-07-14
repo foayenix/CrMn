@@ -4,7 +4,9 @@ export type ShiftLike = {
   kind: "WORKING" | "CLOSED" | "UNAVAILABLE" | "HOLIDAY";
   startMinutes: number | null;
   endMinutes: number | null;
-  holidayEnd: Date | null;
+  // Not used by the helpers below; accepts either the DB Date or a serialized
+  // string so both server and client callers can pass their shape directly.
+  holidayEnd?: Date | string | null;
   notes: string | null;
 };
 
