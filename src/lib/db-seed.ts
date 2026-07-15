@@ -1,7 +1,6 @@
-import { PrismaClient, ShiftKind } from "@prisma/client";
+import { prisma } from "./prisma";
+import { ShiftKind } from "@prisma/client";
 import bcrypt from "bcryptjs";
-
-const prisma = new PrismaClient();
 
 const WHATS_ON = [
   { schedule: "Sundays", title: "Soul Night", description: "Records, low light, no rush." },
@@ -222,83 +221,111 @@ function parseDateKey(key: string): Date {
 }
 
 export async function ensureSeeded() {
-  // If the admin user already exists, we consider the DB is seeded or has data
-  const adminCount = await prisma.adminUser.count();
-  if (adminCount > 0) return;
-
-  console.log("Database empty. Self-seeding admin credentials and July 2026 rota...");
+  console.log("Checking database seed state...");
 
   // 1. Seed default admin user
-  const email = "boss@crescentmoonbar.co.uk";
-  const password = "changeme123";
-  await prisma.adminUser.create({
-    data: { email, passwordHash: await bcrypt.hash(password, 12) },
-  });
+  const adminCount = await prisma.adminUser.count();
+  if (adminCount === 0) {
+    console.log("Seeding default admin...");
+    const email = "boss@crescentmoonbar.co.uk";
+    const password = "changeme123";
+    await prisma.adminUser.create({
+      data: { email, passwordHash: await bcrypt.hash(password, 12) },
+    });
+  }
 
   // 2. Seed default What's On
-  await prisma.whatsOnEntry.createMany({
-    data: WHATS_ON.map((e, i) => ({ ...e, sortOrder: i, active: true })),
-  });
+  const whatsOnCount = await prisma.whatsOnEntry.count();
+  if (whatsOnCount === 0) {
+    console.log("Seeding What's On...");
+    await prisma.whatsOnEntry.createMany({
+      data: WHATS_ON.map((e, i) => ({ ...e, sortOrder: i, active: true })),
+    });
+  }
 
   // 3. Seed settings
-  await prisma.setting.create({
-    data: { key: "staff_slug", value: "496060a0ef08922e9dbed259" }
-  });
-  await prisma.setting.create({
-    data: { key: "staff_pin_hash", value: await bcrypt.hash("1234", 10) }
-  });
+  const staffSlug = await prisma.setting.findUnique({ where: { key: "staff_slug" } });
+  if (!staffSlug) {
+    await prisma.setting.create({
+      data: { key: "staff_slug", value: "496060a0ef08922e9dbed259" }
+    });
+  }
+  const pinHash = await prisma.setting.findUnique({ where: { key: "staff_pin_hash" } });
+  if (!pinHash) {
+    await prisma.setting.create({
+      data: { key: "staff_pin_hash", value: await bcrypt.hash("1234", 10) }
+    });
+  }
 
   // 4. Seed staff
+  const staffCount = await prisma.staffMember.count();
   const staffMap: { [name: string]: string } = {};
-  for (let i = 0; i < STAFF.length; i++) {
-    const name = STAFF[i];
-    const created = await prisma.staffMember.create({
-      data: { name, active: true, sortOrder: i }
-    });
-    staffMap[name] = created.id;
+  if (staffCount === 0) {
+    console.log("Seeding staff members...");
+    for (let i = 0; i < STAFF.length; i++) {
+      const name = STAFF[i];
+      const created = await prisma.staffMember.create({
+        data: { name, active: true, sortOrder: i }
+      });
+      staffMap[name] = created.id;
+    }
+  } else {
+    // Populate the staff map from existing staff members
+    const dbStaff = await prisma.staffMember.findMany();
+    for (const s of dbStaff) {
+      staffMap[s.name] = s.id;
+    }
   }
 
   // 5. Seed day notes
-  for (const n of DAY_NOTES) {
-    await prisma.dayNote.create({
-      data: { date: parseDateKey(n.dateKey), note: n.note }
-    });
+  const notesCount = await prisma.dayNote.count();
+  if (notesCount === 0) {
+    console.log("Seeding day notes...");
+    for (const n of DAY_NOTES) {
+      await prisma.dayNote.create({
+        data: { date: parseDateKey(n.dateKey), note: n.note }
+      });
+    }
   }
 
   // 6. Seed shifts
-  for (const week of WEEK_DATA) {
-    for (let dayIdx = 0; dayIdx < 7; dayIdx++) {
-      const dateKeyStr = week.dateKeys[dayIdx];
-      const date = parseDateKey(dateKeyStr);
-      
-      for (const row of week.rows) {
-        const val = row.shifts[dayIdx];
-        if (!val) continue;
+  const shiftCount = await prisma.shift.count();
+  if (shiftCount === 0) {
+    console.log("Seeding July 2026 shifts...");
+    for (const week of WEEK_DATA) {
+      for (let dayIdx = 0; dayIdx < 7; dayIdx++) {
+        const dateKeyStr = week.dateKeys[dayIdx];
+        const date = parseDateKey(dateKeyStr);
         
-        const { name, slot } = getStaffNameAndSlot(row.rowName);
-        const staffId = staffMap[name];
-        if (!staffId) continue;
-        
-        const parsedShifts = parseShift(val);
-        for (let sIdx = 0; sIdx < parsedShifts.length; sIdx++) {
-          const parsed = parsedShifts[sIdx];
-          const activeSlot = sIdx === 0 ? slot : slot + 1;
+        for (const row of week.rows) {
+          const val = row.shifts[dayIdx];
+          if (!val) continue;
           
-          await prisma.shift.create({
-            data: {
-              staffMemberId: staffId,
-              date,
-              slot: activeSlot,
-              kind: parsed.kind,
-              startMinutes: parsed.startMinutes ?? null,
-              endMinutes: parsed.endMinutes ?? null,
-              notes: parsed.notes ?? null
-            }
-          });
+          const { name, slot } = getStaffNameAndSlot(row.rowName);
+          const staffId = staffMap[name];
+          if (!staffId) continue;
+          
+          const parsedShifts = parseShift(val);
+          for (let sIdx = 0; sIdx < parsedShifts.length; sIdx++) {
+            const parsed = parsedShifts[sIdx];
+            const activeSlot = sIdx === 0 ? slot : slot + 1;
+            
+            await prisma.shift.create({
+              data: {
+                staffMemberId: staffId,
+                date,
+                slot: activeSlot,
+                kind: parsed.kind,
+                startMinutes: parsed.startMinutes ?? null,
+                endMinutes: parsed.endMinutes ?? null,
+                notes: parsed.notes ?? null
+              }
+            });
+          }
         }
       }
     }
   }
 
-  console.log("Self-seeding completed.");
+  console.log("Seed verification complete.");
 }
