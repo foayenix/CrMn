@@ -267,8 +267,11 @@ export default async function HomePage() {
           {/* Ledger right */}
           <div className="col-d-7-right-offset" style={{ display: "flex", flexDirection: "column", borderTop: "1px solid var(--border-light)" }}>
             {entries.length === 0 && (
-              <div style={{ padding: "30px 0", color: "var(--text-muted-dark)", fontFamily: "var(--font-mono)" }}>
-                Nothing listed just now — check back soon.
+              <div style={{ padding: "30px 0", color: "var(--text-muted-dark)", fontFamily: "var(--font-mono)", fontSize: "14px" }}>
+                Nothing listed just now — check back soon.<br />
+                <Link href="/admin/whats-on" className="editorial-link" style={{ marginTop: "16px" }}>
+                  Manage What's On &rarr;
+                </Link>
               </div>
             )}
             {entries.map((e) => (
