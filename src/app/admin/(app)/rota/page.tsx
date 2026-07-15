@@ -8,6 +8,7 @@ import {
   addWeeks,
 } from "@/lib/dates";
 import { RotaGrid } from "./grid";
+import { ensureSeeded } from "@/lib/db-seed";
 
 export const dynamic = "force-dynamic";
 
@@ -16,6 +17,7 @@ export default async function RotaPage({
 }: {
   searchParams: Promise<{ week?: string }>;
 }) {
+  await ensureSeeded();
   const sp = await searchParams;
   // ?week=YYYY-MM-DD anchors the displayed week; default = current week.
   const anchor = sp.week ? parseDateKey(sp.week) : new Date();

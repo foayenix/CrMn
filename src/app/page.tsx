@@ -1,11 +1,13 @@
 import { prisma } from "@/lib/prisma";
 import { BookingWidget } from "@/components/booking-widget";
 import Link from "next/link";
+import { ensureSeeded } from "@/lib/db-seed";
 
 // Force request-time rendering so events update immediately without redeploys.
 export const dynamic = "force-dynamic";
 
 export default async function HomePage() {
+  await ensureSeeded();
   const entries = await prisma.whatsOnEntry.findMany({
     where: { active: true },
     orderBy: { sortOrder: "asc" },
