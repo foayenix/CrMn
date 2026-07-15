@@ -21,6 +21,7 @@ export default async function AuthedAdminLayout({
         <AdminNav />
         <div className="admin-sidebar-footer">
           <div
+            className="admin-user-email"
             style={{
               fontSize: 10.5,
               color: "rgba(247,244,236,.5)",

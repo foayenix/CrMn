@@ -39,6 +39,7 @@
   position: sticky;
   top: 0;
   height: 100vh;
+  min-width: 0;
   border-right: 1px solid rgba(245, 243, 239, 0.05);
 }
 
@@ -102,6 +103,7 @@
 .admin-main {
   padding: 48px clamp(24px, 6vw, 64px);
   max-width: 1200px;
+  min-width: 0;
 }
 
 .admin-h1 {
@@ -126,6 +128,8 @@
   padding: 28px;
   margin-bottom: 24px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.01);
+  max-width: 100%;
+  overflow-x: auto;
 }
 
 .card h2 {
@@ -313,6 +317,25 @@ table.grid tr:hover td {
   color: rgba(18, 18, 18, 0.45);
 }
 
+/* ---- responsive helpers (used by whats-on manager, etc.) ---- */
+.field-grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.stack-row {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+}
+
+.reorder-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
 /* ---- login ---- */
 .login-wrap {
   min-height: 100vh;
@@ -335,29 +358,111 @@ table.grid tr:hover td {
   .admin-shell {
     grid-template-columns: 1fr;
   }
+
   .admin-sidebar {
-    position: static;
+    position: sticky;
+    top: 0;
+    z-index: 50;
     height: auto;
+    display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     align-items: center;
-    padding: 20px;
+    justify-content: space-between;
+    padding: 14px 16px;
+    gap: 0;
   }
-  .admin-nav {
-    margin-top: 0;
-    flex-direction: row;
-    flex-wrap: wrap;
-    gap: 4px;
+
+  .admin-brand {
+    order: 1;
+    margin: 0;
+    font-size: 19px;
   }
-  .admin-nav a {
-    padding: 8px 10px;
+
+  .admin-brand small {
+    display: none;
   }
-  .admin-nav a:hover, .admin-nav a.active {
-    padding-left: 10px;
-  }
+
   .admin-sidebar-footer {
+    order: 2;
     margin: 0;
     padding: 0;
     border: none;
+    display: flex;
+    align-items: center;
+  }
+
+  .admin-sidebar-footer .admin-user-email {
+    display: none;
+  }
+
+  /* Nav becomes a full-width horizontally-scrolling strip below the
+     brand/sign-out row, so every section stays one thumb-swipe away
+     instead of wrapping into a cramped multi-line block. */
+  .admin-nav {
+    order: 3;
+    flex: 0 0 100%;
+    width: 100%;
+    min-width: 0;
+    margin-top: 12px;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    gap: 4px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    padding-bottom: 2px;
+  }
+
+  .admin-nav::-webkit-scrollbar {
+    display: none;
+  }
+
+  .admin-nav a {
+    padding: 10px 14px;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .admin-nav a:hover,
+  .admin-nav a.active {
+    padding-left: 14px;
+  }
+
+  .admin-main {
+    padding: 24px 16px 56px;
+  }
+
+  .card {
+    padding: 18px;
+  }
+
+  /* Prevent iOS Safari from auto-zooming the page when a field is
+     focused — it treats any font-size under 16px as "too small". */
+  input[type="text"],
+  input[type="email"],
+  input[type="password"],
+  input[type="number"],
+  input[type="time"],
+  input[type="date"],
+  textarea,
+  select {
+    font-size: 16px;
+  }
+
+  .field-grid-2 {
+    grid-template-columns: 1fr;
+  }
+
+  .stack-row {
+    flex-direction: column;
+  }
+
+  .stack-row .row-actions {
+    width: 100%;
+  }
+
+  .stack-row .reorder-controls {
+    flex-direction: row;
   }
 }
