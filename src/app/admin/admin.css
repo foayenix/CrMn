@@ -1,129 +1,155 @@
-/* Admin area — shares the brand palette/fonts with the public site but its own
-   clean, dense, utilitarian layout. */
+/* Crescent Moon — Luxury Editorial Admin Panel Stylesheet */
 
 .admin-root {
-  --ink: #1c1512;
-  --line: rgba(28, 21, 18, 0.14);
-  --line-strong: rgba(28, 21, 18, 0.28);
-  --paper: #f7f4ec;
-  --sand: #ede6d6;
-  --gold: #a8875a;
-  --green: #5c6b57;
-  --wine: #2b1420;
+  --ink: #121212;
+  --line: rgba(18, 18, 18, 0.08);
+  --line-strong: rgba(18, 18, 18, 0.2);
+  --paper: #F5F3EF;          /* Chalk Alabaster */
+  --sand: #ede6d6;           /* Soft Sand */
+  --gold: #B69766;           /* Aged Bronze */
+  --green: #556353;          /* Rosemary Olive */
+  --wine: #0D0C0C;           /* Obsidian Ink */
   --danger: #9d3b2f;
-  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  
+  font-family: var(--font-sans);
   color: var(--ink);
-  background: var(--sand);
+  background: var(--paper);
   min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
 }
 
 .admin-serif {
-  font-family: "Cormorant", Georgia, serif;
+  font-family: var(--font-serif);
 }
 
 /* ---- layout ---- */
 .admin-shell {
   display: grid;
-  grid-template-columns: 232px 1fr;
+  grid-template-columns: 240px 1fr;
   min-height: 100vh;
 }
+
 .admin-sidebar {
   background: var(--wine);
   color: var(--paper);
-  padding: 26px 18px;
+  padding: 32px 24px;
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 8px;
   position: sticky;
   top: 0;
   height: 100vh;
+  border-right: 1px solid rgba(245, 243, 239, 0.05);
 }
+
 .admin-brand {
-  font-family: "Cormorant", serif;
-  font-size: 26px;
-  line-height: 1.05;
-  margin: 0 0 4px;
+  font-family: var(--font-serif);
+  font-size: 24px;
+  line-height: 1.1;
+  font-weight: 300;
+  margin: 0 0 8px;
+  letter-spacing: -0.01em;
 }
+
 .admin-brand small {
   display: block;
-  font-family: "IBM Plex Mono", monospace;
+  font-family: var(--font-mono);
   font-size: 9.5px;
   letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: rgba(247, 244, 236, 0.5);
-  margin-top: 8px;
+  color: rgba(245, 243, 239, 0.4);
+  margin-top: 6px;
 }
+
 .admin-nav {
-  margin-top: 22px;
+  margin-top: 32px;
   display: flex;
   flex-direction: column;
-  gap: 2px;
+  gap: 6px;
 }
+
 .admin-nav a {
   display: block;
-  padding: 10px 12px;
-  color: rgba(247, 244, 236, 0.82);
-  font-size: 12px;
-  letter-spacing: 0.06em;
+  padding: 12px 14px;
+  color: rgba(245, 243, 239, 0.65);
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
-  border-radius: 4px;
+  border-radius: 0;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
+
 .admin-nav a:hover {
-  background: rgba(247, 244, 236, 0.08);
+  background: rgba(245, 243, 239, 0.03);
   color: #fff;
+  padding-left: 18px;
 }
+
 .admin-nav a.active {
-  background: rgba(168, 135, 90, 0.22);
+  background: rgba(182, 151, 102, 0.12);
+  border-left: 2px solid var(--accent-gold);
   color: #fff;
+  padding-left: 18px;
 }
+
 .admin-sidebar-footer {
   margin-top: auto;
-  padding-top: 18px;
-  border-top: 1px solid rgba(247, 244, 236, 0.14);
+  padding-top: 24px;
+  border-top: 1px solid rgba(245, 243, 239, 0.05);
 }
+
 .admin-main {
-  padding: 34px clamp(20px, 4vw, 52px);
+  padding: 48px clamp(24px, 6vw, 64px);
   max-width: 1200px;
 }
+
 .admin-h1 {
-  font-family: "Cormorant", serif;
-  font-weight: 400;
-  font-size: clamp(30px, 4vw, 46px);
-  margin: 0 0 6px;
+  font-family: var(--font-serif);
+  font-weight: 300;
+  font-size: clamp(32px, 4vw, 48px);
+  margin: 0 0 8px;
   letter-spacing: -0.01em;
 }
+
 .admin-sub {
-  color: rgba(28, 21, 18, 0.6);
-  font-size: 12.5px;
-  margin: 0 0 28px;
+  color: var(--text-muted-dark);
+  font-size: 14px;
+  margin: 0 0 36px;
   line-height: 1.6;
 }
 
 /* ---- cards / tables / forms ---- */
 .card {
-  background: var(--paper);
+  background: #ffffff;
   border: 1px solid var(--line);
-  padding: 22px;
-  margin-bottom: 20px;
+  padding: 28px;
+  margin-bottom: 24px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.01);
 }
+
 .card h2 {
-  font-family: "Cormorant", serif;
-  font-weight: 400;
+  font-family: var(--font-serif);
+  font-weight: 300;
   font-size: 24px;
-  margin: 0 0 14px;
+  margin: 0 0 20px;
 }
+
 label.field {
   display: block;
-  margin-bottom: 16px;
+  margin-bottom: 20px;
 }
+
 label.field span {
   display: block;
+  font-family: var(--font-mono);
   font-size: 10.5px;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--green);
-  margin-bottom: 6px;
+  margin-bottom: 8px;
 }
+
 input[type="text"],
 input[type="email"],
 input[type="password"],
@@ -133,113 +159,158 @@ input[type="date"],
 textarea,
 select {
   width: 100%;
-  font-family: "IBM Plex Mono", monospace;
-  font-size: 14px;
-  padding: 10px 12px;
-  border: 1px solid var(--line-strong);
+  font-family: var(--font-mono);
+  font-size: 13.5px;
+  padding: 12px 14px;
+  border: 1px solid rgba(18, 18, 18, 0.15);
   background: #fff;
   color: var(--ink);
-  border-radius: 3px;
+  outline: none;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus,
+input[type="number"]:focus,
+input[type="time"]:focus,
+input[type="date"]:focus,
+textarea:focus,
+select:focus {
+  border-color: var(--gold);
+  box-shadow: 0 4px 12px rgba(182, 151, 102, 0.06);
+}
+
 textarea {
-  min-height: 72px;
+  min-height: 96px;
   resize: vertical;
 }
+
 .btn {
-  font-family: "IBM Plex Mono", monospace;
-  font-size: 12px;
-  letter-spacing: 0.1em;
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
-  padding: 10px 18px;
+  padding: 12px 22px;
   border: 1px solid var(--ink);
   background: var(--ink);
   color: var(--paper);
   cursor: pointer;
-  border-radius: 3px;
   display: inline-flex;
   align-items: center;
   gap: 8px;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
+
 .btn:hover {
-  background: var(--wine);
-  border-color: var(--wine);
+  background: var(--gold);
+  border-color: var(--gold);
+  color: #ffffff;
 }
+
 .btn.ghost {
   background: transparent;
   color: var(--ink);
 }
+
 .btn.ghost:hover {
-  background: rgba(28, 21, 18, 0.06);
+  background: rgba(18, 18, 18, 0.04);
   color: var(--ink);
+  border-color: var(--ink);
 }
+
 .btn.danger {
   background: transparent;
   color: var(--danger);
   border-color: var(--danger);
 }
+
 .btn.danger:hover {
   background: var(--danger);
   color: #fff;
 }
+
 .btn.sm {
-  padding: 6px 12px;
-  font-size: 10.5px;
+  padding: 8px 14px;
+  font-size: 10px;
 }
+
 .row-actions {
   display: flex;
-  gap: 8px;
+  gap: 10px;
   flex-wrap: wrap;
 }
 
 table.grid {
   width: 100%;
   border-collapse: collapse;
-  font-size: 12.5px;
+  font-size: 13.5px;
+  margin-top: 12px;
 }
+
 table.grid th,
 table.grid td {
   border: 1px solid var(--line);
-  padding: 8px 10px;
+  padding: 12px 14px;
   text-align: left;
-  vertical-align: top;
+  vertical-align: middle;
 }
+
 table.grid th {
-  background: var(--sand);
+  background: rgba(18, 18, 18, 0.02);
+  font-family: var(--font-mono);
   font-size: 10.5px;
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--green);
+  font-weight: 500;
+}
+
+table.grid tr {
+  transition: all 0.2s ease;
+}
+
+table.grid tr:hover td {
+  background: rgba(182, 151, 102, 0.02);
 }
 
 .alert {
-  padding: 10px 14px;
-  border-radius: 3px;
-  font-size: 12.5px;
-  margin-bottom: 16px;
+  padding: 12px 16px;
+  font-size: 13px;
+  margin-bottom: 20px;
+  font-family: var(--font-mono);
 }
+
 .alert.error {
-  background: rgba(157, 59, 47, 0.1);
-  border: 1px solid rgba(157, 59, 47, 0.4);
+  background: rgba(157, 59, 47, 0.05);
+  border: 1px solid rgba(157, 59, 47, 0.2);
   color: var(--danger);
 }
+
 .alert.ok {
-  background: rgba(92, 107, 87, 0.12);
-  border: 1px solid rgba(92, 107, 87, 0.4);
+  background: rgba(85, 99, 83, 0.08);
+  border: 1px solid rgba(85, 99, 83, 0.2);
   color: var(--green);
 }
+
 .badge {
+  font-family: var(--font-mono);
   font-size: 9.5px;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
-  padding: 3px 8px;
-  border-radius: 999px;
+  padding: 4px 10px;
+  border-radius: 0;
   border: 1px solid var(--line-strong);
+  font-weight: 500;
 }
+
 .badge.off {
-  color: rgba(28, 21, 18, 0.45);
+  color: rgba(18, 18, 18, 0.45);
+  background: rgba(18, 18, 18, 0.02);
 }
+
 .muted {
-  color: rgba(28, 21, 18, 0.5);
+  color: rgba(18, 18, 18, 0.45);
 }
 
 /* ---- login ---- */
@@ -248,13 +319,16 @@ table.grid th {
   display: grid;
   place-items: center;
   padding: 24px;
+  background: var(--wine);
 }
+
 .login-card {
   background: var(--paper);
-  border: 1px solid var(--line);
-  padding: 36px;
+  border: 1px solid rgba(245, 243, 239, 0.1);
+  padding: 44px;
   width: 100%;
-  max-width: 380px;
+  max-width: 400px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
 }
 
 @media (max-width: 720px) {
@@ -267,11 +341,19 @@ table.grid th {
     flex-direction: row;
     flex-wrap: wrap;
     align-items: center;
+    padding: 20px;
   }
   .admin-nav {
     margin-top: 0;
     flex-direction: row;
     flex-wrap: wrap;
+    gap: 4px;
+  }
+  .admin-nav a {
+    padding: 8px 10px;
+  }
+  .admin-nav a:hover, .admin-nav a.active {
+    padding-left: 10px;
   }
   .admin-sidebar-footer {
     margin: 0;
