@@ -14,7 +14,8 @@ self-hosted cal.diy (bookings) and Plausible (analytics).
 npm install
 cp .env.example .env          # then edit DATABASE_URL / SESSION_SECRET
 npx prisma db push            # create tables
-npm run seed                  # seed What's On + staff + default admin login
+npm run seed                  # seed What's On + staff + checklist + admin login
+npm run seed-stock            # parse the menu into pickable low-stock items
 npm run dev                   # http://localhost:3000
 ```
 Default seeded login: `boss@crescentmoonbar.co.uk` / `changeme123` — change it:
@@ -56,6 +57,7 @@ Screens so far:
 | `/staff/<slug>/rota` | your week in serif; `?view=team` for everyone's |
 | `/staff/<slug>/bookings` | tonight's tables: time, name, party size, nothing else |
 | `/staff/<slug>/lockdown` | the closing checklist for tonight, then read-only once submitted |
+| `/staff/<slug>/stock` | what's already flagged, then the menu; free text for off-menu things |
 
 On the iPad a permanent 116px rail replaces the back arrow and Lock stays one
 reach away; Home gains a column so tonight's tables aren't behind a tap.
@@ -71,10 +73,20 @@ made it, so a shared iPad passed between two people produces two names. Notes
 left on items escalate to the admin dashboard when the night is submitted, and
 a manager can reopen a submitted night without disturbing its signatures.
 
+Low stock is a list, not an order. The pickable items are **parsed from the live
+menu** (`npm run seed-stock` reads `src/lib/menu-template.ts`), so the names on
+the pad are the names on the list and a hand-typed copy can't drift; items that
+leave the menu are deactivated rather than deleted, so old reports keep pointing
+at something real. Off-menu things — tonic, till roll, blue roll — never become
+rows: they go through the free-text row, which is what it's for. What's already
+flagged sits above the list and is unpickable, so nobody re-flags the Picpoul.
+The boss works through open reports in Admin → Low stock, which carries the
+count as a badge.
+
 ## Layout
 - `src/app` — public site (`/`, `/menu`) + admin (`/admin/*`) + staff view (`/staff/*`)
 - `src/lib` — prisma client, session/auth, settings, ported homepage/menu templates
-- `scripts` — seed, set-password, set-pin
+- `scripts` — seed, seed-stock, set-password, set-pin
 - `design` — the staff app design spec + build brief
 - `reference/legacy-site` — the original static site, kept for reference
 

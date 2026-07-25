@@ -3,15 +3,16 @@ import { lockAction } from "./actions";
 import { IdleLock } from "./idle-lock";
 import { IPAD_IDLE_SECONDS } from "@/lib/staff-session";
 
-export type Section = "home" | "bookings" | "rota" | "lockdown";
+export type Section = "home" | "bookings" | "rota" | "lockdown" | "stock";
 
-// The rail carries one item per built section. Stock and Clock join it as their
-// phases land — a rail item that goes nowhere is worse than a short rail.
+// The rail carries one item per built section. Clock joins it as its phase
+// lands — a rail item that goes nowhere is worse than a short rail.
 const RAIL: { key: Section; label: string; href: (slug: string) => string }[] = [
   { key: "home", label: "Home", href: (s) => `/staff/${s}` },
   { key: "bookings", label: "Books", href: (s) => `/staff/${s}/bookings` },
   { key: "rota", label: "Rota", href: (s) => `/staff/${s}/rota` },
   { key: "lockdown", label: "Close", href: (s) => `/staff/${s}/lockdown` },
+  { key: "stock", label: "Stock", href: (s) => `/staff/${s}/stock` },
 ];
 
 // One shell for every screen past the lock.

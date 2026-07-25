@@ -10,14 +10,30 @@ export default async function Dashboard() {
   const weekStart = startOfWeekMonday(now);
   const weekEnd = endOfWeekSunday(now);
 
-  const [whatsOnCount, activeStaff, staffWithPin, shiftsThisWeek, slug, checklistItems, lastNight] =
-    await Promise.all([
+  const [
+    whatsOnCount,
+    activeStaff,
+    staffWithPin,
+    shiftsThisWeek,
+    slug,
+    checklistItems,
+    openStock,
+    lastNight,
+  ] = await Promise.all([
       prisma.whatsOnEntry.count({ where: { active: true } }),
       prisma.staffMember.count({ where: { active: true } }),
       prisma.staffMember.count({ where: { active: true, pinHash: { not: null } } }),
       prisma.shift.count({ where: { date: { gte: weekStart, lte: weekEnd } } }),
       getStaffSlug(),
       prisma.checklistItem.count({ where: { active: true } }),
+      prisma.stockReport.findMany({
+        where: { resolvedAt: null },
+        orderBy: { createdAt: "asc" },
+        include: {
+          item: { select: { name: true } },
+          reportedBy: { select: { name: true } },
+        },
+      }),
       // The most recent night anyone actually closed.
       prisma.checklistRun.findFirst({
         orderBy: { businessDate: "desc" },
@@ -66,6 +82,43 @@ export default async function Dashboard() {
           </Link>
         ))}
       </div>
+
+      {openStock.length > 0 && (
+        <div className="card">
+          <h2>
+            Flagged low{" "}
+            <span className="badge" style={{ borderColor: "var(--danger)", color: "var(--danger)" }}>
+              {openStock.length}
+            </span>
+          </h2>
+          <ul style={{ margin: "0 0 10px", paddingLeft: 18, lineHeight: 1.8, fontSize: 13 }}>
+            {openStock.slice(0, 6).map((r) => (
+              <li key={r.id}>
+                <strong>{r.item?.name ?? r.freeText}</strong> — {r.level === "OUT" ? "out" : "low"}
+                {r.note ? `, "${r.note}"` : ""}{" "}
+                <span className="muted">
+                  ({r.reportedBy.name},{" "}
+                  {r.createdAt.toLocaleString("en-GB", {
+                    weekday: "short",
+                    hour: "2-digit",
+                    minute: "2-digit",
+                    timeZone: "UTC",
+                  })}
+                  )
+                </span>
+              </li>
+            ))}
+          </ul>
+          {openStock.length > 6 && (
+            <p className="muted" style={{ fontSize: 12, margin: "0 0 10px" }}>
+              …and {openStock.length - 6} more.
+            </p>
+          )}
+          <p style={{ margin: 0, fontSize: 12 }}>
+            <Link href="/admin/stock">Work through the list →</Link>
+          </p>
+        </div>
+      )}
 
       <div className="card">
         <h2>Last night&apos;s lockdown</h2>

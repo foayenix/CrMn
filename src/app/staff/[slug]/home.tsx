@@ -14,6 +14,7 @@ import { shiftsOn, nextWorkingShift, slotFrom, type ShiftRow } from "@/lib/staff
 import { slotHours } from "@/lib/rota";
 import { fetchBookings, isCalConfigured } from "@/lib/cal";
 import { readChecklist, lastSubmittedRun, estimatedMinutes } from "@/lib/checklist";
+import { openReportCount, oldestOpenReport } from "@/lib/stock";
 import { StaffShell, LockButton } from "./shell";
 
 // Screen 02 — Home.
@@ -37,7 +38,7 @@ export async function Home({
   const monday = startOfWeekMonday(now);
   const sunday = endOfWeekSunday(now);
 
-  const [shifts, dayNote, checklist, lastRun] = await Promise.all([
+  const [shifts, dayNote, checklist, lastRun, flaggedCount, oldestFlag] = await Promise.all([
     prisma.shift.findMany({
       where: { staffMemberId: me.id, date: { gte: monday, lte: sunday } },
       orderBy: [{ date: "asc" }, { slot: "asc" }],
@@ -45,6 +46,8 @@ export async function Home({
     prisma.dayNote.findUnique({ where: { date: tonight } }),
     readChecklist(now),
     lastSubmittedRun(now),
+    openReportCount(),
+    oldestOpenReport(),
   ]);
 
   // A service being down must never take this screen with it.
@@ -101,6 +104,18 @@ export async function Home({
     );
   }
 
+  if (flaggedCount > 0) {
+    nudges.push({
+      key: "stock",
+      mark: "rose",
+      text: `${flaggedCount} ${flaggedCount === 1 ? "item" : "items"} flagged low`,
+      detail: oldestFlag
+        ? `SINCE ${oldestFlag.createdAt.toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit", timeZone: "UTC" })}`
+        : undefined,
+      href: `/staff/${slug}/stock`,
+    });
+  }
+
   const lastLockedAt = lastRun?.submittedAt
     ? lastRun.submittedAt.toLocaleTimeString("en-GB", {
         hour: "2-digit",
@@ -109,7 +124,7 @@ export async function Home({
       })
     : null;
   const allClear = checklist.submittedAt
-    ? `All square. Tonight was locked at ${checklist.submittedAt.toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit", timeZone: "UTC" })}.`
+    ? `All square. Tonight was locked at ${checklist.submittedAt.toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit", timeZone: "UTC" })} and nothing's flagged.`
     : lastLockedAt
       ? `All square. Last night was locked at ${lastLockedAt} and nothing's flagged.`
       : "All square. Nothing needs you before service.";
@@ -246,6 +261,12 @@ export async function Home({
           <Link href={`/staff/${slug}/rota`} className="staff-tile">
             <span className="staff-tile-title">My rota</span>
             <span className="staff-tile-stat">{formatHours(weekHours)}H THIS WEEK</span>
+          </Link>
+          <Link href={`/staff/${slug}/stock`} className="staff-tile">
+            <span className="staff-tile-title">Low stock</span>
+            <span className="staff-tile-stat">
+              {flaggedCount === 0 ? "NOTHING FLAGGED" : `${flaggedCount} FLAGGED`}
+            </span>
           </Link>
         </div>
       </div>

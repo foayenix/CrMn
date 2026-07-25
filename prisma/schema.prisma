@@ -16,11 +16,12 @@ datasource db {
 // Phase 1 — the single boss login. There is intentionally only ever one row.
 // ---------------------------------------------------------------------------
 model AdminUser {
-  id           String   @id @default(cuid())
-  email        String   @unique
-  passwordHash String
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
+  id            String        @id @default(cuid())
+  email         String        @unique
+  passwordHash  String
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+  stockResolved StockReport[]
 }
 
 // ---------------------------------------------------------------------------
@@ -73,6 +74,7 @@ model StaffMember {
   // real foreign keys rather than loose id strings.
   checksTicked  ChecklistCheck[] @relation("ChecklistCheckedBy")
   runsSubmitted ChecklistRun[]   @relation("ChecklistSubmittedBy")
+  stockReports  StockReport[]    @relation("StockReportedBy")
 
   @@index([active, sortOrder])
 }
@@ -176,6 +178,54 @@ model ChecklistCheck {
 
   @@unique([runDate, itemId])
   @@index([runDate])
+}
+
+// ---------------------------------------------------------------------------
+// Staff app — low stock. Staff flag what's running out; the boss works through
+// the open ones and resolves them. It is a list, not an order.
+// ---------------------------------------------------------------------------
+
+// Seeded from the live menu (scripts/seed-stock.ts reads src/lib/menu-template.ts),
+// so the names on the pad are the names on the list. Off-menu things — tonic,
+// till roll, blue roll — never become rows here: they go through the free-text
+// row on the report screen.
+model StockItem {
+  id        String        @id @default(cuid())
+  name      String
+  category  String
+  active    Boolean       @default(true)
+  sortOrder Int           @default(0)
+  createdAt DateTime      @default(now())
+  updatedAt DateTime      @updatedAt
+  reports   StockReport[]
+
+  @@index([active, sortOrder])
+}
+
+enum StockLevel {
+  LOW
+  OUT
+}
+
+model StockReport {
+  id           String      @id @default(cuid())
+  // Either a menu item or a line of free text — never both, never neither.
+  item         StockItem?  @relation(fields: [itemId], references: [id], onDelete: SetNull)
+  itemId       String?
+  freeText     String?
+  level        StockLevel
+  note         String?
+  // Signed with the PIN that was in when it was reported.
+  reportedBy   StaffMember @relation("StockReportedBy", fields: [reportedById], references: [id])
+  reportedById String
+  createdAt    DateTime    @default(now())
+  // Resolving is the boss's act, in the admin area.
+  resolvedAt   DateTime?
+  resolvedBy   AdminUser?  @relation(fields: [resolvedById], references: [id])
+  resolvedById String?
+
+  @@index([resolvedAt, createdAt])
+  @@index([itemId, resolvedAt])
 }
 
 // ---------------------------------------------------------------------------
