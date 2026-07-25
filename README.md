@@ -48,6 +48,21 @@ npm run set-pin -- "Dan" 4821
 Deactivating a staff member on the Rota page stops their PIN working and keeps
 every shift they ever worked.
 
+Screens so far:
+
+| route | what it shows |
+| --- | --- |
+| `/staff/<slug>` | Home — tonight's shift, one quiet nudge band, tiles |
+| `/staff/<slug>/rota` | your week in serif; `?view=team` for everyone's |
+| `/staff/<slug>/bookings` | tonight's tables: time, name, party size, nothing else |
+
+On the iPad a permanent 116px rail replaces the back arrow and Lock stays one
+reach away; Home gains a column so tonight's tables aren't behind a tap.
+
+"Tonight" means the **trading night**, not the calendar day — 00:12 on Sunday
+still belongs to Saturday. `src/lib/business-date.ts` is the one helper that
+decides this (rollover at 05:00 UTC); everything that says "tonight" uses it.
+
 ## Layout
 - `src/app` — public site (`/`, `/menu`) + admin (`/admin/*`) + staff view (`/staff/*`)
 - `src/lib` — prisma client, session/auth, settings, ported homepage/menu templates

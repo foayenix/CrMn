@@ -55,6 +55,11 @@ export function dayLabel(d: Date): string {
   return DOW[(d.getUTCDay() + 6) % 7];
 }
 
+// Spelled out, for prose: "Next shift Friday, 12:00."
+export function dayLongLabel(d: Date): string {
+  return d.toLocaleDateString("en-GB", { weekday: "long", timeZone: "UTC" });
+}
+
 export function dayDateLabel(d: Date): string {
   return `${d.getUTCDate()} ${MON[d.getUTCMonth()]}`;
 }
@@ -77,6 +82,26 @@ export function minutesToLabel(mins: number): string {
   let h12 = h24 % 12;
   if (h12 === 0) h12 = 12;
   return m === 0 ? `${h12}${ampm}` : `${h12}:${String(m).padStart(2, "0")}${ampm}`;
+}
+
+// The staff app prints times in 24h — "17:00 → 01:00" reads the same at 01:00
+// as it does at 17:00, which "1am" doesn't.
+export function minutesTo24h(mins: number): string {
+  const m = ((mins % 1440) + 1440) % 1440;
+  return `${String(Math.floor(m / 60)).padStart(2, "0")}:${String(m % 60).padStart(2, "0")}`;
+}
+
+// Compact form for the team list, where four people share a row's width:
+// "12", "18", "01:30".
+export function minutesToCompact(mins: number): string {
+  const m = ((mins % 1440) + 1440) % 1440;
+  const h = String(Math.floor(m / 60)).padStart(2, "0");
+  return m % 60 === 0 ? h : `${h}:${String(m % 60).padStart(2, "0")}`;
+}
+
+// A shift ending at or before its start time runs past midnight.
+export function endsNextDay(startMinutes: number, endMinutes: number): boolean {
+  return endMinutes <= startMinutes;
 }
 
 // "HH:MM" (24h input value) ↔ minutes.

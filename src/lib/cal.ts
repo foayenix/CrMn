@@ -97,7 +97,13 @@ export async function fetchBookings(from: Date, to: Date): Promise<BookingsResul
       return { configured: true, ok: false, error: `cal.diy API returned ${res.status}` };
     }
     const data = (await res.json()) as { bookings?: Record<string, unknown>[] };
-    const list = Array.isArray(data.bookings) ? data.bookings : [];
+    // A 200 with no bookings array isn't a quiet night — it's a response we
+    // can't read. Saying "no bookings tonight" to someone on the floor because
+    // the API changed shape would be worse than saying nothing.
+    if (!Array.isArray(data.bookings)) {
+      return { configured: true, ok: false, error: "cal.diy returned an unreadable response" };
+    }
+    const list = data.bookings;
     const bookings = list
       .map(normalize)
       .filter((b) => b.start >= from && b.start < to && b.status !== "cancelled")

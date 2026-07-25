@@ -39,6 +39,17 @@
   box-sizing: border-box;
 }
 
+/* No hover, anywhere. The design rules it out, and the public site's global
+   `a:hover` would otherwise repaint a tile the instant a tap finished with the
+   pointer left sitting on it — which is exactly what a touch device does. */
+.staff-root a,
+.staff-root a:hover,
+.staff-root a:focus,
+.staff-root a:visited {
+  color: inherit;
+  text-decoration: none;
+}
+
 .staff-serif {
   font-family: "Cormorant", Georgia, serif;
   font-weight: 300;
@@ -288,6 +299,310 @@
   vertical-align: top;
 }
 
+/* ---- shell ---------------------------------------------------------------- */
+.staff-shell {
+  min-height: 100vh;
+  min-height: 100dvh;
+}
+
+/* Phone: a 60px back target, a mono title, and the screen's one number. */
+.staff-topbar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 64px;
+  margin: 0 -10px 6px;
+  flex: 0 0 auto;
+}
+.staff-back {
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 26px;
+  color: rgba(232, 224, 207, 0.7);
+}
+.staff-topbar-title {
+  flex: 1;
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 12px;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: rgba(232, 224, 207, 0.6);
+}
+.staff-topbar-stat {
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 14px;
+  letter-spacing: 0.06em;
+  color: rgba(232, 224, 207, 0.4);
+  padding-right: 10px;
+}
+
+.staff-home {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+/* On the phone the column wrapper is only there for the iPad's grid. */
+.staff-home-col {
+  display: contents;
+}
+
+/* Worth knowing — one band, stated once. No badge, no red, no climbing count. */
+.staff-band {
+  border-top: 1px solid var(--hair);
+  border-bottom: 1px solid var(--hair);
+}
+.staff-band-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-height: 78px;
+  padding: 16px 0;
+}
+.staff-band-mark {
+  width: 9px;
+  height: 9px;
+  flex: 0 0 auto;
+}
+.staff-band-mark.sage {
+  background: var(--sage);
+}
+.staff-band-mark.brass {
+  background: var(--brass);
+}
+.staff-band-mark.rose {
+  background: var(--rose);
+}
+.staff-band-text {
+  flex: 1;
+  font-size: 18px;
+  line-height: 1.3;
+  color: rgba(232, 224, 207, 0.86);
+}
+.serif-note {
+  font-family: "Cormorant", Georgia, serif;
+  font-style: italic;
+  font-size: 20px;
+  line-height: 1.3;
+  color: #9faf97;
+}
+
+.staff-tiles {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+.staff-tile {
+  height: 88px;
+  background: var(--raised);
+  border: 1px solid rgba(232, 224, 207, 0.09);
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  color: var(--cream);
+}
+.staff-tile-title {
+  font-family: "Cormorant", Georgia, serif;
+  font-size: 26px;
+  line-height: 1;
+}
+.staff-tile-stat {
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  color: rgba(232, 224, 207, 0.45);
+}
+
+/* ---- rota ----------------------------------------------------------------- */
+.staff-toggle {
+  display: flex;
+  gap: 6px;
+  padding: 6px 0 18px;
+}
+.staff-toggle-opt {
+  flex: 1;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--hair);
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 13px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(232, 224, 207, 0.55);
+}
+.staff-toggle-opt.on {
+  background: rgba(168, 135, 90, 0.16);
+  border-color: var(--brass);
+  color: var(--cream);
+}
+
+.staff-week-label {
+  font-size: 10.5px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(232, 224, 207, 0.12);
+}
+
+.staff-rota-day {
+  display: flex;
+  gap: 16px;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--hair);
+}
+.staff-rota-day.today {
+  background: rgba(168, 135, 90, 0.05);
+}
+.staff-rota-date {
+  flex: 0 0 62px;
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(232, 224, 207, 0.62);
+  padding-top: 6px;
+  line-height: 1.5;
+}
+/* A merged run of closed days dims each day after the first. */
+.staff-rota-date div + div {
+  color: rgba(232, 224, 207, 0.28);
+}
+.staff-rota-day.today .staff-rota-date {
+  color: var(--brass);
+}
+.staff-rota-date .today-mark {
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  color: rgba(168, 135, 90, 0.75);
+}
+.staff-slot-rule {
+  height: 1px;
+  background: var(--hair);
+  margin: 14px 0;
+}
+.staff-slot-note {
+  font-size: 15px;
+  color: rgba(232, 224, 207, 0.6);
+  margin-top: 6px;
+}
+.staff-slot-ends {
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 10.5px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(232, 224, 207, 0.58);
+  margin-top: 3px;
+}
+.staff-daynote {
+  display: flex;
+  gap: 10px;
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid rgba(110, 127, 104, 0.35);
+}
+.staff-daynote .staff-band-mark {
+  width: 8px;
+  height: 8px;
+  margin-top: 7px;
+}
+
+.staff-team-day {
+  padding: 16px 0 6px;
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 12px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(232, 224, 207, 0.5);
+}
+.staff-team-day.today {
+  color: var(--brass);
+}
+.staff-team-group {
+  border-top: 1px solid var(--hair);
+}
+.staff-team-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  height: 62px;
+  border-bottom: 1px solid rgba(232, 224, 207, 0.08);
+}
+.staff-team-times {
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 13px;
+  color: rgba(232, 224, 207, 0.72);
+}
+.staff-you {
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--brass);
+  margin-left: 8px;
+}
+
+/* ---- bookings ------------------------------------------------------------- */
+.staff-booking-list {
+  border-top: 1px solid rgba(232, 224, 207, 0.12);
+}
+.staff-booking {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  height: 84px;
+  border-bottom: 1px solid var(--hair);
+}
+/* Passed times dim rather than disappear — the night still happened. */
+.staff-booking.passed {
+  opacity: 0.45;
+}
+.staff-booking-time {
+  flex: 0 0 62px;
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 20px;
+}
+.staff-booking-name {
+  flex: 1;
+  font-size: 26px;
+  font-weight: 400;
+}
+.staff-booking-party {
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 16px;
+  color: rgba(232, 224, 207, 0.7);
+}
+.staff-footnote {
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 10.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(232, 224, 207, 0.34);
+  line-height: 1.7;
+  margin-top: 20px;
+}
+
+.staff-empty {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  padding: 0 20px 80px;
+  text-align: center;
+}
+
+.staff-lock-mark {
+  width: 11px;
+  height: 11px;
+  border: 1.5px solid rgba(232, 224, 207, 0.7);
+  border-radius: 2px;
+}
+
 /* ---- iPad ----------------------------------------------------------------- */
 @media (min-width: 900px) {
   .staff-page {
@@ -306,5 +621,133 @@
   }
   .staff-greeting {
     font-size: 60px;
+  }
+
+  /* A permanent 116px rail: Lock always one reach away, and no screen more
+     than one tap from another. */
+  .staff-shell.pad {
+    display: flex;
+  }
+  .staff-shell.pad .staff-page {
+    flex: 1;
+    max-width: none;
+    padding: 40px 44px 44px;
+  }
+  .staff-rail {
+    flex: 0 0 116px;
+    background: #100c0c;
+    border-right: 1px solid rgba(232, 224, 207, 0.09);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 22px 0 20px;
+    gap: 26px;
+  }
+  .staff-rail-items {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    width: 100%;
+    flex: 1;
+  }
+  .staff-rail-item {
+    height: 84px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: rgba(232, 224, 207, 0.5);
+  }
+  .staff-rail-item.active {
+    background: rgba(168, 135, 90, 0.14);
+    border-left: 2px solid var(--brass);
+    color: var(--cream);
+  }
+  .staff-rail-mark {
+    width: 13px;
+    height: 13px;
+    border: 1.5px solid rgba(232, 224, 207, 0.4);
+  }
+  .staff-rail-item.active .staff-rail-mark {
+    background: var(--brass);
+    border-color: var(--brass);
+  }
+  .staff-rail-lock {
+    width: 84px;
+    height: 84px;
+    border: 1px solid rgba(232, 224, 207, 0.22);
+    background: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: rgba(232, 224, 207, 0.8);
+    cursor: pointer;
+  }
+
+  /* Home runs three columns: your shift and the nudges, tonight's tables, then
+     the tiles. Same content as the phone, none of it behind a tap. */
+  .staff-shell.pad .staff-home {
+    display: grid;
+    grid-template-columns: 1.15fr 1fr 1fr;
+    grid-template-rows: auto 1fr;
+    gap: 22px;
+    align-content: start;
+  }
+  .staff-shell.pad .staff-home-head {
+    grid-column: 1 / -1;
+  }
+  .staff-shell.pad .staff-home-col {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+  }
+  .staff-shell.pad .staff-tiles {
+    grid-template-columns: 1fr;
+    align-content: start;
+  }
+  .staff-shell.pad .staff-booking.pad {
+    height: 66px;
+    gap: 12px;
+  }
+  .staff-shell.pad .staff-booking.pad .staff-booking-time {
+    flex: 0 0 56px;
+    font-size: 17px;
+  }
+  .staff-shell.pad .staff-booking.pad .staff-booking-name {
+    font-size: 23px;
+  }
+  .staff-shell.pad .staff-booking.pad .staff-booking-party {
+    font-size: 14px;
+  }
+  .staff-shell.pad .staff-panel {
+    padding: 24px;
+  }
+  .staff-shell.pad .staff-band-row {
+    min-height: 82px;
+  }
+
+  .staff-pad-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 24px;
+    margin-bottom: 22px;
+  }
+  .staff-shell.pad .staff-toggle {
+    max-width: 420px;
+  }
+  .staff-shell.pad .staff-rota-date {
+    flex: 0 0 90px;
   }
 }
