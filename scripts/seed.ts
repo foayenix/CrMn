@@ -66,6 +66,12 @@ async function main() {
     console.log(`Staff-view slug already set: /staff/${slug.value}`);
   }
 
+  // The staff app used to share one PIN across the team; it's per-staff now, so
+  // clear the old hash out. Staff PINs themselves are never seeded — the boss
+  // sets them one at a time in Admin → Staff app & PINs.
+  const retired = await prisma.setting.deleteMany({ where: { key: "staff_pin_hash" } });
+  if (retired.count > 0) console.log("Removed the retired shared staff PIN.");
+
   // Default admin (only if none exists)
   const admin = await prisma.adminUser.findFirst();
   if (!admin) {

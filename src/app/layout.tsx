@@ -21,8 +21,10 @@ export default function RootLayout({
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
+        {/* Cormorant 300 and Hanken Grotesk are the staff app's type scale; the
+            public site uses Cormorant 400/500. */}
         <link
-          href="https://fonts.googleapis.com/css2?family=Cormorant:wght@400;500&family=IBM+Plex+Mono:wght@400;500&display=swap"
+          href="https://fonts.googleapis.com/css2?family=Cormorant:wght@300;400;500&family=Hanken+Grotesk:wght@300;400&family=IBM+Plex+Mono:wght@400;500&display=swap"
           rel="stylesheet"
         />
       </head>

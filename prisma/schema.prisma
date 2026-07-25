@@ -55,11 +55,32 @@ model StaffMember {
   active    Boolean  @default(true)
   // Ordering down the side of the grid.
   sortOrder Int      @default(0)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  // --- Staff app PIN (phase: per-staff PIN auth) --------------------------
+  // The PIN *is* the identity in the staff app: four digits, no name picker.
+  // bcrypt salts per row, so a hash alone can't be looked up without looping
+  // every staff member. Hence two columns:
+  //   pinLookup — HMAC-SHA256(pin, STAFF_PIN_SECRET). Indexed + unique, so one
+  //               query finds the person and two staff can never share a PIN.
+  //   pinHash   — bcrypt, verified after the lookup.
+  pinLookup String?   @unique
+  pinHash   String?
+  pinSetAt  DateTime?
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
   shifts    Shift[]
 
   @@index([active, sortOrder])
+}
+
+// Rate limiting for the staff app keypad: three tries, then the pad parks for
+// 60 seconds. Counted per slug and kept in the database, not in memory — a
+// Coolify restart would otherwise hand an attacker a fresh three tries.
+model StaffPinThrottle {
+  slug        String    @id
+  failures    Int       @default(0)
+  lastFailAt  DateTime?
+  lockedUntil DateTime?
+  updatedAt   DateTime  @updatedAt
 }
 
 enum ShiftKind {

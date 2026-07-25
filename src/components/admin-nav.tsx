@@ -9,7 +9,7 @@ const LINKS = [
   { href: "/admin/rota", label: "Rota" },
   { href: "/admin/bookings", label: "Bookings" },
   { href: "/admin/analytics", label: "Analytics" },
-  { href: "/admin/staff-view", label: "Staff view & PIN" },
+  { href: "/admin/staff-view", label: "Staff app & PINs" },
 ];
 
 export function AdminNav() {

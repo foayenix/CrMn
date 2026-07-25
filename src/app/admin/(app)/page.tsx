@@ -1,6 +1,6 @@
 import { prisma } from "@/lib/prisma";
 import Link from "next/link";
-import { getStaffSlug, isStaffPinSet } from "@/lib/settings";
+import { getStaffSlug } from "@/lib/settings";
 import { startOfWeekMonday, endOfWeekSunday } from "@/lib/dates";
 
 export const dynamic = "force-dynamic";
@@ -10,12 +10,12 @@ export default async function Dashboard() {
   const weekStart = startOfWeekMonday(now);
   const weekEnd = endOfWeekSunday(now);
 
-  const [whatsOnCount, activeStaff, shiftsThisWeek, slug, pinSet] = await Promise.all([
+  const [whatsOnCount, activeStaff, staffWithPin, shiftsThisWeek, slug] = await Promise.all([
     prisma.whatsOnEntry.count({ where: { active: true } }),
     prisma.staffMember.count({ where: { active: true } }),
+    prisma.staffMember.count({ where: { active: true, pinHash: { not: null } } }),
     prisma.shift.count({ where: { date: { gte: weekStart, lte: weekEnd } } }),
     getStaffSlug(),
-    isStaffPinSet(),
   ]);
 
   const calConfigured = !!process.env.CAL_API_URL && !!process.env.CAL_API_KEY;
@@ -56,8 +56,15 @@ export default async function Dashboard() {
       <div className="card">
         <h2>Setup status</h2>
         <ul style={{ margin: 0, paddingLeft: 18, lineHeight: 2, fontSize: 13 }}>
-          <li>Staff view URL: {slug ? <code>/staff/{slug}</code> : "not generated yet"}</li>
-          <li>Staff PIN: {pinSet ? "set ✓" : <strong>not set — set it before sharing the staff view</strong>}</li>
+          <li>Staff app URL: {slug ? <code>/staff/{slug}</code> : "not generated yet"}</li>
+          <li>
+            Staff PINs:{" "}
+            {staffWithPin === 0 ? (
+              <strong>none set — nobody can sign in yet</strong>
+            ) : (
+              `${staffWithPin} of ${activeStaff} active staff ✓`
+            )}
+          </li>
           <li>cal.diy bookings: {calConfigured ? "connected ✓" : "not connected yet (add CAL_API_URL / CAL_API_KEY)"}</li>
           <li>Plausible analytics: {plausibleConfigured ? "connected ✓" : "not connected yet (add PLAUSIBLE_SHARED_LINK)"}</li>
         </ul>
