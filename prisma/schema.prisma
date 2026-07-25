@@ -69,6 +69,11 @@ model StaffMember {
   updatedAt DateTime  @updatedAt
   shifts    Shift[]
 
+  // Everything done in the staff app is signed by a real person, so these are
+  // real foreign keys rather than loose id strings.
+  checksTicked  ChecklistCheck[] @relation("ChecklistCheckedBy")
+  runsSubmitted ChecklistRun[]   @relation("ChecklistSubmittedBy")
+
   @@index([active, sortOrder])
 }
 
@@ -121,8 +126,61 @@ model DayNote {
 }
 
 // ---------------------------------------------------------------------------
-// Phase 6 (+ general) — key/value settings the boss controls, e.g. the shared
-// staff PIN hash and the staff-view slug.
+// Staff app — the lockdown checklist. One run per trading night, ticked by
+// whoever is closing, then submitted and locked. A manager can reopen it.
+// ---------------------------------------------------------------------------
+
+// Boss-editable, like the What's On CMS. `section` is free text — "Bar",
+// "Floor", "Security" today, whatever the room needs tomorrow. Sections appear
+// in the order of their first item, so ordering items orders the groups.
+model ChecklistItem {
+  id        String           @id @default(cuid())
+  label     String
+  section   String
+  sortOrder Int              @default(0)
+  active    Boolean          @default(true)
+  createdAt DateTime         @default(now())
+  updatedAt DateTime         @updatedAt
+  checks    ChecklistCheck[]
+
+  @@index([active, sortOrder])
+}
+
+model ChecklistRun {
+  // The trading night, not the calendar day — a run submitted at 00:12 belongs
+  // to the night before. See src/lib/business-date.ts; unique, so a night can
+  // never split into two rows at midnight.
+  businessDate  DateTime         @id @db.Date
+  submittedAt   DateTime?
+  submittedBy   StaffMember?     @relation("ChecklistSubmittedBy", fields: [submittedById], references: [id])
+  submittedById String?
+  reopenedAt    DateTime?
+  createdAt     DateTime         @default(now())
+  checks        ChecklistCheck[]
+
+  @@index([submittedAt])
+}
+
+model ChecklistCheck {
+  id          String        @id @default(cuid())
+  run         ChecklistRun  @relation(fields: [runDate], references: [businessDate], onDelete: Cascade)
+  runDate     DateTime      @db.Date
+  item        ChecklistItem @relation(fields: [itemId], references: [id], onDelete: Cascade)
+  itemId      String
+  // Who ticked it, and when. Never inferred, never blank.
+  checkedBy   StaffMember   @relation("ChecklistCheckedBy", fields: [checkedById], references: [id])
+  checkedById String
+  checkedAt   DateTime      @default(now())
+  // A note here escalates to the manager once the night is submitted.
+  note        String?
+
+  @@unique([runDate, itemId])
+  @@index([runDate])
+}
+
+// ---------------------------------------------------------------------------
+// Phase 6 (+ general) — key/value settings the boss controls, e.g. the
+// staff-app slug and the room's phone number.
 // ---------------------------------------------------------------------------
 model Setting {
   key       String   @id

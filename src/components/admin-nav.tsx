@@ -7,6 +7,7 @@ const LINKS = [
   { href: "/admin", label: "Dashboard", exact: true },
   { href: "/admin/whats-on", label: "What's On" },
   { href: "/admin/rota", label: "Rota" },
+  { href: "/admin/checklist", label: "Lockdown" },
   { href: "/admin/bookings", label: "Bookings" },
   { href: "/admin/analytics", label: "Analytics" },
   { href: "/admin/staff-view", label: "Staff app & PINs" },

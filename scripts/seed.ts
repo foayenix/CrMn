@@ -34,6 +34,22 @@ const STAFF = [
   "New team member",
 ];
 
+// Order matters twice over: it's the order items appear, and a group sits where
+// its first item sits.
+const CHECKLIST = [
+  { section: "Bar", label: "Wine fridges down to 6°" },
+  { section: "Bar", label: "Ice machine off and drained" },
+  { section: "Bar", label: "Glassware through, racks stacked" },
+  { section: "Bar", label: "Wipe down the back bar and taps" },
+  { section: "Bar", label: "Cash drawer counted, bag in safe" },
+  { section: "Floor", label: "Candles out — all of them" },
+  { section: "Floor", label: "Records back in sleeves, deck off" },
+  { section: "Security", label: "Back door bolted, top and bottom" },
+  { section: "Security", label: "Upstairs skylight closed" },
+  { section: "Security", label: "Alarm set, code confirmed" },
+  { section: "Security", label: "Front shutter down and locked" },
+];
+
 async function main() {
   // What's On
   const existingWhatsOn = await prisma.whatsOnEntry.count();
@@ -64,6 +80,20 @@ async function main() {
     console.log(`Generated staff-view slug: /staff/${value}`);
   } else {
     console.log(`Staff-view slug already set: /staff/${slug.value}`);
+  }
+
+  // Lockdown checklist — a starting point, not the finished list. These are the
+  // items the design spells out; the boss adds, edits and reorders the rest in
+  // Admin → Lockdown. Only seeded into an empty table, so edits are never
+  // overwritten.
+  const existingItems = await prisma.checklistItem.count();
+  if (existingItems === 0) {
+    await prisma.checklistItem.createMany({
+      data: CHECKLIST.map((c, i) => ({ ...c, sortOrder: i, active: true })),
+    });
+    console.log(`Seeded ${CHECKLIST.length} checklist items (edit them in the admin area).`);
+  } else {
+    console.log(`Checklist already has ${existingItems} items — skipping.`);
   }
 
   // The staff app used to share one PIN across the team; it's per-staff now, so

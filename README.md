@@ -55,13 +55,21 @@ Screens so far:
 | `/staff/<slug>` | Home — tonight's shift, one quiet nudge band, tiles |
 | `/staff/<slug>/rota` | your week in serif; `?view=team` for everyone's |
 | `/staff/<slug>/bookings` | tonight's tables: time, name, party size, nothing else |
+| `/staff/<slug>/lockdown` | the closing checklist for tonight, then read-only once submitted |
 
 On the iPad a permanent 116px rail replaces the back arrow and Lock stays one
 reach away; Home gains a column so tonight's tables aren't behind a tap.
 
 "Tonight" means the **trading night**, not the calendar day — 00:12 on Sunday
 still belongs to Saturday. `src/lib/business-date.ts` is the one helper that
-decides this (rollover at 05:00 UTC); everything that says "tonight" uses it.
+decides this (rollover at 05:00 UTC); everything that says "tonight" uses it,
+including which `ChecklistRun` a tick lands on.
+
+The closing list is boss-editable in Admin → Lockdown, grouped however you like
+(a group sits where its first item sits). Every tick stores the staff member who
+made it, so a shared iPad passed between two people produces two names. Notes
+left on items escalate to the admin dashboard when the night is submitted, and
+a manager can reopen a submitted night without disturbing its signatures.
 
 ## Layout
 - `src/app` — public site (`/`, `/menu`) + admin (`/admin/*`) + staff view (`/staff/*`)

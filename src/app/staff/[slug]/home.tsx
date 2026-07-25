@@ -13,6 +13,7 @@ import { businessDateFor, businessNightRange } from "@/lib/business-date";
 import { shiftsOn, nextWorkingShift, slotFrom, type ShiftRow } from "@/lib/staff-rota";
 import { slotHours } from "@/lib/rota";
 import { fetchBookings, isCalConfigured } from "@/lib/cal";
+import { readChecklist, lastSubmittedRun, estimatedMinutes } from "@/lib/checklist";
 import { StaffShell, LockButton } from "./shell";
 
 // Screen 02 — Home.
@@ -36,12 +37,14 @@ export async function Home({
   const monday = startOfWeekMonday(now);
   const sunday = endOfWeekSunday(now);
 
-  const [shifts, dayNote] = await Promise.all([
+  const [shifts, dayNote, checklist, lastRun] = await Promise.all([
     prisma.shift.findMany({
       where: { staffMemberId: me.id, date: { gte: monday, lte: sunday } },
       orderBy: [{ date: "asc" }, { slot: "asc" }],
     }),
     prisma.dayNote.findUnique({ where: { date: tonight } }),
+    readChecklist(now),
+    lastSubmittedRun(now),
   ]);
 
   // A service being down must never take this screen with it.
@@ -64,6 +67,60 @@ export async function Home({
     minute: "2-digit",
     timeZone: "UTC",
   });
+
+  // The lockdown nudge only appears once closing is plausibly on the horizon —
+  // a checklist reminder at eleven in the morning is noise, and this app never
+  // nags. It's stated once, and it never becomes a badge.
+  const closingTime = hour >= 18 || hour < 5;
+  const checklistStarted = checklist.done > 0;
+  const nudges: {
+    key: string;
+    mark: "brass" | "rose" | "sage";
+    text: string;
+    detail?: string;
+    href: string;
+  }[] = [];
+
+  if (checklist.total > 0 && !checklist.submittedAt && (closingTime || checklistStarted)) {
+    nudges.push(
+      checklistStarted
+        ? {
+            key: "lockdown",
+            mark: "brass",
+            text: `Lockdown ${checklist.done} of ${checklist.total} done`,
+            detail: `${checklist.remaining} LEFT`,
+            href: `/staff/${slug}/lockdown`,
+          }
+        : {
+            key: "lockdown",
+            mark: "brass",
+            text: "Lockdown checklist not started",
+            detail: `${checklist.total} ITEMS · ABOUT ${estimatedMinutes(checklist.total)} MIN`,
+            href: `/staff/${slug}/lockdown`,
+          },
+    );
+  }
+
+  const lastLockedAt = lastRun?.submittedAt
+    ? lastRun.submittedAt.toLocaleTimeString("en-GB", {
+        hour: "2-digit",
+        minute: "2-digit",
+        timeZone: "UTC",
+      })
+    : null;
+  const allClear = checklist.submittedAt
+    ? `All square. Tonight was locked at ${checklist.submittedAt.toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit", timeZone: "UTC" })}.`
+    : lastLockedAt
+      ? `All square. Last night was locked at ${lastLockedAt} and nothing's flagged.`
+      : "All square. Nothing needs you before service.";
+
+  const checklistStat = checklist.total === 0
+    ? "NO LIST YET"
+    : checklist.submittedAt
+      ? `SUBMITTED ${checklist.submittedAt.toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit", timeZone: "UTC" })}`
+      : checklistStarted
+        ? `${checklist.done} / ${checklist.total} DONE`
+        : "NOT STARTED";
 
   const bookingsStat = !isCalConfigured()
     ? "NOT CONNECTED"
@@ -88,21 +145,34 @@ export async function Home({
         <div className="staff-home-col">
           <TonightPanel working={working} next={next} />
 
-          {/* Worth knowing — stated once, and only when there is something. */}
+          {/* Worth knowing — stated once each, no badges, no count that climbs.
+              When there's nothing, one sage line and out of the way. */}
           <div>
             <div className="staff-mono" style={{ marginBottom: 6 }}>
               Worth knowing
             </div>
             <div className="staff-band">
-              {dayNote ? (
-                <div className="staff-band-row">
-                  <span className="staff-band-mark sage" />
-                  <div className="staff-band-text serif-note">{dayNote.note}</div>
-                </div>
+              {nudges.length > 0 ? (
+                nudges.map((n) => (
+                  <Link key={n.key} href={n.href} className="staff-band-row">
+                    <span className={`staff-band-mark ${n.mark}`} />
+                    <div className="staff-band-text">
+                      {n.text}
+                      {n.detail && <span className="staff-band-detail">{n.detail}</span>}
+                    </div>
+                    <span className="staff-chevron">›</span>
+                  </Link>
+                ))
               ) : (
                 <div className="staff-band-row">
                   <span className="staff-band-mark sage" />
-                  <div className="staff-band-text">All square. Nothing needs you before service.</div>
+                  <div className="staff-band-text">{allClear}</div>
+                </div>
+              )}
+              {dayNote && (
+                <div className="staff-band-row">
+                  <span className="staff-band-mark sage" />
+                  <div className="staff-band-text serif-note">{dayNote.note}</div>
                 </div>
               )}
             </div>
@@ -157,6 +227,21 @@ export async function Home({
           <Link href={`/staff/${slug}/bookings`} className="staff-tile">
             <span className="staff-tile-title">Bookings</span>
             <span className="staff-tile-stat">{bookingsStat}</span>
+          </Link>
+          <Link href={`/staff/${slug}/lockdown`} className="staff-tile">
+            <span className="staff-tile-title">Lockdown</span>
+            <span
+              className="staff-tile-stat"
+              style={
+                checklist.submittedAt
+                  ? { color: "var(--sage)" }
+                  : checklist.total > 0 && closingTime
+                    ? { color: "var(--brass)" }
+                    : undefined
+              }
+            >
+              {checklistStat}
+            </span>
           </Link>
           <Link href={`/staff/${slug}/rota`} className="staff-tile">
             <span className="staff-tile-title">My rota</span>

@@ -10,13 +10,27 @@ export default async function Dashboard() {
   const weekStart = startOfWeekMonday(now);
   const weekEnd = endOfWeekSunday(now);
 
-  const [whatsOnCount, activeStaff, staffWithPin, shiftsThisWeek, slug] = await Promise.all([
-    prisma.whatsOnEntry.count({ where: { active: true } }),
-    prisma.staffMember.count({ where: { active: true } }),
-    prisma.staffMember.count({ where: { active: true, pinHash: { not: null } } }),
-    prisma.shift.count({ where: { date: { gte: weekStart, lte: weekEnd } } }),
-    getStaffSlug(),
-  ]);
+  const [whatsOnCount, activeStaff, staffWithPin, shiftsThisWeek, slug, checklistItems, lastNight] =
+    await Promise.all([
+      prisma.whatsOnEntry.count({ where: { active: true } }),
+      prisma.staffMember.count({ where: { active: true } }),
+      prisma.staffMember.count({ where: { active: true, pinHash: { not: null } } }),
+      prisma.shift.count({ where: { date: { gte: weekStart, lte: weekEnd } } }),
+      getStaffSlug(),
+      prisma.checklistItem.count({ where: { active: true } }),
+      // The most recent night anyone actually closed.
+      prisma.checklistRun.findFirst({
+        orderBy: { businessDate: "desc" },
+        include: {
+          submittedBy: { select: { name: true } },
+          checks: {
+            include: { item: { select: { label: true } }, checkedBy: { select: { name: true } } },
+          },
+        },
+      }),
+    ]);
+
+  const escalated = (lastNight?.checks ?? []).filter((c) => c.note);
 
   const calConfigured = !!process.env.CAL_API_URL && !!process.env.CAL_API_KEY;
   const plausibleConfigured = !!process.env.PLAUSIBLE_SHARED_LINK;
@@ -51,6 +65,64 @@ export default async function Dashboard() {
             </div>
           </Link>
         ))}
+      </div>
+
+      <div className="card">
+        <h2>Last night&apos;s lockdown</h2>
+        {!lastNight ? (
+          <p className="muted" style={{ margin: 0, fontSize: 13 }}>
+            {checklistItems === 0
+              ? "No checklist yet — write one and the closing team can start ticking."
+              : "Nothing closed yet."}
+          </p>
+        ) : (
+          <>
+            <p style={{ margin: "0 0 10px", fontSize: 13 }}>
+              <strong>
+                {lastNight.businessDate.toLocaleDateString("en-GB", {
+                  weekday: "long",
+                  day: "numeric",
+                  month: "long",
+                  timeZone: "UTC",
+                })}
+              </strong>{" "}
+              — {lastNight.checks.length} of {checklistItems} ticked
+              {lastNight.submittedAt ? (
+                <>
+                  , submitted at{" "}
+                  <strong>
+                    {lastNight.submittedAt.toLocaleTimeString("en-GB", {
+                      hour: "2-digit",
+                      minute: "2-digit",
+                      timeZone: "UTC",
+                    })}
+                  </strong>{" "}
+                  by {lastNight.submittedBy?.name}.
+                </>
+              ) : (
+                <> — not submitted.</>
+              )}
+            </p>
+            {escalated.length > 0 && (
+              <div className="alert error" style={{ marginBottom: 0 }}>
+                <strong>
+                  {escalated.length} note{escalated.length === 1 ? "" : "s"} for you:
+                </strong>
+                <ul style={{ margin: "8px 0 0", paddingLeft: 18, lineHeight: 1.7 }}>
+                  {escalated.map((c) => (
+                    <li key={c.id}>
+                      <strong>{c.item.label}</strong> — {c.note}{" "}
+                      <span className="muted">({c.checkedBy.name})</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+            <p style={{ margin: "10px 0 0", fontSize: 12 }}>
+              <Link href="/admin/checklist">Recent nights and the list itself →</Link>
+            </p>
+          </>
+        )}
       </div>
 
       <div className="card">
