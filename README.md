@@ -22,6 +22,34 @@ Default seeded login: `boss@crescentmoonbar.co.uk` / `changeme123` — change it
 ```bash
 npm run set-password -- boss@crescentmoonbar.co.uk 'a-strong-password'
 ```
+The July 2026 rota from the Excel sheet can be imported with `npm run seed-rota`.
+It rewrites every shift between 2026-06-29 and 2026-08-02, so it's a one-off
+import, not something to re-run once the boss has edited the rota.
+
+## Deploying
+
+`npm run build` runs `scripts/deploy-bootstrap.mjs`, which pushes the Prisma
+schema and runs the idempotent seeds before Next builds. That's there because a
+serverless host never runs `npm start`, so a database bootstrap hung off the
+start script would silently never happen. With no `DATABASE_URL` it skips, so
+local builds and CI don't need a database.
+
+Required environment variables on any deployment:
+
+| variable | why |
+| --- | --- |
+| `DATABASE_URL` | Postgres for this app. Without it the site 500s — the homepage reads What's On at request time. |
+| `SESSION_SECRET` | Signs the admin and staff cookies. Falls back to a known dev string if unset, so set it. |
+| `ADMIN_INITIAL_PASSWORD` | The first admin login's password. **In production the seed will not create a login without it** rather than publish the one in this repo — set it or nobody can sign in. |
+| `STAFF_PIN_SECRET` | Keys the staff PIN lookup. Changing it invalidates every stored PIN. |
+
+Then, in the admin area: **Staff app & PINs** to set each person's PIN (they're
+never seeded — until one is set the staff app shows "Not ready yet"), and copy
+the staff link from that page. The link is built from the request's host, so it's
+correct on whatever domain you deploy to with nothing to configure.
+
+Note `next.config.ts` only asks for Next's `standalone` output when not building
+on Vercel, which builds its own serverless output.
 
 ## Staff app (`/staff/<slug>`)
 
@@ -119,7 +147,8 @@ floor wait for a screen.
 ## Layout
 - `src/app` — public site (`/`, `/menu`) + admin (`/admin/*`) + staff view (`/staff/*`)
 - `src/lib` — prisma client, session/auth, settings, ported homepage/menu templates
-- `scripts` — seed, seed-stock, set-password, set-pin, generate-vapid
+- `scripts` — seed, seed-stock, seed-july-rota, set-password, set-pin,
+  generate-vapid, deploy-bootstrap
 - `design` — the staff app design spec + build brief
 - `reference/legacy-site` — the original static site, kept for reference
 

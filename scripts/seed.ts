@@ -102,17 +102,37 @@ async function main() {
   const retired = await prisma.setting.deleteMany({ where: { key: "staff_pin_hash" } });
   if (retired.count > 0) console.log("Removed the retired shared staff PIN.");
 
-  // Default admin (only if none exists)
+  // The admin login (only if none exists).
+  //
+  // This seed runs unattended from the build step on a deploy, so a hardcoded
+  // password would be a live credential on a public URL that anyone reading this
+  // repo could use. In production the password therefore has to be supplied:
+  // ADMIN_INITIAL_PASSWORD (and optionally ADMIN_EMAIL) in the deployment's
+  // environment. Locally it still falls back to the old default for convenience.
   const admin = await prisma.adminUser.findFirst();
   if (!admin) {
-    const email = "boss@crescentmoonbar.co.uk";
-    const password = "changeme123";
-    await prisma.adminUser.create({
-      data: { email, passwordHash: await bcrypt.hash(password, 12) },
-    });
-    console.log(
-      `\n⚠  Created DEFAULT admin login:\n   email:    ${email}\n   password: ${password}\n   Change it now:  npm run set-password -- <email> <new-password>\n`,
-    );
+    const email = process.env.ADMIN_EMAIL ?? "boss@crescentmoonbar.co.uk";
+    const fromEnv = process.env.ADMIN_INITIAL_PASSWORD;
+    const isProduction = process.env.NODE_ENV === "production";
+
+    if (!fromEnv && isProduction) {
+      console.log(
+        `\n⚠  NO ADMIN LOGIN CREATED — nobody can sign in to /admin yet.\n` +
+          `   Set ADMIN_INITIAL_PASSWORD (and optionally ADMIN_EMAIL) in this\n` +
+          `   deployment's environment variables and deploy again. Refusing to\n` +
+          `   create a login with a password that is published in this repo.\n`,
+      );
+    } else {
+      const password = fromEnv ?? "changeme123";
+      await prisma.adminUser.create({
+        data: { email, passwordHash: await bcrypt.hash(password, 12) },
+      });
+      console.log(
+        fromEnv
+          ? `\n✓  Created admin login ${email} from ADMIN_INITIAL_PASSWORD.\n`
+          : `\n⚠  Created DEFAULT admin login:\n   email:    ${email}\n   password: ${password}\n   Change it now:  npm run set-password -- <email> <new-password>\n`,
+      );
+    }
   } else {
     console.log(`Admin login already exists (${admin.email}).`);
   }
