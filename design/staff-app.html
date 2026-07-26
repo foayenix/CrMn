@@ -1,0 +1,1505 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="design_doc_mode" content="canvas">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,300;0,400;0,500;1,400&amp;family=Hanken+Grotesk:wght@300;400;500;600&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body { background: #0E0A0B; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+  a { color: #A8875A; text-decoration: none; }
+  a:hover { color: #C9A97A; }
+  ::selection { background: #A8875A; color: #14100F; }
+</style>
+</helmet>
+
+<section id="1a" style="background-color:#0E0A0B; background-image:repeating-linear-gradient(128deg, rgba(168,135,90,.055) 0 1px, transparent 1px 17px); color:#E8E0CF; font-family:'Hanken Grotesk', sans-serif; font-weight:300; padding:72px 64px 120px;">
+
+  <header style="display:flex; flex-wrap:wrap; gap:36px 56px; align-items:flex-end; justify-content:space-between; max-width:1400px; margin:0 0 92px;">
+    <div style="max-width:60ch;">
+      <div style="display:flex; align-items:center; gap:16px; margin-bottom:26px;">
+        <svg width="34" height="34" viewBox="0 0 100 100" fill="none" aria-hidden="true" style="flex:0 0 auto;">
+          <path d="M 52 8 A 42 42 0 1 0 52 92 A 31 42 0 1 1 52 8 Z" fill="none" stroke="#A8875A" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"></path>
+        </svg>
+        <span style="font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:.3em; text-transform:uppercase; color:#A8875A;">1a&nbsp;·&nbsp;Back of house</span>
+      </div>
+      <h1 style="margin:0 0 20px; font-family:'Cormorant', serif; font-weight:300; font-size:76px; line-height:.94; letter-spacing:-.01em;">Crescent Moon<br>Staff App</h1>
+      <p style="margin:0; font-size:18px; line-height:1.65; color:rgba(232,224,207,.72); text-wrap:pretty;">Seven screens plus their empty, error and already-done states. Mobile-first, then the shared bar iPad. Built for a dim room, wet hands and ten-second gaps — dimmed cream on warm black, brass for the one action that matters, nothing that needs hover or precision.</p>
+    </div>
+    <div style="display:flex; flex-direction:column; gap:10px; font-family:'IBM Plex Mono', monospace; font-size:12px; letter-spacing:.1em; color:rgba(232,224,207,.5); border-left:1px solid rgba(232,224,207,.14); padding-left:26px;">
+      <span>PHONE&nbsp;&nbsp;390 × 844</span>
+      <span>IPAD&nbsp;&nbsp;&nbsp;1194 × 834 landscape</span>
+      <span>MIN TAP&nbsp;&nbsp;60 px&nbsp;/&nbsp;ROWS 76 px</span>
+      <span style="color:#A8875A;">TEXT NEVER PURE WHITE — #E8E0CF</span>
+    </div>
+  </header>
+
+  <!-- ============================= 1 · PIN LOCK ============================= -->
+  <div style="margin-bottom:96px;">
+    <div style="max-width:70ch; margin-bottom:34px;">
+      <div style="font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:.28em; text-transform:uppercase; color:#A8875A; margin-bottom:14px;">Screen 01</div>
+      <h2 style="margin:0 0 12px; font-family:'Cormorant', serif; font-weight:400; font-size:40px; line-height:1.05;">PIN lock</h2>
+      <p style="margin:0; font-size:17px; line-height:1.6; color:rgba(232,224,207,.62);">Till-style keypad, 92px keys. The PIN is the identity — no names, no usernames, nothing to pick from. Wrong-PIN shakes the dots and counts down tries; three misses parks the pad for 60 seconds without hiding the room's phone number.</p>
+    </div>
+    <div style="display:flex; flex-wrap:wrap; gap:56px;">
+
+      <!-- 1.1 resting -->
+      <div style="display:flex; flex-direction:column; gap:16px; flex:0 0 auto;">
+        <div style="width:390px; height:844px; border-radius:44px; padding:9px; background:#080506; border:1px solid rgba(232,224,207,.09); box-shadow:0 34px 80px rgba(0,0,0,.6);">
+          <div style="width:100%; height:100%; border-radius:36px; overflow:hidden; background:#14100F; color:#E8E0CF; display:flex; flex-direction:column;">
+            <div style="display:flex; justify-content:space-between; padding:18px 28px 0; font-family:'IBM Plex Mono', monospace; font-size:12px; letter-spacing:.06em; color:rgba(232,224,207,.4);"><span>21:47</span><span>84%</span></div>
+            <div style="flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:26px;">
+              <svg width="46" height="46" viewBox="0 0 100 100" fill="none" aria-hidden="true">
+                <path d="M 52 8 A 42 42 0 1 0 52 92 A 31 42 0 1 1 52 8 Z" fill="none" stroke="#A8875A" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"></path>
+              </svg>
+              <div style="text-align:center;">
+                <div style="font-family:'Cormorant', serif; font-size:34px; font-weight:300; line-height:1;">Crescent Moon</div>
+                <div style="font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:.3em; text-transform:uppercase; color:rgba(232,224,207,.42); margin-top:10px;">Staff&nbsp;·&nbsp;Enter PIN</div>
+              </div>
+              <div style="display:flex; gap:18px; margin-top:8px;">
+                <span style="width:15px; height:15px; border-radius:50%; background:#A8875A;"></span>
+                <span style="width:15px; height:15px; border-radius:50%; background:#A8875A;"></span>
+                <span style="width:15px; height:15px; border-radius:50%; background:#A8875A;"></span>
+                <span style="width:15px; height:15px; border-radius:50%; border:1px solid rgba(232,224,207,.28);"></span>
+              </div>
+            </div>
+            <div style="display:grid; grid-template-columns:repeat(3, 1fr); gap:10px; padding:0 26px 34px;">
+              <div style="height:92px; display:flex; align-items:center; justify-content:center; font-family:'IBM Plex Mono', monospace; font-size:31px; background:#1E1719; border:1px solid rgba(232,224,207,.09); border-radius:8px;">1</div>
+              <div style="height:92px; display:flex; align-items:center; justify-content:center; font-family:'IBM Plex Mono', monospace; font-size:31px; background:#1E1719; border:1px solid rgba(232,224,207,.09); border-radius:8px;">2</div>
+              <div style="height:92px; display:flex; align-items:center; justify-content:center; font-family:'IBM Plex Mono', monospace; font-size:31px; background:#1E1719; border:1px solid rgba(232,224,207,.09); border-radius:8px;">3</div>
+              <div style="height:92px; display:flex; align-items:center; justify-content:center; font-family:'IBM Plex Mono', monospace; font-size:31px; background:#1E1719; border:1px solid rgba(232,224,207,.09); border-radius:8px;">4</div>
+              <div style="height:92px; display:flex; align-items:center; justify-content:center; font-family:'IBM Plex Mono', monospace; font-size:31px; background:#1E1719; border:1px solid rgba(232,224,207,.09); border-radius:8px;">5</div>
+              <div style="height:92px; display:flex; align-items:center; justify-content:center; font-family:'IBM Plex Mono', monospace; font-size:31px; background:#1E1719; border:1px solid rgba(232,224,207,.09); border-radius:8px;">6</div>
+              <div style="height:92px; display:flex; align-items:center; justify-content:center; font-family:'IBM Plex Mono', monospace; font-size:31px; background:#1E1719; border:1px solid rgba(232,224,207,.09); border-radius:8px;">7</div>
+              <div style="height:92px; display:flex; align-items:center; justify-content:center; font-family:'IBM Plex Mono', monospace; font-size:31px; background:#1E1719; border:1px solid rgba(232,224,207,.09); border-radius:8px;">8</div>
+              <div style="height:92px; display:flex; align-items:center; justify-content:center; font-family:'IBM Plex Mono', monospace; font-size:31px; background:#1E1719; border:1px solid rgba(232,224,207,.09); border-radius:8px;">9</div>
+              <div style="height:92px;"></div>
+              <div style="height:92px; display:flex; align-items:center; justify-content:center; font-family:'IBM Plex Mono', monospace; font-size:31px; background:#1E1719; border:1px solid rgba(232,224,207,.09); border-radius:8px;">0</div>
+              <div style="height:92px; display:flex; align-items:center; justify-content:center; font-family:'IBM Plex Mono', monospace; font-size:20px; color:rgba(232,224,207,.55); border:1px solid rgba(232,224,207,.09); border-radius:8px;">DEL</div>
+            </div>
+          </div>
+        </div>
+        <div style="font-family:'IBM Plex Mono', monospace; font-size:12px; letter-spacing:.14em; text-transform:uppercase; color:rgba(232,224,207,.55);"><span style="color:#A8875A;">1.1</span>&nbsp;&nbsp;Resting</div>
+      </div>
+
+      <!-- 1.2 wrong PIN -->
+      <div style="display:flex; flex-direction:column; gap:16px; flex:0 0 auto;">
+        <div style="width:390px; height:844px; border-radius:44px; padding:9px; background:#080506; border:1px solid rgba(232,224,207,.09); box-shadow:0 34px 80px rgba(0,0,0,.6);">
+          <div style="width:100%; height:100%; border-radius:36px; overflow:hidden; background:#14100F; color:#E8E0CF; display:flex; flex-direction:column;">
+            <div style="display:flex; justify-content:space-between; padding:18px 28px 0; font-family:'IBM Plex Mono', monospace; font-size:12px; letter-spacing:.06em; color:rgba(232,224,207,.4);"><span>21:47</span><span>84%</span></div>
+            <div style="flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:26px;">
+              <svg width="46" height="46" viewBox="0 0 100 100" fill="none" aria-hidden="true">
+                <path d="M 52 8 A 42 42 0 1 0 52 92 A 31 42 0 1 1 52 8 Z" fill="none" stroke="rgba(168,135,90,.45)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"></path>
+              </svg>
+              <div style="text-align:center;">
+                <div style="font-family:'Cormorant', serif; font-size:34px; font-weight:300; line-height:1;">Crescent Moon</div>
+                <div style="font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:.3em; text-transform:uppercase; color:#B4596B; margin-top:10px;">Wrong PIN&nbsp;·&nbsp;2 tries left</div>
+              </div>
+              <div style="display:flex; gap:18px; margin-top:8px;">
+                <span style="width:15px; height:15px; border-radius:50%; border:1px solid #B4596B;"></span>
+                <span style="width:15px; height:15px; border-radius:50%; border:1px solid #B4596B;"></span>
+                <span style="width:15px; height:15px; border-radius:50%; border:1px solid #B4596B;"></span>
+                <span style="width:15px; height:15px; border-radius:50%; border:1px solid #B4596B;"></span>
+              </div>
+              <div style="font-size:15px; color:rgba(232,224,207,.5); text-align:center; max-width:26ch; line-height:1.5;">Cleared for you — start again.</div>
+            </div>
+            <div style="display:grid; grid-template-columns:repeat(3, 1fr); gap:10px; padding:0 26px 34px;">
+              <div style="height:92px; display:flex; align-items:center; justify-content:center; font-family:'IBM Plex Mono', monospace; font-size:31px; background:#1E1719; border:1px solid rgba(232,224,207,.09); border-radius:8px;">1</div>
+              <div style="height:92px; display:flex; align-items:center; justify-content:center; font-family:'IBM Plex Mono', monospace; font-size:31px; background:#1E1719; border:1px solid rgba(232,224,207,.09); border-radius:8px;">2</div>
+              <div style="height:92px; display:flex; align-items:center; justify-content:center; font-family:'IBM Plex Mono', monospace; font-size:31px; background:#1E1719; border:1px solid rgba(232,224,207,.09); border-radius:8px;">3</div>
+              <div style="height:92px; display:flex; align-items:center; justify-content:center; font-family:'IBM Plex Mono', monospace; font-size:31px; background:#1E1719; border:1px solid rgba(232,224,207,.09); border-radius:8px;">4</div>
+              <div style="height:92px; display:flex; align-items:center; justify-content:center; font-family:'IBM Plex Mono', monospace; font-size:31px; background:#1E1719; border:1px solid rgba(232,224,207,.09); border-radius:8px;">5</div>
+              <div style="height:92px; display:flex; align-items:center; justify-content:center; font-family:'IBM Plex Mono', monospace; font-size:31px; background:#1E1719; border:1px solid rgba(232,224,207,.09); border-radius:8px;">6</div>
+              <div style="height:92px; display:flex; align-items:center; justify-content:center; font-family:'IBM Plex Mono', monospace; font-size:31px; background:#1E1719; border:1px solid rgba(232,224,207,.09); border-radius:8px;">7</div>
+              <div style="height:92px; display:flex; align-items:center; justify-content:center; font-family:'IBM Plex Mono', monospace; font-size:31px; background:#1E1719; border:1px solid rgba(232,224,207,.09); border-radius:8px;">8</div>
+              <div style="height:92px; display:flex; align-items:center; justify-content:center; font-family:'IBM Plex Mono', monospace; font-size:31px; background:#1E1719; border:1px solid rgba(232,224,207,.09); border-radius:8px;">9</div>
+              <div style="height:92px;"></div>
+              <div style="height:92px; display:flex; align-items:center; justify-content:center; font-family:'IBM Plex Mono', monospace; font-size:31px; background:#1E1719; border:1px solid rgba(232,224,207,.09); border-radius:8px;">0</div>
+              <div style="height:92px; display:flex; align-items:center; justify-content:center; font-family:'IBM Plex Mono', monospace; font-size:20px; color:rgba(232,224,207,.55); border:1px solid rgba(232,224,207,.09); border-radius:8px;">DEL</div>
+            </div>
+          </div>
+        </div>
+        <div style="font-family:'IBM Plex Mono', monospace; font-size:12px; letter-spacing:.14em; text-transform:uppercase; color:rgba(232,224,207,.55);"><span style="color:#A8875A;">1.2</span>&nbsp;&nbsp;Wrong PIN</div>
+      </div>
+
+      <!-- 1.3 locked out -->
+      <div style="display:flex; flex-direction:column; gap:16px; flex:0 0 auto;">
+        <div style="width:390px; height:844px; border-radius:44px; padding:9px; background:#080506; border:1px solid rgba(232,224,207,.09); box-shadow:0 34px 80px rgba(0,0,0,.6);">
+          <div style="width:100%; height:100%; border-radius:36px; overflow:hidden; background:#14100F; color:#E8E0CF; display:flex; flex-direction:column;">
+            <div style="display:flex; justify-content:space-between; padding:18px 28px 0; font-family:'IBM Plex Mono', monospace; font-size:12px; letter-spacing:.06em; color:rgba(232,224,207,.4);"><span>21:48</span><span>84%</span></div>
+            <div style="flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:22px; padding:0 34px;">
+              <div style="width:100px; height:100px; border-radius:50%; border:1px solid rgba(180,89,107,.5); display:flex; align-items:center; justify-content:center; font-family:'Cormorant', serif; font-size:40px; font-weight:300; color:#E8E0CF;">47</div>
+              <div style="font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:.3em; text-transform:uppercase; color:#B4596B;">Locked&nbsp;·&nbsp;60 seconds</div>
+              <div style="font-family:'Cormorant', serif; font-size:32px; font-weight:300; line-height:1.15; text-align:center;">Three misses. Take a breath.</div>
+              <p style="margin:0; font-size:16px; line-height:1.6; color:rgba(232,224,207,.58); text-align:center; max-width:28ch;">The pad comes back on its own. If your PIN has gone, a manager can reset it in seconds.</p>
+            </div>
+            <div style="display:grid; grid-template-columns:repeat(3, 1fr); gap:10px; padding:0 26px 34px; opacity:.22;">
+              <div style="height:92px; background:#1E1719; border:1px solid rgba(232,224,207,.09); border-radius:8px;"></div>
+              <div style="height:92px; background:#1E1719; border:1px solid rgba(232,224,207,.09); border-radius:8px;"></div>
+              <div style="height:92px; background:#1E1719; border:1px solid rgba(232,224,207,.09); border-radius:8px;"></div>
+              <div style="height:92px; background:#1E1719; border:1px solid rgba(232,224,207,.09); border-radius:8px;"></div>
+              <div style="height:92px; background:#1E1719; border:1px solid rgba(232,224,207,.09); border-radius:8px;"></div>
+              <div style="height:92px; background:#1E1719; border:1px solid rgba(232,224,207,.09); border-radius:8px;"></div>
+              <div style="height:92px; background:#1E1719; border:1px solid rgba(232,224,207,.09); border-radius:8px;"></div>
+              <div style="height:92px; background:#1E1719; border:1px solid rgba(232,224,207,.09); border-radius:8px;"></div>
+              <div style="height:92px; background:#1E1719; border:1px solid rgba(232,224,207,.09); border-radius:8px;"></div>
+              <div style="height:92px;"></div>
+              <div style="height:92px; background:#1E1719; border:1px solid rgba(232,224,207,.09); border-radius:8px;"></div>
+              <div style="height:92px; border:1px solid rgba(232,224,207,.09); border-radius:8px;"></div>
+            </div>
+          </div>
+        </div>
+        <div style="font-family:'IBM Plex Mono', monospace; font-size:12px; letter-spacing:.14em; text-transform:uppercase; color:rgba(232,224,207,.55);"><span style="color:#A8875A;">1.3</span>&nbsp;&nbsp;Locked out 60s</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ============================= 2 · HOME ============================= -->
+  <div style="margin-bottom:96px;">
+    <div style="max-width:70ch; margin-bottom:34px;">
+      <div style="font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:.28em; text-transform:uppercase; color:#A8875A; margin-bottom:14px;">Screen 02</div>
+      <h2 style="margin:0 0 12px; font-family:'Cormorant', serif; font-weight:400; font-size:40px; line-height:1.05;">Home</h2>
+      <p style="margin:0; font-size:17px; line-height:1.6; color:rgba(232,224,207,.62);">First name, tonight's shift, then everything else as 104px tiles. The two nudges sit in their own quiet band — stated once, no badges, no red, no count that grows. When there's nothing to nudge about, the band says so in one sage line and gets out of the way.</p>
+    </div>
+    <div style="display:flex; flex-wrap:wrap; gap:56px;">
+
+      <!-- 2.1 home, rostered, two nudges -->
+      <div style="display:flex; flex-direction:column; gap:16px; flex:0 0 auto;">
+        <div style="width:390px; height:844px; border-radius:44px; padding:9px; background:#080506; border:1px solid rgba(232,224,207,.09); box-shadow:0 34px 80px rgba(0,0,0,.6);">
+          <div style="width:100%; height:100%; border-radius:36px; overflow:hidden; background:#14100F; color:#E8E0CF; display:flex; flex-direction:column;">
+            <div style="display:flex; justify-content:space-between; padding:18px 28px 0; font-family:'IBM Plex Mono', monospace; font-size:12px; letter-spacing:.06em; color:rgba(232,224,207,.4);"><span>21:47</span><span>84%</span></div>
+
+            <div style="flex:1; overflow:hidden; display:flex; flex-direction:column; padding:18px 24px 0;">
+              <div style="font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:.24em; text-transform:uppercase; color:rgba(232,224,207,.45);">Fri 24 Jul&nbsp;·&nbsp;21:47</div>
+              <h3 style="margin:6px 0 16px; font-family:'Cormorant', serif; font-weight:300; font-size:42px; line-height:1;">Evening, Priya</h3>
+
+              <div style="border:1px solid rgba(168,135,90,.38); background:rgba(168,135,90,.07); padding:14px 20px; margin-bottom:16px;">
+                <div style="display:flex; justify-content:space-between; align-items:baseline; margin-bottom:8px;">
+                  <span style="font-family:'IBM Plex Mono', monospace; font-size:10.5px; letter-spacing:.26em; text-transform:uppercase; color:#A8875A;">Tonight</span>
+                  <span style="font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:rgba(232,224,207,.55);">Bar&nbsp;·&nbsp;Close</span>
+                </div>
+                <div style="font-family:'Cormorant', serif; font-size:30px; font-weight:400; line-height:1;">17:00 → 01:00</div>
+                <div style="font-size:15px; color:rgba(232,224,207,.6); margin-top:6px;">Sam on floor till 22:00, then it's you.</div>
+              </div>
+
+              <div style="font-family:'IBM Plex Mono', monospace; font-size:10.5px; letter-spacing:.26em; text-transform:uppercase; color:rgba(232,224,207,.42); margin-bottom:6px;">Worth knowing</div>
+              <div style="display:flex; flex-direction:column; border-top:1px solid rgba(232,224,207,.1);">
+                <div style="display:flex; align-items:center; gap:14px; height:76px; border-bottom:1px solid rgba(232,224,207,.1);">
+                  <span style="width:9px; height:9px; background:#A8875A; flex:0 0 auto;"></span>
+                  <div style="flex:1;">
+                    <div style="font-size:18px; line-height:1.25;">Lockdown checklist not started</div>
+                    <div style="font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:.1em; color:rgba(232,224,207,.42); margin-top:4px;">18 ITEMS&nbsp;·&nbsp;ABOUT 12 MIN</div>
+                  </div>
+                  <span style="font-size:24px; color:rgba(232,224,207,.35);">›</span>
+                </div>
+                <div style="display:flex; align-items:center; gap:14px; height:76px; border-bottom:1px solid rgba(232,224,207,.1);">
+                  <span style="width:9px; height:9px; background:#B4596B; flex:0 0 auto;"></span>
+                  <div style="flex:1;">
+                    <div style="font-size:18px; line-height:1.25;">3 items flagged low</div>
+                    <div style="font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:.1em; color:rgba(232,224,207,.42); margin-top:2px;">SINCE 21:02</div>
+                  </div>
+                  <span style="font-size:24px; color:rgba(232,224,207,.35);">›</span>
+                </div>
+              </div>
+
+              <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:16px;">
+                <div style="height:88px; background:#1B1518; border:1px solid rgba(232,224,207,.09); padding:14px; display:flex; flex-direction:column; justify-content:space-between;">
+                  <span style="font-family:'Cormorant', serif; font-size:26px; line-height:1;">Bookings</span>
+                  <span style="font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:.1em; color:rgba(232,224,207,.45);">6 TABLES&nbsp;·&nbsp;20 COVERS</span>
+                </div>
+                <div style="height:88px; background:#1B1518; border:1px solid rgba(232,224,207,.09); padding:14px; display:flex; flex-direction:column; justify-content:space-between;">
+                  <span style="font-family:'Cormorant', serif; font-size:26px; line-height:1;">Lockdown</span>
+                  <span style="font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:.1em; color:#A8875A;">NOT STARTED</span>
+                </div>
+                <div style="height:88px; background:#1B1518; border:1px solid rgba(232,224,207,.09); padding:14px; display:flex; flex-direction:column; justify-content:space-between;">
+                  <span style="font-family:'Cormorant', serif; font-size:26px; line-height:1;">My rota</span>
+                  <span style="font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:.1em; color:rgba(232,224,207,.45);">28H 30M THIS WEEK</span>
+                </div>
+                <div style="height:88px; background:#1B1518; border:1px solid rgba(232,224,207,.09); padding:14px; display:flex; flex-direction:column; justify-content:space-between;">
+                  <span style="font-family:'Cormorant', serif; font-size:26px; line-height:1;">Low stock</span>
+                  <span style="font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:.1em; color:rgba(232,224,207,.45);">3 FLAGGED</span>
+                </div>
+                <div style="grid-column:span 2; height:72px; background:#1B1518; border:1px solid rgba(232,224,207,.09); padding:0 18px; display:flex; align-items:center; justify-content:space-between;">
+                  <span style="font-family:'Cormorant', serif; font-size:26px; line-height:1;">Clock in</span>
+                  <span style="font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:rgba(232,224,207,.4);">Optional</span>
+                </div>
+              </div>
+            </div>
+
+            <div style="padding:14px 24px 22px; flex:0 0 auto;">
+              <div style="height:72px; border:1px solid rgba(232,224,207,.24); display:flex; align-items:center; justify-content:center; gap:12px; font-family:'IBM Plex Mono', monospace; font-size:13px; letter-spacing:.24em; text-transform:uppercase; color:rgba(232,224,207,.8);">
+                <span style="width:11px; height:11px; border:1.5px solid rgba(232,224,207,.7); border-radius:2px;"></span>Lock
+              </div>
+            </div>
+          </div>
+        </div>
+        <div style="font-family:'IBM Plex Mono', monospace; font-size:12px; letter-spacing:.14em; text-transform:uppercase; color:rgba(232,224,207,.55);"><span style="color:#A8875A;">2.1</span>&nbsp;&nbsp;Rostered&nbsp;·&nbsp;two nudges</div>
+      </div>
+
+      <!-- 2.2 home, not rostered, all clear -->
+      <div style="display:flex; flex-direction:column; gap:16px; flex:0 0 auto;">
+        <div style="width:390px; height:844px; border-radius:44px; padding:9px; background:#080506; border:1px solid rgba(232,224,207,.09); box-shadow:0 34px 80px rgba(0,0,0,.6);">
+          <div style="width:100%; height:100%; border-radius:36px; overflow:hidden; background:#14100F; color:#E8E0CF; display:flex; flex-direction:column;">
+            <div style="display:flex; justify-content:space-between; padding:18px 28px 0; font-family:'IBM Plex Mono', monospace; font-size:12px; letter-spacing:.06em; color:rgba(232,224,207,.4);"><span>11:40</span><span>62%</span></div>
+
+            <div style="flex:1; overflow:hidden; display:flex; flex-direction:column; padding:18px 24px 0;">
+              <div style="font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:.24em; text-transform:uppercase; color:rgba(232,224,207,.45);">Wed 22 Jul&nbsp;·&nbsp;11:40</div>
+              <h3 style="margin:6px 0 16px; font-family:'Cormorant', serif; font-weight:300; font-size:42px; line-height:1;">Morning, Dan</h3>
+
+              <div style="border:1px solid rgba(232,224,207,.12); padding:14px 20px; margin-bottom:16px;">
+                <div style="font-family:'IBM Plex Mono', monospace; font-size:10.5px; letter-spacing:.26em; text-transform:uppercase; color:rgba(232,224,207,.42); margin-bottom:8px;">Tonight</div>
+                <div style="font-family:'Cormorant', serif; font-size:30px; font-weight:400; line-height:1.1; color:rgba(232,224,207,.8);">You're not on.</div>
+                <div style="font-size:15px; color:rgba(232,224,207,.55); margin-top:8px;">Next shift Friday, 12:00.</div>
+              </div>
+
+              <div style="font-family:'IBM Plex Mono', monospace; font-size:10.5px; letter-spacing:.26em; text-transform:uppercase; color:rgba(232,224,207,.42); margin-bottom:6px;">Worth knowing</div>
+              <div style="display:flex; align-items:center; gap:14px; min-height:78px; border-top:1px solid rgba(232,224,207,.1); border-bottom:1px solid rgba(232,224,207,.1); padding:16px 0;">
+                <span style="width:9px; height:9px; background:#6E7F68; flex:0 0 auto;"></span>
+                <div style="flex:1;">
+                  <div style="font-size:18px; line-height:1.3; color:rgba(232,224,207,.86);">All square. Last night was locked at 00:12 and nothing's flagged.</div>
+                </div>
+              </div>
+
+              <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:16px;">
+                <div style="height:88px; background:#1B1518; border:1px solid rgba(232,224,207,.09); padding:14px; display:flex; flex-direction:column; justify-content:space-between;">
+                  <span style="font-family:'Cormorant', serif; font-size:26px; line-height:1;">Bookings</span>
+                  <span style="font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:.1em; color:rgba(232,224,207,.45);">2 TABLES&nbsp;·&nbsp;6 COVERS</span>
+                </div>
+                <div style="height:88px; background:#1B1518; border:1px solid rgba(232,224,207,.09); padding:14px; display:flex; flex-direction:column; justify-content:space-between;">
+                  <span style="font-family:'Cormorant', serif; font-size:26px; line-height:1;">Lockdown</span>
+                  <span style="font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:.1em; color:#6E7F68;">SUBMITTED 00:12</span>
+                </div>
+                <div style="height:88px; background:#1B1518; border:1px solid rgba(232,224,207,.09); padding:14px; display:flex; flex-direction:column; justify-content:space-between;">
+                  <span style="font-family:'Cormorant', serif; font-size:26px; line-height:1;">My rota</span>
+                  <span style="font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:.1em; color:rgba(232,224,207,.45);">16H THIS WEEK</span>
+                </div>
+                <div style="height:88px; background:#1B1518; border:1px solid rgba(232,224,207,.09); padding:14px; display:flex; flex-direction:column; justify-content:space-between;">
+                  <span style="font-family:'Cormorant', serif; font-size:26px; line-height:1;">Low stock</span>
+                  <span style="font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:.1em; color:rgba(232,224,207,.45);">NOTHING FLAGGED</span>
+                </div>
+                <div style="grid-column:span 2; height:72px; background:#1B1518; border:1px solid rgba(232,224,207,.09); padding:0 18px; display:flex; align-items:center; justify-content:space-between;">
+                  <span style="font-family:'Cormorant', serif; font-size:26px; line-height:1;">Clock in</span>
+                  <span style="font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:rgba(232,224,207,.4);">Optional</span>
+                </div>
+              </div>
+            </div>
+
+            <div style="padding:14px 24px 22px; flex:0 0 auto;">
+              <div style="height:72px; border:1px solid rgba(232,224,207,.24); display:flex; align-items:center; justify-content:center; gap:12px; font-family:'IBM Plex Mono', monospace; font-size:13px; letter-spacing:.24em; text-transform:uppercase; color:rgba(232,224,207,.8);">
+                <span style="width:11px; height:11px; border:1.5px solid rgba(232,224,207,.7); border-radius:2px;"></span>Lock
+              </div>
+            </div>
+          </div>
+        </div>
+        <div style="font-family:'IBM Plex Mono', monospace; font-size:12px; letter-spacing:.14em; text-transform:uppercase; color:rgba(232,224,207,.55);"><span style="color:#A8875A;">2.2</span>&nbsp;&nbsp;Not rostered&nbsp;·&nbsp;all clear</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ============================= 3 · MY ROTA ============================= -->
+  <div style="margin-bottom:96px;">
+    <div style="max-width:70ch; margin-bottom:34px;">
+      <div style="font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:.28em; text-transform:uppercase; color:#A8875A; margin-bottom:14px;">Screen 03</div>
+      <h2 style="margin:0 0 12px; font-family:'Cormorant', serif; font-weight:400; font-size:40px; line-height:1.05;">My rota</h2>
+      <p style="margin:0; font-size:17px; line-height:1.6; color:rgba(232,224,207,.62);">Your own week in serif, the rest of the team behind a 60px toggle. Split shifts stack as two slots in one day. Anything ending after midnight prints the day it ends — never a bare "01:00" you have to work out. Per-shift notes sit under the slot; per-day notes span the row in sage.</p>
+    </div>
+    <div style="display:flex; flex-wrap:wrap; gap:56px;">
+
+      <!-- 3.1 mine -->
+      <div style="display:flex; flex-direction:column; gap:16px; flex:0 0 auto;">
+        <div style="width:390px; height:844px; border-radius:44px; padding:9px; background:#080506; border:1px solid rgba(232,224,207,.09); box-shadow:0 34px 80px rgba(0,0,0,.6);">
+          <div style="width:100%; height:100%; border-radius:36px; overflow:hidden; background:#14100F; color:#E8E0CF; display:flex; flex-direction:column;">
+            <div style="display:flex; justify-content:space-between; padding:18px 28px 0; font-family:'IBM Plex Mono', monospace; font-size:12px; letter-spacing:.06em; color:rgba(232,224,207,.4);"><span>21:47</span><span>84%</span></div>
+            <div style="display:flex; align-items:center; gap:8px; height:64px; padding:0 18px 0 12px; flex:0 0 auto;">
+              <span style="width:60px; height:60px; display:flex; align-items:center; justify-content:center; font-size:26px; color:rgba(232,224,207,.7);">←</span>
+              <span style="flex:1; font-family:'IBM Plex Mono', monospace; font-size:12px; letter-spacing:.26em; text-transform:uppercase; color:rgba(232,224,207,.6);">My rota</span>
+              <span style="font-family:'IBM Plex Mono', monospace; font-size:14px; letter-spacing:.06em; color:#A8875A;">28h 30m</span>
+            </div>
+
+            <div style="display:flex; gap:6px; padding:6px 20px 18px; flex:0 0 auto;">
+              <div style="flex:1; height:60px; display:flex; align-items:center; justify-content:center; background:rgba(168,135,90,.16); border:1px solid #A8875A; font-family:'IBM Plex Mono', monospace; font-size:13px; letter-spacing:.2em; text-transform:uppercase;">Mine</div>
+              <div style="flex:1; height:60px; display:flex; align-items:center; justify-content:center; border:1px solid rgba(232,224,207,.14); font-family:'IBM Plex Mono', monospace; font-size:13px; letter-spacing:.2em; text-transform:uppercase; color:rgba(232,224,207,.55);">Team</div>
+            </div>
+
+            <div style="flex:1; overflow:hidden; padding:0 20px;">
+              <div style="font-family:'IBM Plex Mono', monospace; font-size:10.5px; letter-spacing:.26em; text-transform:uppercase; color:rgba(232,224,207,.4); padding-bottom:10px; border-bottom:1px solid rgba(232,224,207,.12);">Mon 20 – Sun 26 Jul</div>
+
+              <div style="display:flex; gap:16px; padding:14px 0; border-bottom:1px solid rgba(232,224,207,.1);">
+                <div style="flex:0 0 62px; font-family:'IBM Plex Mono', monospace; font-size:12px; letter-spacing:.12em; text-transform:uppercase; color:rgba(232,224,207,.4); padding-top:5px;">Mon 20<br><span style="color:rgba(232,224,207,.28);">Tue 21</span></div>
+                <div style="flex:1; font-family:'Cormorant', serif; font-size:24px; color:rgba(232,224,207,.42); padding-top:2px;">Closed</div>
+              </div>
+
+              <div style="display:flex; gap:16px; padding:14px 0; border-bottom:1px solid rgba(232,224,207,.1);">
+                <div style="flex:0 0 62px; font-family:'IBM Plex Mono', monospace; font-size:12px; letter-spacing:.12em; text-transform:uppercase; color:rgba(232,224,207,.62); padding-top:6px;">Wed 22</div>
+                <div style="flex:1;">
+                  <div style="display:flex; justify-content:space-between; align-items:baseline; gap:12px;">
+                    <span style="font-family:'Cormorant', serif; font-size:27px; line-height:1.1;">17:00 → 00:30</span>
+                    <span style="font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:rgba(232,224,207,.5);">Bar</span>
+                  </div>
+                  <div style="font-family:'IBM Plex Mono', monospace; font-size:10.5px; letter-spacing:.1em; text-transform:uppercase; color:rgba(232,224,207,.58); margin-top:3px;">Ends Thu</div>
+                  <div style="font-size:15px; color:rgba(232,224,207,.6); margin-top:6px;">Deep clean the back fridges before service.</div>
+                </div>
+              </div>
+
+              <div style="display:flex; gap:16px; padding:14px 0; border-bottom:1px solid rgba(232,224,207,.1);">
+                <div style="flex:0 0 62px; font-family:'IBM Plex Mono', monospace; font-size:12px; letter-spacing:.12em; text-transform:uppercase; color:rgba(232,224,207,.4); padding-top:5px;">Thu 23</div>
+                <div style="flex:1; font-family:'Cormorant', serif; font-size:24px; color:rgba(232,224,207,.42); padding-top:2px;">Off</div>
+              </div>
+
+              <div style="display:flex; gap:16px; padding:14px 0; border-bottom:1px solid rgba(232,224,207,.1); background:rgba(168,135,90,.05);">
+                <div style="flex:0 0 62px; font-family:'IBM Plex Mono', monospace; font-size:12px; letter-spacing:.12em; text-transform:uppercase; color:#A8875A; padding-top:6px;">Fri 24<br><span style="font-size:10px; letter-spacing:.14em; color:rgba(168,135,90,.75);">Today</span></div>
+                <div style="flex:1;">
+                  <div style="display:flex; justify-content:space-between; align-items:baseline; gap:12px;">
+                    <span style="font-family:'Cormorant', serif; font-size:27px; line-height:1.1;">12:00 → 16:00</span>
+                    <span style="font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:rgba(232,224,207,.5);">Floor</span>
+                  </div>
+                  <div style="height:1px; background:rgba(232,224,207,.1); margin:14px 0;"></div>
+                  <div style="display:flex; justify-content:space-between; align-items:baseline; gap:12px;">
+                    <span style="font-family:'Cormorant', serif; font-size:27px; line-height:1.1;">18:00 → 01:00</span>
+                    <span style="font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:rgba(232,224,207,.5);">Bar&nbsp;·&nbsp;Close</span>
+                  </div>
+                  <div style="font-family:'IBM Plex Mono', monospace; font-size:10.5px; letter-spacing:.1em; text-transform:uppercase; color:rgba(232,224,207,.58); margin-top:3px;">Ends Sat&nbsp;·&nbsp;Split shift, 11h paid</div>
+                  <div style="display:flex; gap:10px; margin-top:12px; padding-top:12px; border-top:1px solid rgba(110,127,104,.35);">
+                    <span style="width:8px; height:8px; background:#6E7F68; margin-top:7px; flex:0 0 auto;"></span>
+                    <span style="font-family:'Cormorant', serif; font-style:italic; font-size:20px; line-height:1.3; color:#9FAF97;">1st England game — expect a rush from 19:30.</span>
+                  </div>
+                </div>
+              </div>
+
+              <div style="display:flex; gap:16px; padding:14px 0; border-bottom:1px solid rgba(232,224,207,.1);">
+                <div style="flex:0 0 62px; font-family:'IBM Plex Mono', monospace; font-size:12px; letter-spacing:.12em; text-transform:uppercase; color:rgba(232,224,207,.62); padding-top:6px;">Sat 25</div>
+                <div style="flex:1;">
+                  <div style="display:flex; justify-content:space-between; align-items:baseline; gap:12px;">
+                    <span style="font-family:'Cormorant', serif; font-size:27px; line-height:1.1;">18:00 → 01:30</span>
+                    <span style="font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:rgba(232,224,207,.5);">Bar&nbsp;·&nbsp;Close</span>
+                  </div>
+                  <div style="font-family:'IBM Plex Mono', monospace; font-size:10.5px; letter-spacing:.1em; text-transform:uppercase; color:rgba(232,224,207,.58); margin-top:3px;">Ends Sun</div>
+                </div>
+              </div>
+
+              <div style="display:flex; gap:16px; padding:14px 0;">
+                <div style="flex:0 0 62px; font-family:'IBM Plex Mono', monospace; font-size:12px; letter-spacing:.12em; text-transform:uppercase; color:rgba(232,224,207,.62); padding-top:6px;">Sun 26</div>
+                <div style="flex:1;">
+                  <div style="display:flex; justify-content:space-between; align-items:baseline; gap:12px;">
+                    <span style="font-family:'Cormorant', serif; font-size:27px; line-height:1.1;">12:00 → 18:00</span>
+                    <span style="font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:rgba(232,224,207,.5);">Soul Night</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div style="font-family:'IBM Plex Mono', monospace; font-size:12px; letter-spacing:.14em; text-transform:uppercase; color:rgba(232,224,207,.55);"><span style="color:#A8875A;">3.1</span>&nbsp;&nbsp;Mine&nbsp;·&nbsp;split shift + notes</div>
+      </div>
+
+      <!-- 3.2 team -->
+      <div style="display:flex; flex-direction:column; gap:16px; flex:0 0 auto;">
+        <div style="width:390px; height:844px; border-radius:44px; padding:9px; background:#080506; border:1px solid rgba(232,224,207,.09); box-shadow:0 34px 80px rgba(0,0,0,.6);">
+          <div style="width:100%; height:100%; border-radius:36px; overflow:hidden; background:#14100F; color:#E8E0CF; display:flex; flex-direction:column;">
+            <div style="display:flex; justify-content:space-between; padding:18px 28px 0; font-family:'IBM Plex Mono', monospace; font-size:12px; letter-spacing:.06em; color:rgba(232,224,207,.4);"><span>21:48</span><span>84%</span></div>
+            <div style="display:flex; align-items:center; gap:8px; height:64px; padding:0 18px 0 12px; flex:0 0 auto;">
+              <span style="width:60px; height:60px; display:flex; align-items:center; justify-content:center; font-size:26px; color:rgba(232,224,207,.7);">←</span>
+              <span style="flex:1; font-family:'IBM Plex Mono', monospace; font-size:12px; letter-spacing:.26em; text-transform:uppercase; color:rgba(232,224,207,.6);">Team rota</span>
+              <span style="font-family:'IBM Plex Mono', monospace; font-size:14px; letter-spacing:.06em; color:rgba(232,224,207,.4);">8 staff</span>
+            </div>
+
+            <div style="display:flex; gap:6px; padding:6px 20px 18px; flex:0 0 auto;">
+              <div style="flex:1; height:60px; display:flex; align-items:center; justify-content:center; border:1px solid rgba(232,224,207,.14); font-family:'IBM Plex Mono', monospace; font-size:13px; letter-spacing:.2em; text-transform:uppercase; color:rgba(232,224,207,.55);">Mine</div>
+              <div style="flex:1; height:60px; display:flex; align-items:center; justify-content:center; background:rgba(168,135,90,.16); border:1px solid #A8875A; font-family:'IBM Plex Mono', monospace; font-size:13px; letter-spacing:.2em; text-transform:uppercase;">Team</div>
+            </div>
+
+            <div style="flex:1; overflow:hidden; padding:0 20px;">
+              <div style="font-family:'IBM Plex Mono', monospace; font-size:10.5px; letter-spacing:.26em; text-transform:uppercase; color:rgba(232,224,207,.4); padding-bottom:10px; border-bottom:1px solid rgba(232,224,207,.12);">Mon 20 – Sun 26 Jul</div>
+
+              <div style="padding:16px 0 6px; font-family:'IBM Plex Mono', monospace; font-size:12px; letter-spacing:.16em; text-transform:uppercase; color:#A8875A;">Fri 24&nbsp;·&nbsp;Today</div>
+              <div style="border-top:1px solid rgba(232,224,207,.1);">
+                <div style="display:flex; align-items:center; gap:12px; height:62px; border-bottom:1px solid rgba(232,224,207,.08);">
+                  <span style="flex:1; font-family:'Cormorant', serif; font-size:24px;">Priya <span style="font-family:'IBM Plex Mono', monospace; font-size:10px; letter-spacing:.14em; color:#A8875A; text-transform:uppercase;">you</span></span>
+                  <span style="font-family:'IBM Plex Mono', monospace; font-size:13px; color:rgba(232,224,207,.72);">12–16&nbsp;·&nbsp;18–01</span>
+                </div>
+                <div style="display:flex; align-items:center; gap:12px; height:62px; border-bottom:1px solid rgba(232,224,207,.08);">
+                  <span style="flex:1; font-family:'Cormorant', serif; font-size:24px;">Sam</span>
+                  <span style="font-family:'IBM Plex Mono', monospace; font-size:13px; color:rgba(232,224,207,.72);">17–22</span>
+                </div>
+                <div style="display:flex; align-items:center; gap:12px; height:62px; border-bottom:1px solid rgba(232,224,207,.08);">
+                  <span style="flex:1; font-family:'Cormorant', serif; font-size:24px;">Mia</span>
+                  <span style="font-family:'IBM Plex Mono', monospace; font-size:13px; color:rgba(232,224,207,.72);">18–01</span>
+                </div>
+                <div style="display:flex; align-items:center; gap:12px; height:62px; border-bottom:1px solid rgba(232,224,207,.08);">
+                  <span style="flex:1; font-family:'Cormorant', serif; font-size:24px;">Tom</span>
+                  <span style="font-family:'IBM Plex Mono', monospace; font-size:13px; color:rgba(232,224,207,.72);">19–01:30</span>
+                </div>
+                <div style="display:flex; gap:10px; padding:12px 0 14px;">
+                  <span style="width:8px; height:8px; background:#6E7F68; margin-top:7px; flex:0 0 auto;"></span>
+                  <span style="font-family:'Cormorant', serif; font-style:italic; font-size:20px; line-height:1.3; color:#9FAF97;">1st England game — expect a rush from 19:30.</span>
+                </div>
+              </div>
+
+              <div style="padding:10px 0 6px; font-family:'IBM Plex Mono', monospace; font-size:12px; letter-spacing:.16em; text-transform:uppercase; color:rgba(232,224,207,.5);">Sat 25</div>
+              <div style="border-top:1px solid rgba(232,224,207,.1);">
+                <div style="display:flex; align-items:center; gap:12px; height:62px; border-bottom:1px solid rgba(232,224,207,.08);">
+                  <span style="flex:1; font-family:'Cormorant', serif; font-size:24px;">Priya <span style="font-family:'IBM Plex Mono', monospace; font-size:10px; letter-spacing:.14em; color:#A8875A; text-transform:uppercase;">you</span></span>
+                  <span style="font-family:'IBM Plex Mono', monospace; font-size:13px; color:rgba(232,224,207,.72);">18–01:30</span>
+                </div>
+                <div style="display:flex; align-items:center; gap:12px; height:62px; border-bottom:1px solid rgba(232,224,207,.08);">
+                  <span style="flex:1; font-family:'Cormorant', serif; font-size:24px;">Dan</span>
+                  <span style="font-family:'IBM Plex Mono', monospace; font-size:13px; color:rgba(232,224,207,.72);">12–18</span>
+                </div>
+                <div style="display:flex; align-items:center; gap:12px; height:62px;">
+                  <span style="flex:1; font-family:'Cormorant', serif; font-size:24px;">Mia</span>
+                  <span style="font-family:'IBM Plex Mono', monospace; font-size:13px; color:rgba(232,224,207,.72);">18–01:30</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div style="font-family:'IBM Plex Mono', monospace; font-size:12px; letter-spacing:.14em; text-transform:uppercase; color:rgba(232,224,207,.55);"><span style="color:#A8875A;">3.2</span>&nbsp;&nbsp;Whole team</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ============================= 4 · BOOKINGS ============================= -->
+  <div style="margin-bottom:96px;">
+    <div style="max-width:70ch; margin-bottom:34px;">
+      <div style="font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:.28em; text-transform:uppercase; color:#A8875A; margin-bottom:14px;">Screen 04</div>
+      <h2 style="margin:0 0 12px; font-family:'Cormorant', serif; font-weight:400; font-size:40px; line-height:1.05;">Bookings</h2>
+      <p style="margin:0; font-size:17px; line-height:1.6; color:rgba(232,224,207,.62);">Three columns and nothing else: time, name, party size. No email, no phone, no way to tap through to one — the footnote says so out loud so nobody hunts for it. Read-only, so a wet thumb can't change the night.</p>
+    </div>
+    <div style="display:flex; flex-wrap:wrap; gap:56px;">
+
+      <!-- 4.1 tonight -->
+      <div style="display:flex; flex-direction:column; gap:16px; flex:0 0 auto;">
+        <div style="width:390px; height:844px; border-radius:44px; padding:9px; background:#080506; border:1px solid rgba(232,224,207,.09); box-shadow:0 34px 80px rgba(0,0,0,.6);">
+          <div style="width:100%; height:100%; border-radius:36px; overflow:hidden; background:#14100F; color:#E8E0CF; display:flex; flex-direction:column;">
+            <div style="display:flex; justify-content:space-between; padding:18px 28px 0; font-family:'IBM Plex Mono', monospace; font-size:12px; letter-spacing:.06em; color:rgba(232,224,207,.4);"><span>21:47</span><span>84%</span></div>
+            <div style="display:flex; align-items:center; gap:8px; height:64px; padding:0 18px 0 12px; flex:0 0 auto;">
+              <span style="width:60px; height:60px; display:flex; align-items:center; justify-content:center; font-size:26px; color:rgba(232,224,207,.7);">←</span>
+              <span style="flex:1; font-family:'IBM Plex Mono', monospace; font-size:12px; letter-spacing:.26em; text-transform:uppercase; color:rgba(232,224,207,.6);">Bookings</span>
+              <span style="font-family:'IBM Plex Mono', monospace; font-size:14px; letter-spacing:.06em; color:#A8875A;">20 covers</span>
+            </div>
+
+            <div style="padding:8px 24px 14px; flex:0 0 auto;">
+              <div style="font-family:'Cormorant', serif; font-size:34px; font-weight:300; line-height:1;">Tonight</div>
+              <div style="font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:.22em; text-transform:uppercase; color:rgba(232,224,207,.45); margin-top:8px;">Fri 24 Jul&nbsp;·&nbsp;6 tables</div>
+            </div>
+
+            <div style="flex:1; overflow:hidden; padding:0 24px;">
+              <div style="border-top:1px solid rgba(232,224,207,.12);">
+                <div style="display:flex; align-items:center; gap:16px; height:84px; border-bottom:1px solid rgba(232,224,207,.1); opacity:.45;">
+                  <span style="flex:0 0 62px; font-family:'IBM Plex Mono', monospace; font-size:20px;">18:30</span>
+                  <span style="flex:1; font-family:'Cormorant', serif; font-size:26px;">Halliwell</span>
+                  <span style="font-family:'IBM Plex Mono', monospace; font-size:16px; color:rgba(232,224,207,.7);">2</span>
+                </div>
+                <div style="display:flex; align-items:center; gap:16px; height:84px; border-bottom:1px solid rgba(232,224,207,.1); opacity:.45;">
+                  <span style="flex:0 0 62px; font-family:'IBM Plex Mono', monospace; font-size:20px;">19:00</span>
+                  <span style="flex:1; font-family:'Cormorant', serif; font-size:26px;">Okafor</span>
+                  <span style="font-family:'IBM Plex Mono', monospace; font-size:16px; color:rgba(232,224,207,.7);">4</span>
+                </div>
+                <div style="display:flex; align-items:center; gap:16px; height:84px; border-bottom:1px solid rgba(232,224,207,.1);">
+                  <span style="flex:0 0 62px; font-family:'IBM Plex Mono', monospace; font-size:20px; color:#A8875A;">19:30</span>
+                  <span style="flex:1; font-family:'Cormorant', serif; font-size:26px;">Bennett</span>
+                  <span style="font-family:'IBM Plex Mono', monospace; font-size:16px; color:rgba(232,224,207,.7);">2</span>
+                </div>
+                <div style="display:flex; align-items:center; gap:16px; height:84px; border-bottom:1px solid rgba(232,224,207,.1);">
+                  <span style="flex:0 0 62px; font-family:'IBM Plex Mono', monospace; font-size:20px; color:#A8875A;">20:00</span>
+                  <span style="flex:1; font-family:'Cormorant', serif; font-size:26px;">Kaur</span>
+                  <span style="font-family:'IBM Plex Mono', monospace; font-size:16px; color:rgba(232,224,207,.7);">6</span>
+                </div>
+                <div style="display:flex; align-items:center; gap:16px; height:84px; border-bottom:1px solid rgba(232,224,207,.1);">
+                  <span style="flex:0 0 62px; font-family:'IBM Plex Mono', monospace; font-size:20px; color:#A8875A;">21:15</span>
+                  <span style="flex:1; font-family:'Cormorant', serif; font-size:26px;">Ferreira</span>
+                  <span style="font-family:'IBM Plex Mono', monospace; font-size:16px; color:rgba(232,224,207,.7);">4</span>
+                </div>
+                <div style="display:flex; align-items:center; gap:16px; height:84px; border-bottom:1px solid rgba(232,224,207,.1);">
+                  <span style="flex:0 0 62px; font-family:'IBM Plex Mono', monospace; font-size:20px; color:#A8875A;">22:00</span>
+                  <span style="flex:1; font-family:'Cormorant', serif; font-size:26px;">Whitmore</span>
+                  <span style="font-family:'IBM Plex Mono', monospace; font-size:16px; color:rgba(232,224,207,.7);">2</span>
+                </div>
+              </div>
+              <div style="font-family:'IBM Plex Mono', monospace; font-size:10.5px; letter-spacing:.14em; text-transform:uppercase; color:rgba(232,224,207,.34); line-height:1.7; margin-top:20px;">Dimmed = time passed.<br>No guest emails or numbers in here — ask a manager.</div>
+            </div>
+          </div>
+        </div>
+        <div style="font-family:'IBM Plex Mono', monospace; font-size:12px; letter-spacing:.14em; text-transform:uppercase; color:rgba(232,224,207,.55);"><span style="color:#A8875A;">4.1</span>&nbsp;&nbsp;Tonight</div>
+      </div>
+
+      <!-- 4.2 empty -->
+      <div style="display:flex; flex-direction:column; gap:16px; flex:0 0 auto;">
+        <div style="width:390px; height:844px; border-radius:44px; padding:9px; background:#080506; border:1px solid rgba(232,224,207,.09); box-shadow:0 34px 80px rgba(0,0,0,.6);">
+          <div style="width:100%; height:100%; border-radius:36px; overflow:hidden; background:#14100F; color:#E8E0CF; display:flex; flex-direction:column;">
+            <div style="display:flex; justify-content:space-between; padding:18px 28px 0; font-family:'IBM Plex Mono', monospace; font-size:12px; letter-spacing:.06em; color:rgba(232,224,207,.4);"><span>18:12</span><span>91%</span></div>
+            <div style="display:flex; align-items:center; gap:8px; height:64px; padding:0 18px 0 12px; flex:0 0 auto;">
+              <span style="width:60px; height:60px; display:flex; align-items:center; justify-content:center; font-size:26px; color:rgba(232,224,207,.7);">←</span>
+              <span style="flex:1; font-family:'IBM Plex Mono', monospace; font-size:12px; letter-spacing:.26em; text-transform:uppercase; color:rgba(232,224,207,.6);">Bookings</span>
+              <span style="font-family:'IBM Plex Mono', monospace; font-size:14px; letter-spacing:.06em; color:rgba(232,224,207,.4);">0 covers</span>
+            </div>
+            <div style="flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:18px; padding:0 40px 80px; text-align:center;">
+              <svg width="34" height="34" viewBox="0 0 100 100" fill="none" aria-hidden="true">
+                <path d="M 52 8 A 42 42 0 1 0 52 92 A 31 42 0 1 1 52 8 Z" fill="none" stroke="rgba(168,135,90,.5)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"></path>
+              </svg>
+              <div style="font-family:'Cormorant', serif; font-size:36px; font-weight:300; line-height:1.1;">No bookings tonight</div>
+              <p style="margin:0; font-size:16px; line-height:1.6; color:rgba(232,224,207,.58); max-width:26ch;">Walk-ins only. Keep the two window tables free until 20:00 and see what the street brings.</p>
+              <div style="font-family:'IBM Plex Mono', monospace; font-size:10.5px; letter-spacing:.18em; text-transform:uppercase; color:rgba(232,224,207,.55); margin-top:6px;">Wed 22 Jul</div>
+            </div>
+          </div>
+        </div>
+        <div style="font-family:'IBM Plex Mono', monospace; font-size:12px; letter-spacing:.14em; text-transform:uppercase; color:rgba(232,224,207,.55);"><span style="color:#A8875A;">4.2</span>&nbsp;&nbsp;Empty&nbsp;·&nbsp;walk-ins only</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ============================= 5 · LOCKDOWN ============================= -->
+  <div style="margin-bottom:96px;">
+    <div style="max-width:70ch; margin-bottom:34px;">
+      <div style="font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:.28em; text-transform:uppercase; color:#A8875A; margin-bottom:14px;">Screen 05</div>
+      <h2 style="margin:0 0 12px; font-family:'Cormorant', serif; font-weight:400; font-size:40px; line-height:1.05;">Lockdown checklist</h2>
+      <p style="margin:0; font-size:17px; line-height:1.6; color:rgba(232,224,207,.62);">Bar, Floor, Security. The whole 76px row is the checkbox — a 44px square target with a wet thumb is a miss waiting to happen. Ticked items keep the name and time that ticked them. Submit stays visibly unavailable, counting what's left, until it isn't; after submit the night is read-only and says who locked it.</p>
+    </div>
+    <div style="display:flex; flex-wrap:wrap; gap:56px;">
+
+      <!-- 5.1 in progress -->
+      <div style="display:flex; flex-direction:column; gap:16px; flex:0 0 auto;">
+        <div style="width:390px; height:844px; border-radius:44px; padding:9px; background:#080506; border:1px solid rgba(232,224,207,.09); box-shadow:0 34px 80px rgba(0,0,0,.6);">
+          <div style="width:100%; height:100%; border-radius:36px; overflow:hidden; background:#14100F; color:#E8E0CF; display:flex; flex-direction:column;">
+            <div style="display:flex; justify-content:space-between; padding:18px 28px 0; font-family:'IBM Plex Mono', monospace; font-size:12px; letter-spacing:.06em; color:rgba(232,224,207,.4);"><span>23:52</span><span>71%</span></div>
+            <div style="display:flex; align-items:center; gap:8px; height:64px; padding:0 18px 0 12px; flex:0 0 auto;">
+              <span style="width:60px; height:60px; display:flex; align-items:center; justify-content:center; font-size:26px; color:rgba(232,224,207,.7);">←</span>
+              <span style="flex:1; font-family:'IBM Plex Mono', monospace; font-size:12px; letter-spacing:.26em; text-transform:uppercase; color:rgba(232,224,207,.6);">Lockdown</span>
+              <span style="font-family:'IBM Plex Mono', monospace; font-size:14px; letter-spacing:.06em; color:#A8875A;">7 / 18</span>
+            </div>
+            <div style="height:5px; background:rgba(232,224,207,.1); flex:0 0 auto;">
+              <div style="width:39%; height:100%; background:#A8875A;"></div>
+            </div>
+
+            <div style="flex:1; overflow:hidden; padding:0 22px;">
+              <div style="font-family:'IBM Plex Mono', monospace; font-size:10.5px; letter-spacing:.26em; text-transform:uppercase; color:#A8875A; padding:20px 0 10px;">Bar&nbsp;<span style="color:rgba(232,224,207,.35);">5 / 7</span></div>
+              <div style="border-top:1px solid rgba(232,224,207,.1);">
+                <div style="display:flex; align-items:center; gap:16px; min-height:76px; padding:12px 0; border-bottom:1px solid rgba(232,224,207,.08);">
+                  <span style="width:34px; height:34px; flex:0 0 auto; background:#6E7F68; display:flex; align-items:center; justify-content:center; color:#14100F; font-size:19px; font-weight:500;">✓</span>
+                  <div style="flex:1;">
+                    <div style="font-size:19px; line-height:1.25; color:rgba(232,224,207,.55);">Wine fridges down to 6°</div>
+                    <div style="font-family:'IBM Plex Mono', monospace; font-size:10.5px; letter-spacing:.12em; text-transform:uppercase; color:rgba(232,224,207,.58); margin-top:4px;">Sam&nbsp;·&nbsp;23:31</div>
+                  </div>
+                </div>
+                <div style="display:flex; align-items:center; gap:16px; min-height:76px; padding:12px 0; border-bottom:1px solid rgba(232,224,207,.08);">
+                  <span style="width:34px; height:34px; flex:0 0 auto; background:#6E7F68; display:flex; align-items:center; justify-content:center; color:#14100F; font-size:19px; font-weight:500;">✓</span>
+                  <div style="flex:1;">
+                    <div style="font-size:19px; line-height:1.25; color:rgba(232,224,207,.55);">Ice machine off and drained</div>
+                    <div style="font-family:'IBM Plex Mono', monospace; font-size:10.5px; letter-spacing:.12em; text-transform:uppercase; color:rgba(232,224,207,.58); margin-top:4px;">Sam&nbsp;·&nbsp;23:34</div>
+                    <div style="display:flex; gap:10px; margin-top:8px; padding:10px 12px; background:rgba(232,224,207,.04); border-left:2px solid rgba(168,135,90,.5);">
+                      <span style="font-family:'Cormorant', serif; font-style:italic; font-size:18px; line-height:1.35; color:rgba(232,224,207,.72);">Filter's grinding again — worth a call Monday.</span>
+                    </div>
+                  </div>
+                </div>
+                <div style="display:flex; align-items:center; gap:16px; min-height:76px; padding:12px 0; border-bottom:1px solid rgba(232,224,207,.08);">
+                  <span style="width:34px; height:34px; flex:0 0 auto; background:#6E7F68; display:flex; align-items:center; justify-content:center; color:#14100F; font-size:19px; font-weight:500;">✓</span>
+                  <div style="flex:1;">
+                    <div style="font-size:19px; line-height:1.25; color:rgba(232,224,207,.55);">Glassware through, racks stacked</div>
+                    <div style="font-family:'IBM Plex Mono', monospace; font-size:10.5px; letter-spacing:.12em; text-transform:uppercase; color:rgba(232,224,207,.58); margin-top:4px;">Priya&nbsp;·&nbsp;23:41</div>
+                  </div>
+                </div>
+                <div style="display:flex; align-items:center; gap:16px; min-height:76px; padding:12px 0; border-bottom:1px solid rgba(232,224,207,.08);">
+                  <span style="width:34px; height:34px; flex:0 0 auto; border:1.5px solid rgba(232,224,207,.34);"></span>
+                  <div style="flex:1; display:flex; align-items:center; gap:12px;">
+                    <span style="flex:1; font-size:19px; line-height:1.25;">Wipe down the back bar and taps</span>
+                    <span style="font-family:'IBM Plex Mono', monospace; font-size:10.5px; letter-spacing:.14em; text-transform:uppercase; color:rgba(232,224,207,.38); border:1px solid rgba(232,224,207,.16); padding:8px 10px;">+ Note</span>
+                  </div>
+                </div>
+                <div style="display:flex; align-items:center; gap:16px; min-height:76px; padding:12px 0; border-bottom:1px solid rgba(232,224,207,.08);">
+                  <span style="width:34px; height:34px; flex:0 0 auto; border:1.5px solid rgba(232,224,207,.34);"></span>
+                  <div style="flex:1; display:flex; align-items:center; gap:12px;">
+                    <span style="flex:1; font-size:19px; line-height:1.25;">Cash drawer counted, bag in safe</span>
+                    <span style="font-family:'IBM Plex Mono', monospace; font-size:10.5px; letter-spacing:.14em; text-transform:uppercase; color:rgba(232,224,207,.38); border:1px solid rgba(232,224,207,.16); padding:8px 10px;">+ Note</span>
+                  </div>
+                </div>
+              </div>
+
+              <div style="font-family:'IBM Plex Mono', monospace; font-size:10.5px; letter-spacing:.26em; text-transform:uppercase; color:rgba(232,224,207,.45); padding:20px 0 10px;">Floor&nbsp;<span style="color:rgba(232,224,207,.3);">2 / 6</span></div>
+              <div style="border-top:1px solid rgba(232,224,207,.1);">
+                <div style="display:flex; align-items:center; gap:16px; min-height:76px; padding:12px 0; border-bottom:1px solid rgba(232,224,207,.08);">
+                  <span style="width:34px; height:34px; flex:0 0 auto; border:1.5px solid rgba(232,224,207,.34);"></span>
+                  <span style="flex:1; font-size:19px; line-height:1.25;">Candles out — all of them</span>
+                </div>
+                <div style="display:flex; align-items:center; gap:16px; min-height:76px; padding:12px 0;">
+                  <span style="width:34px; height:34px; flex:0 0 auto; border:1.5px solid rgba(232,224,207,.34);"></span>
+                  <span style="flex:1; font-size:19px; line-height:1.25;">Records back in sleeves, deck off</span>
+                </div>
+              </div>
+            </div>
+
+            <div style="padding:14px 22px 26px; flex:0 0 auto; background:linear-gradient(180deg, rgba(20,16,15,0) 0%, #14100F 40%);">
+              <div style="height:72px; border:1px dashed rgba(232,224,207,.2); display:flex; align-items:center; justify-content:center; font-family:'IBM Plex Mono', monospace; font-size:13px; letter-spacing:.22em; text-transform:uppercase; color:rgba(232,224,207,.42);">Submit&nbsp;—&nbsp;11 left</div>
+            </div>
+          </div>
+        </div>
+        <div style="font-family:'IBM Plex Mono', monospace; font-size:12px; letter-spacing:.14em; text-transform:uppercase; color:rgba(232,224,207,.55);"><span style="color:#A8875A;">5.1</span>&nbsp;&nbsp;In progress&nbsp;·&nbsp;note open</div>
+      </div>
+
+      <!-- 5.2 ready to submit -->
+      <div style="display:flex; flex-direction:column; gap:16px; flex:0 0 auto;">
+        <div style="width:390px; height:844px; border-radius:44px; padding:9px; background:#080506; border:1px solid rgba(232,224,207,.09); box-shadow:0 34px 80px rgba(0,0,0,.6);">
+          <div style="width:100%; height:100%; border-radius:36px; overflow:hidden; background:#14100F; color:#E8E0CF; display:flex; flex-direction:column;">
+            <div style="display:flex; justify-content:space-between; padding:18px 28px 0; font-family:'IBM Plex Mono', monospace; font-size:12px; letter-spacing:.06em; color:rgba(232,224,207,.4);"><span>00:11</span><span>68%</span></div>
+            <div style="display:flex; align-items:center; gap:8px; height:64px; padding:0 18px 0 12px; flex:0 0 auto;">
+              <span style="width:60px; height:60px; display:flex; align-items:center; justify-content:center; font-size:26px; color:rgba(232,224,207,.7);">←</span>
+              <span style="flex:1; font-family:'IBM Plex Mono', monospace; font-size:12px; letter-spacing:.26em; text-transform:uppercase; color:rgba(232,224,207,.6);">Lockdown</span>
+              <span style="font-family:'IBM Plex Mono', monospace; font-size:14px; letter-spacing:.06em; color:#6E7F68;">18 / 18</span>
+            </div>
+            <div style="height:5px; background:rgba(232,224,207,.1); flex:0 0 auto;">
+              <div style="width:100%; height:100%; background:#6E7F68;"></div>
+            </div>
+
+            <div style="flex:1; overflow:hidden; padding:0 22px;">
+              <div style="font-family:'IBM Plex Mono', monospace; font-size:10.5px; letter-spacing:.26em; text-transform:uppercase; color:rgba(232,224,207,.45); padding:20px 0 10px;">Security&nbsp;<span style="color:#6E7F68;">5 / 5</span></div>
+              <div style="border-top:1px solid rgba(232,224,207,.1);">
+                <div style="display:flex; align-items:center; gap:16px; min-height:76px; padding:12px 0; border-bottom:1px solid rgba(232,224,207,.08);">
+                  <span style="width:34px; height:34px; flex:0 0 auto; background:#6E7F68; display:flex; align-items:center; justify-content:center; color:#14100F; font-size:19px; font-weight:500;">✓</span>
+                  <div style="flex:1;">
+                    <div style="font-size:19px; line-height:1.25; color:rgba(232,224,207,.55);">Back door bolted, top and bottom</div>
+                    <div style="font-family:'IBM Plex Mono', monospace; font-size:10.5px; letter-spacing:.12em; text-transform:uppercase; color:rgba(232,224,207,.58); margin-top:4px;">Priya&nbsp;·&nbsp;00:04</div>
+                  </div>
+                </div>
+                <div style="display:flex; align-items:center; gap:16px; min-height:76px; padding:12px 0; border-bottom:1px solid rgba(232,224,207,.08);">
+                  <span style="width:34px; height:34px; flex:0 0 auto; background:#6E7F68; display:flex; align-items:center; justify-content:center; color:#14100F; font-size:19px; font-weight:500;">✓</span>
+                  <div style="flex:1;">
+                    <div style="font-size:19px; line-height:1.25; color:rgba(232,224,207,.55);">Upstairs skylight closed</div>
+                    <div style="font-family:'IBM Plex Mono', monospace; font-size:10.5px; letter-spacing:.12em; text-transform:uppercase; color:rgba(232,224,207,.58); margin-top:4px;">Tom&nbsp;·&nbsp;00:06</div>
+                  </div>
+                </div>
+                <div style="display:flex; align-items:center; gap:16px; min-height:76px; padding:12px 0; border-bottom:1px solid rgba(232,224,207,.08);">
+                  <span style="width:34px; height:34px; flex:0 0 auto; background:#6E7F68; display:flex; align-items:center; justify-content:center; color:#14100F; font-size:19px; font-weight:500;">✓</span>
+                  <div style="flex:1;">
+                    <div style="font-size:19px; line-height:1.25; color:rgba(232,224,207,.55);">Alarm set, code confirmed</div>
+                    <div style="font-family:'IBM Plex Mono', monospace; font-size:10.5px; letter-spacing:.12em; text-transform:uppercase; color:rgba(232,224,207,.58); margin-top:4px;">Priya&nbsp;·&nbsp;00:10</div>
+                  </div>
+                </div>
+                <div style="display:flex; align-items:center; gap:16px; min-height:76px; padding:12px 0;">
+                  <span style="width:34px; height:34px; flex:0 0 auto; background:#6E7F68; display:flex; align-items:center; justify-content:center; color:#14100F; font-size:19px; font-weight:500;">✓</span>
+                  <div style="flex:1;">
+                    <div style="font-size:19px; line-height:1.25; color:rgba(232,224,207,.55);">Front shutter down and locked</div>
+                    <div style="font-family:'IBM Plex Mono', monospace; font-size:10.5px; letter-spacing:.12em; text-transform:uppercase; color:rgba(232,224,207,.58); margin-top:4px;">Priya&nbsp;·&nbsp;00:11</div>
+                  </div>
+                </div>
+              </div>
+              <div style="font-family:'IBM Plex Mono', monospace; font-size:10.5px; letter-spacing:.14em; text-transform:uppercase; color:rgba(232,224,207,.34); line-height:1.7; margin-top:20px;">Three of you closed tonight.<br>Submitting locks the list until tomorrow.</div>
+            </div>
+
+            <div style="padding:14px 22px 26px; flex:0 0 auto;">
+              <div style="height:72px; background:#A8875A; display:flex; align-items:center; justify-content:center; font-family:'IBM Plex Mono', monospace; font-size:13px; letter-spacing:.22em; text-transform:uppercase; color:#14100F; font-weight:500;">Submit the night</div>
+            </div>
+          </div>
+        </div>
+        <div style="font-family:'IBM Plex Mono', monospace; font-size:12px; letter-spacing:.14em; text-transform:uppercase; color:rgba(232,224,207,.55);"><span style="color:#A8875A;">5.2</span>&nbsp;&nbsp;All ticked&nbsp;·&nbsp;submit live</div>
+      </div>
+
+      <!-- 5.3 submitted -->
+      <div style="display:flex; flex-direction:column; gap:16px; flex:0 0 auto;">
+        <div style="width:390px; height:844px; border-radius:44px; padding:9px; background:#080506; border:1px solid rgba(232,224,207,.09); box-shadow:0 34px 80px rgba(0,0,0,.6);">
+          <div style="width:100%; height:100%; border-radius:36px; overflow:hidden; background:#14100F; color:#E8E0CF; display:flex; flex-direction:column;">
+            <div style="display:flex; justify-content:space-between; padding:18px 28px 0; font-family:'IBM Plex Mono', monospace; font-size:12px; letter-spacing:.06em; color:rgba(232,224,207,.4);"><span>00:13</span><span>67%</span></div>
+            <div style="display:flex; align-items:center; gap:8px; height:64px; padding:0 18px 0 12px; flex:0 0 auto;">
+              <span style="width:60px; height:60px; display:flex; align-items:center; justify-content:center; font-size:26px; color:rgba(232,224,207,.7);">←</span>
+              <span style="flex:1; font-family:'IBM Plex Mono', monospace; font-size:12px; letter-spacing:.26em; text-transform:uppercase; color:rgba(232,224,207,.6);">Lockdown</span>
+              <span style="font-family:'IBM Plex Mono', monospace; font-size:14px; letter-spacing:.06em; color:#6E7F68;">Locked</span>
+            </div>
+
+            <div style="margin:16px 22px 0; border:1px solid rgba(110,127,104,.5); background:rgba(110,127,104,.1); padding:24px 22px; flex:0 0 auto;">
+              <div style="display:flex; align-items:center; gap:14px; margin-bottom:14px;">
+                <span style="width:38px; height:38px; background:#6E7F68; display:flex; align-items:center; justify-content:center; color:#14100F; font-size:21px; font-weight:500; flex:0 0 auto;">✓</span>
+                <span style="font-family:'Cormorant', serif; font-size:34px; font-weight:300; line-height:1;">Night locked</span>
+              </div>
+              <div style="font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:.16em; text-transform:uppercase; color:#9FAF97; line-height:1.8;">Fri 24 Jul&nbsp;·&nbsp;18 of 18<br>Submitted by Priya at 00:12</div>
+              <div style="font-size:16px; line-height:1.55; color:rgba(232,224,207,.7); margin-top:14px;">Go home. One note went to the manager: the ice machine filter.</div>
+            </div>
+
+            <div style="flex:1; overflow:hidden; padding:22px 22px 0;">
+              <div style="font-family:'IBM Plex Mono', monospace; font-size:10.5px; letter-spacing:.26em; text-transform:uppercase; color:rgba(232,224,207,.4); margin-bottom:10px;">Who did what</div>
+              <div style="border-top:1px solid rgba(232,224,207,.1);">
+                <div style="display:flex; align-items:center; gap:14px; height:66px; border-bottom:1px solid rgba(232,224,207,.08); opacity:.62;">
+                  <span style="width:26px; height:26px; flex:0 0 auto; background:rgba(110,127,104,.5); display:flex; align-items:center; justify-content:center; color:#14100F; font-size:15px;">✓</span>
+                  <span style="flex:1; font-size:17px;">Wine fridges down to 6°</span>
+                  <span style="font-family:'IBM Plex Mono', monospace; font-size:11px; color:rgba(232,224,207,.5);">SAM 23:31</span>
+                </div>
+                <div style="display:flex; align-items:center; gap:14px; height:66px; border-bottom:1px solid rgba(232,224,207,.08); opacity:.62;">
+                  <span style="width:26px; height:26px; flex:0 0 auto; background:rgba(110,127,104,.5); display:flex; align-items:center; justify-content:center; color:#14100F; font-size:15px;">✓</span>
+                  <span style="flex:1; font-size:17px;">Ice machine off, drained</span>
+                  <span style="font-family:'IBM Plex Mono', monospace; font-size:11px; color:rgba(232,224,207,.5);">SAM 23:34</span>
+                </div>
+                <div style="display:flex; align-items:center; gap:14px; height:66px; border-bottom:1px solid rgba(232,224,207,.08); opacity:.62;">
+                  <span style="width:26px; height:26px; flex:0 0 auto; background:rgba(110,127,104,.5); display:flex; align-items:center; justify-content:center; color:#14100F; font-size:15px;">✓</span>
+                  <span style="flex:1; font-size:17px;">Glassware through</span>
+                  <span style="font-family:'IBM Plex Mono', monospace; font-size:11px; color:rgba(232,224,207,.5);">PRIYA 23:41</span>
+                </div>
+                <div style="display:flex; align-items:center; gap:14px; height:66px; border-bottom:1px solid rgba(232,224,207,.08); opacity:.62;">
+                  <span style="width:26px; height:26px; flex:0 0 auto; background:rgba(110,127,104,.5); display:flex; align-items:center; justify-content:center; color:#14100F; font-size:15px;">✓</span>
+                  <span style="flex:1; font-size:17px;">Candles out</span>
+                  <span style="font-family:'IBM Plex Mono', monospace; font-size:11px; color:rgba(232,224,207,.5);">TOM 23:58</span>
+                </div>
+                <div style="display:flex; align-items:center; gap:14px; height:66px; border-bottom:1px solid rgba(232,224,207,.08); opacity:.62;">
+                  <span style="width:26px; height:26px; flex:0 0 auto; background:rgba(110,127,104,.5); display:flex; align-items:center; justify-content:center; color:#14100F; font-size:15px;">✓</span>
+                  <span style="flex:1; font-size:17px;">Alarm set</span>
+                  <span style="font-family:'IBM Plex Mono', monospace; font-size:11px; color:rgba(232,224,207,.5);">PRIYA 00:10</span>
+                </div>
+                <div style="display:flex; align-items:center; gap:14px; height:66px; opacity:.62;">
+                  <span style="width:26px; height:26px; flex:0 0 auto; background:rgba(110,127,104,.5); display:flex; align-items:center; justify-content:center; color:#14100F; font-size:15px;">✓</span>
+                  <span style="flex:1; font-size:17px;">Shutter down</span>
+                  <span style="font-family:'IBM Plex Mono', monospace; font-size:11px; color:rgba(232,224,207,.5);">PRIYA 00:11</span>
+                </div>
+              </div>
+              <div style="font-family:'IBM Plex Mono', monospace; font-size:10.5px; letter-spacing:.14em; text-transform:uppercase; color:rgba(232,224,207,.55); line-height:1.7; margin-top:18px;">Read-only now. A manager can reopen it.</div>
+            </div>
+          </div>
+        </div>
+        <div style="font-family:'IBM Plex Mono', monospace; font-size:12px; letter-spacing:.14em; text-transform:uppercase; color:rgba(232,224,207,.55);"><span style="color:#A8875A;">5.3</span>&nbsp;&nbsp;Submitted&nbsp;·&nbsp;who ticked what</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ============================= 6 · LOW STOCK ============================= -->
+  <div style="margin-bottom:96px;">
+    <div style="max-width:70ch; margin-bottom:34px;">
+      <div style="font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:.28em; text-transform:uppercase; color:#A8875A; margin-bottom:14px;">Screen 06</div>
+      <h2 style="margin:0 0 12px; font-family:'Cormorant', serif; font-weight:400; font-size:40px; line-height:1.05;">Report low stock</h2>
+      <p style="margin:0; font-size:17px; line-height:1.6; color:rgba(232,224,207,.62);">What's already flagged sits at the top, before the list — so you see the Picpoul is handled before you tap it. Menu items already flagged are dimmed and unpickable. Anything off-menu (tonic, till roll, blue roll) goes through one free-text row at the bottom of the list.</p>
+    </div>
+    <div style="display:flex; flex-wrap:wrap; gap:56px;">
+
+      <!-- 6.1 list with flagged -->
+      <div style="display:flex; flex-direction:column; gap:16px; flex:0 0 auto;">
+        <div style="width:390px; height:844px; border-radius:44px; padding:9px; background:#080506; border:1px solid rgba(232,224,207,.09); box-shadow:0 34px 80px rgba(0,0,0,.6);">
+          <div style="width:100%; height:100%; border-radius:36px; overflow:hidden; background:#14100F; color:#E8E0CF; display:flex; flex-direction:column;">
+            <div style="display:flex; justify-content:space-between; padding:18px 28px 0; font-family:'IBM Plex Mono', monospace; font-size:12px; letter-spacing:.06em; color:rgba(232,224,207,.4);"><span>21:49</span><span>84%</span></div>
+            <div style="display:flex; align-items:center; gap:8px; height:64px; padding:0 18px 0 12px; flex:0 0 auto;">
+              <span style="width:60px; height:60px; display:flex; align-items:center; justify-content:center; font-size:26px; color:rgba(232,224,207,.7);">←</span>
+              <span style="flex:1; font-family:'IBM Plex Mono', monospace; font-size:12px; letter-spacing:.26em; text-transform:uppercase; color:rgba(232,224,207,.6);">Low stock</span>
+            </div>
+
+            <div style="flex:1; overflow:hidden; padding:0 22px;">
+              <div style="font-family:'IBM Plex Mono', monospace; font-size:10.5px; letter-spacing:.26em; text-transform:uppercase; color:#A8875A; padding:10px 0 10px;">Flagged tonight&nbsp;<span style="color:rgba(232,224,207,.35);">3</span></div>
+              <div style="border:1px solid rgba(232,224,207,.12); background:rgba(232,224,207,.03);">
+                <div style="display:flex; align-items:center; gap:12px; height:70px; padding:0 14px; border-bottom:1px solid rgba(232,224,207,.08);">
+                  <div style="flex:1;">
+                    <div style="font-family:'Cormorant', serif; font-size:22px; line-height:1.15;">Foncastel Picpoul</div>
+                    <div style="font-family:'IBM Plex Mono', monospace; font-size:10px; letter-spacing:.12em; text-transform:uppercase; color:rgba(232,224,207,.4); margin-top:3px;">Sam&nbsp;·&nbsp;19:20</div>
+                  </div>
+                  <span style="font-family:'IBM Plex Mono', monospace; font-size:10.5px; letter-spacing:.16em; text-transform:uppercase; color:#A8875A; border:1px solid rgba(168,135,90,.6); padding:6px 10px;">Low</span>
+                </div>
+                <div style="display:flex; align-items:center; gap:12px; height:70px; padding:0 14px; border-bottom:1px solid rgba(232,224,207,.08);">
+                  <div style="flex:1;">
+                    <div style="font-family:'Cormorant', serif; font-size:22px; line-height:1.15;">Tonic (Fever-Tree)</div>
+                    <div style="font-family:'IBM Plex Mono', monospace; font-size:10px; letter-spacing:.12em; text-transform:uppercase; color:rgba(232,224,207,.4); margin-top:3px;">Dan&nbsp;·&nbsp;20:05&nbsp;·&nbsp;off menu</div>
+                  </div>
+                  <span style="font-family:'IBM Plex Mono', monospace; font-size:10.5px; letter-spacing:.16em; text-transform:uppercase; color:#14100F; background:#B4596B; padding:6px 10px;">Out</span>
+                </div>
+                <div style="display:flex; align-items:center; gap:12px; height:70px; padding:0 14px;">
+                  <div style="flex:1;">
+                    <div style="font-family:'Cormorant', serif; font-size:22px; line-height:1.15;">Balauri Pinot Noir</div>
+                    <div style="font-family:'IBM Plex Mono', monospace; font-size:10px; letter-spacing:.12em; text-transform:uppercase; color:rgba(232,224,207,.4); margin-top:3px;">Priya&nbsp;·&nbsp;21:02&nbsp;·&nbsp;2 left</div>
+                  </div>
+                  <span style="font-family:'IBM Plex Mono', monospace; font-size:10.5px; letter-spacing:.16em; text-transform:uppercase; color:#A8875A; border:1px solid rgba(168,135,90,.6); padding:6px 10px;">Low</span>
+                </div>
+              </div>
+
+              <div style="font-family:'IBM Plex Mono', monospace; font-size:10.5px; letter-spacing:.26em; text-transform:uppercase; color:rgba(232,224,207,.45); padding:22px 0 10px;">Report something</div>
+              <div style="border-top:1px solid rgba(232,224,207,.1);">
+                <div style="display:flex; align-items:center; height:66px; border-bottom:1px solid rgba(232,224,207,.08);">
+                  <span style="flex:1; font-family:'Cormorant', serif; font-size:24px;">Logan Clementine Orange</span>
+                  <span style="font-size:24px; color:rgba(232,224,207,.35);">›</span>
+                </div>
+                <div style="display:flex; align-items:center; height:66px; border-bottom:1px solid rgba(232,224,207,.08);">
+                  <span style="flex:1; font-family:'Cormorant', serif; font-size:24px;">Pirani Prosecco</span>
+                  <span style="font-size:24px; color:rgba(232,224,207,.35);">›</span>
+                </div>
+                <div style="display:flex; align-items:center; height:66px; border-bottom:1px solid rgba(232,224,207,.08); opacity:.35;">
+                  <span style="flex:1; font-family:'Cormorant', serif; font-size:24px;">Foncastel Picpoul</span>
+                  <span style="font-family:'IBM Plex Mono', monospace; font-size:10px; letter-spacing:.14em; text-transform:uppercase;">Already flagged</span>
+                </div>
+                <div style="display:flex; align-items:center; height:66px; border-bottom:1px solid rgba(232,224,207,.08);">
+                  <span style="flex:1; font-family:'Cormorant', serif; font-size:24px;">Dingley Dell beer sticks</span>
+                  <span style="font-size:24px; color:rgba(232,224,207,.35);">›</span>
+                </div>
+                <div style="display:flex; align-items:center; height:66px; border-bottom:1px solid rgba(232,224,207,.08);">
+                  <span style="flex:1; font-family:'Cormorant', serif; font-size:24px;">Smoked almonds</span>
+                  <span style="font-size:24px; color:rgba(232,224,207,.35);">›</span>
+                </div>
+              </div>
+
+              <div style="display:flex; align-items:center; gap:12px; height:80px; margin-top:12px; border:1px solid rgba(168,135,90,.45); padding:0 16px;">
+                <span style="font-family:'IBM Plex Mono', monospace; font-size:22px; color:#A8875A;">+</span>
+                <div style="flex:1;">
+                  <div style="font-size:18px;">Something else</div>
+                  <div style="font-family:'IBM Plex Mono', monospace; font-size:10.5px; letter-spacing:.12em; text-transform:uppercase; color:rgba(232,224,207,.42); margin-top:3px;">Till roll, blue roll, straws…</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div style="font-family:'IBM Plex Mono', monospace; font-size:12px; letter-spacing:.14em; text-transform:uppercase; color:rgba(232,224,207,.55);"><span style="color:#A8875A;">6.1</span>&nbsp;&nbsp;Pick an item</div>
+      </div>
+
+      <!-- 6.2 detail -->
+      <div style="display:flex; flex-direction:column; gap:16px; flex:0 0 auto;">
+        <div style="width:390px; height:844px; border-radius:44px; padding:9px; background:#080506; border:1px solid rgba(232,224,207,.09); box-shadow:0 34px 80px rgba(0,0,0,.6);">
+          <div style="width:100%; height:100%; border-radius:36px; overflow:hidden; background:#14100F; color:#E8E0CF; display:flex; flex-direction:column;">
+            <div style="display:flex; justify-content:space-between; padding:18px 28px 0; font-family:'IBM Plex Mono', monospace; font-size:12px; letter-spacing:.06em; color:rgba(232,224,207,.4);"><span>21:50</span><span>84%</span></div>
+            <div style="display:flex; align-items:center; gap:8px; height:64px; padding:0 18px 0 12px; flex:0 0 auto;">
+              <span style="width:60px; height:60px; display:flex; align-items:center; justify-content:center; font-size:26px; color:rgba(232,224,207,.7);">←</span>
+              <span style="flex:1; font-family:'IBM Plex Mono', monospace; font-size:12px; letter-spacing:.26em; text-transform:uppercase; color:rgba(232,224,207,.6);">Report</span>
+            </div>
+
+            <div style="flex:1; padding:14px 22px 0; display:flex; flex-direction:column;">
+              <div style="font-family:'IBM Plex Mono', monospace; font-size:10.5px; letter-spacing:.26em; text-transform:uppercase; color:rgba(232,224,207,.42);">Item</div>
+              <div style="font-family:'Cormorant', serif; font-size:40px; font-weight:300; line-height:1.05; margin:8px 0 4px;">Pirani Prosecco</div>
+              <div style="font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:rgba(232,224,207,.4);">Sparkling&nbsp;·&nbsp;by the glass</div>
+
+              <div style="font-family:'IBM Plex Mono', monospace; font-size:10.5px; letter-spacing:.26em; text-transform:uppercase; color:rgba(232,224,207,.42); margin:32px 0 10px;">How bad?</div>
+              <div style="display:flex; gap:10px;">
+                <div style="flex:1; height:96px; background:rgba(168,135,90,.16); border:1px solid #A8875A; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:6px;">
+                  <span style="font-family:'Cormorant', serif; font-size:30px; line-height:1;">Low</span>
+                  <span style="font-family:'IBM Plex Mono', monospace; font-size:10px; letter-spacing:.14em; text-transform:uppercase; color:#A8875A;">Order soon</span>
+                </div>
+                <div style="flex:1; height:96px; border:1px solid rgba(232,224,207,.16); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:6px;">
+                  <span style="font-family:'Cormorant', serif; font-size:30px; line-height:1; color:rgba(232,224,207,.75);">Out</span>
+                  <span style="font-family:'IBM Plex Mono', monospace; font-size:10px; letter-spacing:.14em; text-transform:uppercase; color:rgba(232,224,207,.4);">Off the list</span>
+                </div>
+              </div>
+
+              <div style="font-family:'IBM Plex Mono', monospace; font-size:10.5px; letter-spacing:.26em; text-transform:uppercase; color:rgba(232,224,207,.42); margin:30px 0 10px;">Note&nbsp;<span style="color:rgba(232,224,207,.28);">optional</span></div>
+              <div style="min-height:110px; border:1px solid rgba(232,224,207,.16); padding:16px;">
+                <span style="font-family:'Cormorant', serif; font-style:italic; font-size:21px; line-height:1.4; color:rgba(232,224,207,.85);">Two bottles left in the back fridge, none in the cellar.</span>
+              </div>
+
+              <div style="font-family:'IBM Plex Mono', monospace; font-size:10.5px; letter-spacing:.14em; text-transform:uppercase; color:rgba(232,224,207,.34); line-height:1.7; margin-top:18px;">Goes to the manager's list — not an order.<br>Signed with your PIN, 21:50.</div>
+            </div>
+
+            <div style="padding:14px 22px 26px; flex:0 0 auto; display:flex; gap:10px;">
+              <div style="flex:0 0 96px; height:72px; border:1px solid rgba(232,224,207,.16); display:flex; align-items:center; justify-content:center; font-family:'IBM Plex Mono', monospace; font-size:12px; letter-spacing:.18em; text-transform:uppercase; color:rgba(232,224,207,.6);">Cancel</div>
+              <div style="flex:1; height:72px; background:#A8875A; display:flex; align-items:center; justify-content:center; font-family:'IBM Plex Mono', monospace; font-size:13px; letter-spacing:.22em; text-transform:uppercase; color:#14100F; font-weight:500;">Flag as low</div>
+            </div>
+          </div>
+        </div>
+        <div style="font-family:'IBM Plex Mono', monospace; font-size:12px; letter-spacing:.14em; text-transform:uppercase; color:rgba(232,224,207,.55);"><span style="color:#A8875A;">6.2</span>&nbsp;&nbsp;Low / Out&nbsp;·&nbsp;note</div>
+      </div>
+
+      <!-- 6.3 nothing flagged -->
+      <div style="display:flex; flex-direction:column; gap:16px; flex:0 0 auto;">
+        <div style="width:390px; height:844px; border-radius:44px; padding:9px; background:#080506; border:1px solid rgba(232,224,207,.09); box-shadow:0 34px 80px rgba(0,0,0,.6);">
+          <div style="width:100%; height:100%; border-radius:36px; overflow:hidden; background:#14100F; color:#E8E0CF; display:flex; flex-direction:column;">
+            <div style="display:flex; justify-content:space-between; padding:18px 28px 0; font-family:'IBM Plex Mono', monospace; font-size:12px; letter-spacing:.06em; color:rgba(232,224,207,.4);"><span>17:26</span><span>96%</span></div>
+            <div style="display:flex; align-items:center; gap:8px; height:64px; padding:0 18px 0 12px; flex:0 0 auto;">
+              <span style="width:60px; height:60px; display:flex; align-items:center; justify-content:center; font-size:26px; color:rgba(232,224,207,.7);">←</span>
+              <span style="flex:1; font-family:'IBM Plex Mono', monospace; font-size:12px; letter-spacing:.26em; text-transform:uppercase; color:rgba(232,224,207,.6);">Low stock</span>
+            </div>
+
+            <div style="flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:18px; padding:0 40px; text-align:center;">
+              <span style="width:14px; height:14px; background:#6E7F68;"></span>
+              <div style="font-family:'Cormorant', serif; font-size:36px; font-weight:300; line-height:1.1;">Nothing flagged</div>
+              <p style="margin:0; font-size:16px; line-height:1.6; color:rgba(232,224,207,.58); max-width:26ch;">The list is clear as of 17:26. If you pour the last of something, this is where it goes.</p>
+            </div>
+
+            <div style="padding:14px 22px 26px; flex:0 0 auto; display:flex; flex-direction:column; gap:10px;">
+              <div style="height:76px; border:1px solid rgba(168,135,90,.55); display:flex; align-items:center; justify-content:center; font-family:'IBM Plex Mono', monospace; font-size:13px; letter-spacing:.2em; text-transform:uppercase; color:#A8875A;">Flag an item</div>
+              <div style="height:76px; border:1px solid rgba(232,224,207,.14); display:flex; align-items:center; justify-content:center; font-family:'IBM Plex Mono', monospace; font-size:13px; letter-spacing:.2em; text-transform:uppercase; color:rgba(232,224,207,.6);">Something off-menu</div>
+            </div>
+          </div>
+        </div>
+        <div style="font-family:'IBM Plex Mono', monospace; font-size:12px; letter-spacing:.14em; text-transform:uppercase; color:rgba(232,224,207,.55);"><span style="color:#A8875A;">6.3</span>&nbsp;&nbsp;Empty&nbsp;·&nbsp;nothing flagged</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ============================= 7 · CLOCK ============================= -->
+  <div style="margin-bottom:96px;">
+    <div style="max-width:70ch; margin-bottom:34px;">
+      <div style="font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:.28em; text-transform:uppercase; color:#A8875A; margin-bottom:14px;">Screen 07</div>
+      <h2 style="margin:0 0 12px; font-family:'Cormorant', serif; font-weight:400; font-size:40px; line-height:1.05;">Clock in / out</h2>
+      <p style="margin:0; font-size:17px; line-height:1.6; color:rgba(232,224,207,.62);">One 240px target that flips state. It's outlined, not filled — present, not pushy. No streaks, no missed-day warnings, no badge on Home. Elapsed time appears only once you've actually clocked in, and the copy says out loud that skipping it is fine.</p>
+    </div>
+    <div style="display:flex; flex-wrap:wrap; gap:56px;">
+
+      <!-- 7.1 not clocked in -->
+      <div style="display:flex; flex-direction:column; gap:16px; flex:0 0 auto;">
+        <div style="width:390px; height:844px; border-radius:44px; padding:9px; background:#080506; border:1px solid rgba(232,224,207,.09); box-shadow:0 34px 80px rgba(0,0,0,.6);">
+          <div style="width:100%; height:100%; border-radius:36px; overflow:hidden; background:#14100F; color:#E8E0CF; display:flex; flex-direction:column;">
+            <div style="display:flex; justify-content:space-between; padding:18px 28px 0; font-family:'IBM Plex Mono', monospace; font-size:12px; letter-spacing:.06em; color:rgba(232,224,207,.4);"><span>17:34</span><span>88%</span></div>
+            <div style="display:flex; align-items:center; gap:8px; height:64px; padding:0 18px 0 12px; flex:0 0 auto;">
+              <span style="width:60px; height:60px; display:flex; align-items:center; justify-content:center; font-size:26px; color:rgba(232,224,207,.7);">←</span>
+              <span style="flex:1; font-family:'IBM Plex Mono', monospace; font-size:12px; letter-spacing:.26em; text-transform:uppercase; color:rgba(232,224,207,.6);">Clock</span>
+            </div>
+
+            <div style="flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:34px; padding:0 34px;">
+              <div style="text-align:center;">
+                <div style="font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:.26em; text-transform:uppercase; color:rgba(232,224,207,.4);">Fri 24 Jul&nbsp;·&nbsp;shift 18:00</div>
+                <div style="font-family:'Cormorant', serif; font-size:30px; font-weight:300; line-height:1.15; margin-top:10px; color:rgba(232,224,207,.85);">Not clocked in</div>
+              </div>
+              <div style="width:240px; height:240px; border-radius:50%; border:1.5px solid #A8875A; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:8px;">
+                <span style="font-family:'Cormorant', serif; font-size:40px; font-weight:300; line-height:1; color:#E8E0CF;">Clock in</span>
+                <span style="font-family:'IBM Plex Mono', monospace; font-size:10.5px; letter-spacing:.2em; text-transform:uppercase; color:#A8875A;">Tap once</span>
+              </div>
+              <p style="margin:0; font-size:16px; line-height:1.6; color:rgba(232,224,207,.55); text-align:center; max-width:28ch;">Entirely optional. Nobody chases this, and nothing here changes if you never touch it.</p>
+            </div>
+
+            <div style="padding:0 22px 30px; flex:0 0 auto;">
+              <div style="font-family:'IBM Plex Mono', monospace; font-size:10.5px; letter-spacing:.14em; text-transform:uppercase; color:rgba(232,224,207,.32); line-height:1.8; border-top:1px solid rgba(232,224,207,.1); padding-top:16px;">Last week&nbsp;·&nbsp;clocked 3 of 4 shifts<br>Rota hours are what get paid.</div>
+            </div>
+          </div>
+        </div>
+        <div style="font-family:'IBM Plex Mono', monospace; font-size:12px; letter-spacing:.14em; text-transform:uppercase; color:rgba(232,224,207,.55);"><span style="color:#A8875A;">7.1</span>&nbsp;&nbsp;Available, not demanding</div>
+      </div>
+
+      <!-- 7.2 clocked in -->
+      <div style="display:flex; flex-direction:column; gap:16px; flex:0 0 auto;">
+        <div style="width:390px; height:844px; border-radius:44px; padding:9px; background:#080506; border:1px solid rgba(232,224,207,.09); box-shadow:0 34px 80px rgba(0,0,0,.6);">
+          <div style="width:100%; height:100%; border-radius:36px; overflow:hidden; background:#14100F; color:#E8E0CF; display:flex; flex-direction:column;">
+            <div style="display:flex; justify-content:space-between; padding:18px 28px 0; font-family:'IBM Plex Mono', monospace; font-size:12px; letter-spacing:.06em; color:rgba(232,224,207,.4);"><span>21:47</span><span>84%</span></div>
+            <div style="display:flex; align-items:center; gap:8px; height:64px; padding:0 18px 0 12px; flex:0 0 auto;">
+              <span style="width:60px; height:60px; display:flex; align-items:center; justify-content:center; font-size:26px; color:rgba(232,224,207,.7);">←</span>
+              <span style="flex:1; font-family:'IBM Plex Mono', monospace; font-size:12px; letter-spacing:.26em; text-transform:uppercase; color:rgba(232,224,207,.6);">Clock</span>
+              <span style="font-family:'IBM Plex Mono', monospace; font-size:12px; letter-spacing:.14em; text-transform:uppercase; color:#6E7F68;">On</span>
+            </div>
+
+            <div style="flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:34px; padding:0 34px;">
+              <div style="text-align:center;">
+                <div style="font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:.26em; text-transform:uppercase; color:#6E7F68;">Clocked in 17:35</div>
+              </div>
+              <div style="width:240px; height:240px; border-radius:50%; border:1.5px solid rgba(110,127,104,.7); background:rgba(110,127,104,.1); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:4px;">
+                <span style="font-family:'Cormorant', serif; font-size:72px; font-weight:300; line-height:1; letter-spacing:-.01em;">4:12</span>
+                <span style="font-family:'IBM Plex Mono', monospace; font-size:10.5px; letter-spacing:.22em; text-transform:uppercase; color:rgba(232,224,207,.5);">Hours on</span>
+              </div>
+              <div style="width:100%; height:76px; border:1px solid rgba(232,224,207,.2); display:flex; align-items:center; justify-content:center; font-family:'IBM Plex Mono', monospace; font-size:13px; letter-spacing:.22em; text-transform:uppercase; color:rgba(232,224,207,.85);">Clock out</div>
+            </div>
+
+            <div style="padding:0 22px 30px; flex:0 0 auto;">
+              <div style="font-family:'IBM Plex Mono', monospace; font-size:10.5px; letter-spacing:.14em; text-transform:uppercase; color:rgba(232,224,207,.32); line-height:1.8; border-top:1px solid rgba(232,224,207,.1); padding-top:16px;">Forgot to clock out last time? It closed itself at your rota end. No one was told.</div>
+            </div>
+          </div>
+        </div>
+        <div style="font-family:'IBM Plex Mono', monospace; font-size:12px; letter-spacing:.14em; text-transform:uppercase; color:rgba(232,224,207,.55);"><span style="color:#A8875A;">7.2</span>&nbsp;&nbsp;Clocked in&nbsp;·&nbsp;elapsed</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ============================= IPAD ============================= -->
+  <div style="margin-bottom:96px;">
+    <div style="max-width:74ch; margin-bottom:34px;">
+      <div style="font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:.28em; text-transform:uppercase; color:#A8875A; margin-bottom:14px;">Shared bar iPad&nbsp;·&nbsp;1194 × 834 landscape</div>
+      <h2 style="margin:0 0 12px; font-family:'Cormorant', serif; font-weight:400; font-size:40px; line-height:1.05;">Propped up behind the bar</h2>
+      <p style="margin:0; font-size:17px; line-height:1.6; color:rgba(232,224,207,.62);">Same screens, more room — so the iPad shows what a phone has to hide behind a tap. A permanent 116px rail on the left keeps Lock one reach away, and the checklist opens all three groups side by side, which is how closing actually happens. Nothing on the iPad assumes the person holding it is the person who unlocked it.</p>
+    </div>
+
+    <div style="display:flex; flex-direction:column; gap:56px;">
+
+      <!-- iPad PIN -->
+      <div style="display:flex; flex-direction:column; gap:16px;">
+        <div style="width:1194px; height:834px; border-radius:30px; padding:12px; background:#080506; border:1px solid rgba(232,224,207,.09); box-shadow:0 34px 80px rgba(0,0,0,.6);">
+          <div style="width:100%; height:100%; border-radius:20px; overflow:hidden; background:#14100F; color:#E8E0CF; display:flex;">
+            <div style="flex:1; background-color:#241019; background-image:repeating-linear-gradient(128deg, rgba(168,135,90,.10) 0 1px, transparent 1px 17px); display:flex; flex-direction:column; justify-content:space-between; padding:54px 48px;">
+              <svg width="54" height="54" viewBox="0 0 100 100" fill="none" aria-hidden="true">
+                <path d="M 52 8 A 42 42 0 1 0 52 92 A 31 42 0 1 1 52 8 Z" fill="none" stroke="#A8875A" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"></path>
+              </svg>
+              <div>
+                <div style="font-family:'Cormorant', serif; font-size:82px; font-weight:300; line-height:.92;">Crescent<br>Moon</div>
+                <div style="font-family:'IBM Plex Mono', monospace; font-size:12px; letter-spacing:.3em; text-transform:uppercase; color:rgba(232,224,207,.5); margin-top:26px;">Staff&nbsp;·&nbsp;Bar iPad</div>
+              </div>
+              <div style="font-family:'IBM Plex Mono', monospace; font-size:12px; letter-spacing:.16em; text-transform:uppercase; color:rgba(232,224,207,.38); line-height:2;">Fri 24 Jul&nbsp;·&nbsp;21:47<br>Locks itself after 2 minutes idle</div>
+            </div>
+            <div style="flex:0 0 560px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:34px; padding:0 60px;">
+              <div style="font-family:'IBM Plex Mono', monospace; font-size:12px; letter-spacing:.3em; text-transform:uppercase; color:rgba(232,224,207,.45);">Enter your PIN</div>
+              <div style="display:flex; gap:22px;">
+                <span style="width:17px; height:17px; border-radius:50%; background:#A8875A;"></span>
+                <span style="width:17px; height:17px; border-radius:50%; background:#A8875A;"></span>
+                <span style="width:17px; height:17px; border-radius:50%; border:1px solid rgba(232,224,207,.28);"></span>
+                <span style="width:17px; height:17px; border-radius:50%; border:1px solid rgba(232,224,207,.28);"></span>
+              </div>
+              <div style="display:grid; grid-template-columns:repeat(3, 132px); gap:14px;">
+                <div style="height:108px; display:flex; align-items:center; justify-content:center; font-family:'IBM Plex Mono', monospace; font-size:34px; background:#1E1719; border:1px solid rgba(232,224,207,.09); border-radius:8px;">1</div>
+                <div style="height:108px; display:flex; align-items:center; justify-content:center; font-family:'IBM Plex Mono', monospace; font-size:34px; background:#1E1719; border:1px solid rgba(232,224,207,.09); border-radius:8px;">2</div>
+                <div style="height:108px; display:flex; align-items:center; justify-content:center; font-family:'IBM Plex Mono', monospace; font-size:34px; background:#1E1719; border:1px solid rgba(232,224,207,.09); border-radius:8px;">3</div>
+                <div style="height:108px; display:flex; align-items:center; justify-content:center; font-family:'IBM Plex Mono', monospace; font-size:34px; background:#1E1719; border:1px solid rgba(232,224,207,.09); border-radius:8px;">4</div>
+                <div style="height:108px; display:flex; align-items:center; justify-content:center; font-family:'IBM Plex Mono', monospace; font-size:34px; background:#1E1719; border:1px solid rgba(232,224,207,.09); border-radius:8px;">5</div>
+                <div style="height:108px; display:flex; align-items:center; justify-content:center; font-family:'IBM Plex Mono', monospace; font-size:34px; background:#1E1719; border:1px solid rgba(232,224,207,.09); border-radius:8px;">6</div>
+                <div style="height:108px; display:flex; align-items:center; justify-content:center; font-family:'IBM Plex Mono', monospace; font-size:34px; background:#1E1719; border:1px solid rgba(232,224,207,.09); border-radius:8px;">7</div>
+                <div style="height:108px; display:flex; align-items:center; justify-content:center; font-family:'IBM Plex Mono', monospace; font-size:34px; background:#1E1719; border:1px solid rgba(232,224,207,.09); border-radius:8px;">8</div>
+                <div style="height:108px; display:flex; align-items:center; justify-content:center; font-family:'IBM Plex Mono', monospace; font-size:34px; background:#1E1719; border:1px solid rgba(232,224,207,.09); border-radius:8px;">9</div>
+                <div style="height:108px;"></div>
+                <div style="height:108px; display:flex; align-items:center; justify-content:center; font-family:'IBM Plex Mono', monospace; font-size:34px; background:#1E1719; border:1px solid rgba(232,224,207,.09); border-radius:8px;">0</div>
+                <div style="height:108px; display:flex; align-items:center; justify-content:center; font-family:'IBM Plex Mono', monospace; font-size:21px; color:rgba(232,224,207,.55); border:1px solid rgba(232,224,207,.09); border-radius:8px;">DEL</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div style="font-family:'IBM Plex Mono', monospace; font-size:12px; letter-spacing:.14em; text-transform:uppercase; color:rgba(232,224,207,.55);"><span style="color:#A8875A;">iPad 1</span>&nbsp;&nbsp;PIN lock&nbsp;·&nbsp;108px keys</div>
+      </div>
+
+      <!-- iPad Home -->
+      <div style="display:flex; flex-direction:column; gap:16px;">
+        <div style="width:1194px; height:834px; border-radius:30px; padding:12px; background:#080506; border:1px solid rgba(232,224,207,.09); box-shadow:0 34px 80px rgba(0,0,0,.6);">
+          <div style="width:100%; height:100%; border-radius:20px; overflow:hidden; background:#14100F; color:#E8E0CF; display:flex;">
+
+            <div style="flex:0 0 116px; background:#100C0C; border-right:1px solid rgba(232,224,207,.09); display:flex; flex-direction:column; align-items:center; padding:22px 0 20px;">
+              <svg width="30" height="30" viewBox="0 0 100 100" fill="none" aria-hidden="true" style="margin-bottom:26px;">
+                <path d="M 52 8 A 42 42 0 1 0 52 92 A 31 42 0 1 1 52 8 Z" fill="none" stroke="#A8875A" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"></path>
+              </svg>
+              <div style="display:flex; flex-direction:column; gap:6px; width:100%; flex:1;">
+                <div style="height:84px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:6px; background:rgba(168,135,90,.14); border-left:2px solid #A8875A;">
+                  <span style="width:13px; height:13px; background:#A8875A;"></span>
+                  <span style="font-family:'IBM Plex Mono', monospace; font-size:10px; letter-spacing:.14em; text-transform:uppercase; color:#E8E0CF;">Home</span>
+                </div>
+                <div style="height:84px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:6px;">
+                  <span style="width:13px; height:13px; border:1.5px solid rgba(232,224,207,.4);"></span>
+                  <span style="font-family:'IBM Plex Mono', monospace; font-size:10px; letter-spacing:.14em; text-transform:uppercase; color:rgba(232,224,207,.5);">Books</span>
+                </div>
+                <div style="height:84px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:6px;">
+                  <span style="width:13px; height:13px; border:1.5px solid rgba(232,224,207,.4);"></span>
+                  <span style="font-family:'IBM Plex Mono', monospace; font-size:10px; letter-spacing:.14em; text-transform:uppercase; color:rgba(232,224,207,.5);">Rota</span>
+                </div>
+                <div style="height:84px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:6px;">
+                  <span style="width:13px; height:13px; border:1.5px solid rgba(232,224,207,.4);"></span>
+                  <span style="font-family:'IBM Plex Mono', monospace; font-size:10px; letter-spacing:.14em; text-transform:uppercase; color:rgba(232,224,207,.5);">Close</span>
+                </div>
+                <div style="height:84px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:6px;">
+                  <span style="width:13px; height:13px; border:1.5px solid rgba(232,224,207,.4);"></span>
+                  <span style="font-family:'IBM Plex Mono', monospace; font-size:10px; letter-spacing:.14em; text-transform:uppercase; color:rgba(232,224,207,.5);">Stock</span>
+                </div>
+              </div>
+              <div style="width:84px; height:84px; border:1px solid rgba(232,224,207,.22); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:7px;">
+                <span style="width:12px; height:12px; border:1.5px solid rgba(232,224,207,.7); border-radius:2px;"></span>
+                <span style="font-family:'IBM Plex Mono', monospace; font-size:10px; letter-spacing:.16em; text-transform:uppercase; color:rgba(232,224,207,.8);">Lock</span>
+              </div>
+            </div>
+
+            <div style="flex:1; padding:40px 44px; display:flex; flex-direction:column; overflow:hidden;">
+              <div style="display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:34px;">
+                <div>
+                  <div style="font-family:'IBM Plex Mono', monospace; font-size:12px; letter-spacing:.24em; text-transform:uppercase; color:rgba(232,224,207,.45);">Fri 24 Jul&nbsp;·&nbsp;21:47</div>
+                  <div style="font-family:'Cormorant', serif; font-size:60px; font-weight:300; line-height:1; margin-top:10px;">Evening, Priya</div>
+                </div>
+                <div style="text-align:right; font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:.16em; text-transform:uppercase; color:rgba(232,224,207,.4); line-height:1.9;">Bar iPad&nbsp;·&nbsp;locks at 21:49<br>Four of you on tonight</div>
+              </div>
+
+              <div style="display:grid; grid-template-columns:1.15fr 1fr 1fr; gap:22px; flex:1; min-height:0;">
+
+                <div style="display:flex; flex-direction:column; gap:22px;">
+                  <div style="border:1px solid rgba(168,135,90,.38); background:rgba(168,135,90,.07); padding:24px;">
+                    <div style="display:flex; justify-content:space-between; align-items:baseline; margin-bottom:10px;">
+                      <span style="font-family:'IBM Plex Mono', monospace; font-size:10.5px; letter-spacing:.26em; text-transform:uppercase; color:#A8875A;">Your shift</span>
+                      <span style="font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:rgba(232,224,207,.55);">Bar&nbsp;·&nbsp;Close</span>
+                    </div>
+                    <div style="font-family:'Cormorant', serif; font-size:44px; font-weight:400; line-height:1;">18:00 → 01:00</div>
+                    <div style="font-family:'IBM Plex Mono', monospace; font-size:10.5px; letter-spacing:.12em; text-transform:uppercase; color:rgba(232,224,207,.58); margin-top:8px;">Ends Sat&nbsp;·&nbsp;Split shift</div>
+                    <div style="font-size:16px; color:rgba(232,224,207,.62); margin-top:14px; line-height:1.5;">1st England game — expect a rush from 19:30.</div>
+                  </div>
+
+                  <div style="flex:1; display:flex; flex-direction:column;">
+                    <div style="font-family:'IBM Plex Mono', monospace; font-size:10.5px; letter-spacing:.26em; text-transform:uppercase; color:rgba(232,224,207,.42); margin-bottom:8px;">Worth knowing</div>
+                    <div style="display:flex; align-items:center; gap:14px; height:82px; border-top:1px solid rgba(232,224,207,.1);">
+                      <span style="width:9px; height:9px; background:#A8875A; flex:0 0 auto;"></span>
+                      <div style="flex:1;">
+                        <div style="font-size:19px;">Lockdown checklist not started</div>
+                        <div style="font-family:'IBM Plex Mono', monospace; font-size:10.5px; letter-spacing:.1em; color:rgba(232,224,207,.42); margin-top:4px;">18 ITEMS&nbsp;·&nbsp;ABOUT 12 MIN</div>
+                      </div>
+                      <span style="font-size:24px; color:rgba(232,224,207,.35);">›</span>
+                    </div>
+                    <div style="display:flex; align-items:center; gap:14px; height:82px; border-top:1px solid rgba(232,224,207,.1); border-bottom:1px solid rgba(232,224,207,.1);">
+                      <span style="width:9px; height:9px; background:#B4596B; flex:0 0 auto;"></span>
+                      <div style="flex:1;">
+                        <div style="font-size:19px;">3 items flagged low</div>
+                        <div style="font-family:'IBM Plex Mono', monospace; font-size:10.5px; letter-spacing:.1em; color:rgba(232,224,207,.42); margin-top:4px;">PICPOUL&nbsp;·&nbsp;TONIC&nbsp;·&nbsp;BALAURI</div>
+                      </div>
+                      <span style="font-size:24px; color:rgba(232,224,207,.35);">›</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div style="display:flex; flex-direction:column;">
+                  <div style="display:flex; justify-content:space-between; align-items:baseline; margin-bottom:8px;">
+                    <span style="font-family:'IBM Plex Mono', monospace; font-size:10.5px; letter-spacing:.26em; text-transform:uppercase; color:rgba(232,224,207,.42);">Tonight's tables</span>
+                    <span style="font-family:'IBM Plex Mono', monospace; font-size:11px; color:#A8875A;">20 covers</span>
+                  </div>
+                  <div style="border-top:1px solid rgba(232,224,207,.1);">
+                    <div style="display:flex; align-items:center; gap:12px; height:66px; border-bottom:1px solid rgba(232,224,207,.08); opacity:.45;">
+                      <span style="flex:0 0 56px; font-family:'IBM Plex Mono', monospace; font-size:17px;">18:30</span>
+                      <span style="flex:1; font-family:'Cormorant', serif; font-size:23px;">Halliwell</span>
+                      <span style="font-family:'IBM Plex Mono', monospace; font-size:14px; color:rgba(232,224,207,.7);">2</span>
+                    </div>
+                    <div style="display:flex; align-items:center; gap:12px; height:66px; border-bottom:1px solid rgba(232,224,207,.08); opacity:.45;">
+                      <span style="flex:0 0 56px; font-family:'IBM Plex Mono', monospace; font-size:17px;">19:00</span>
+                      <span style="flex:1; font-family:'Cormorant', serif; font-size:23px;">Okafor</span>
+                      <span style="font-family:'IBM Plex Mono', monospace; font-size:14px; color:rgba(232,224,207,.7);">4</span>
+                    </div>
+                    <div style="display:flex; align-items:center; gap:12px; height:66px; border-bottom:1px solid rgba(232,224,207,.08);">
+                      <span style="flex:0 0 56px; font-family:'IBM Plex Mono', monospace; font-size:17px; color:#A8875A;">19:30</span>
+                      <span style="flex:1; font-family:'Cormorant', serif; font-size:23px;">Bennett</span>
+                      <span style="font-family:'IBM Plex Mono', monospace; font-size:14px; color:rgba(232,224,207,.7);">2</span>
+                    </div>
+                    <div style="display:flex; align-items:center; gap:12px; height:66px; border-bottom:1px solid rgba(232,224,207,.08);">
+                      <span style="flex:0 0 56px; font-family:'IBM Plex Mono', monospace; font-size:17px; color:#A8875A;">20:00</span>
+                      <span style="flex:1; font-family:'Cormorant', serif; font-size:23px;">Kaur</span>
+                      <span style="font-family:'IBM Plex Mono', monospace; font-size:14px; color:rgba(232,224,207,.7);">6</span>
+                    </div>
+                    <div style="display:flex; align-items:center; gap:12px; height:66px; border-bottom:1px solid rgba(232,224,207,.08);">
+                      <span style="flex:0 0 56px; font-family:'IBM Plex Mono', monospace; font-size:17px; color:#A8875A;">21:15</span>
+                      <span style="flex:1; font-family:'Cormorant', serif; font-size:23px;">Ferreira</span>
+                      <span style="font-family:'IBM Plex Mono', monospace; font-size:14px; color:rgba(232,224,207,.7);">4</span>
+                    </div>
+                    <div style="display:flex; align-items:center; gap:12px; height:66px; border-bottom:1px solid rgba(232,224,207,.08);">
+                      <span style="flex:0 0 56px; font-family:'IBM Plex Mono', monospace; font-size:17px; color:#A8875A;">22:00</span>
+                      <span style="flex:1; font-family:'Cormorant', serif; font-size:23px;">Whitmore</span>
+                      <span style="font-family:'IBM Plex Mono', monospace; font-size:14px; color:rgba(232,224,207,.7);">2</span>
+                    </div>
+                  </div>
+                  <div style="font-family:'IBM Plex Mono', monospace; font-size:10px; letter-spacing:.14em; text-transform:uppercase; color:rgba(232,224,207,.3); margin-top:14px; line-height:1.7;">No guest contact details in here.</div>
+                </div>
+
+                <div style="display:flex; flex-direction:column; gap:16px;">
+                  <div style="border:1px solid rgba(232,224,207,.1); background:#1B1518; padding:22px; display:flex; flex-direction:column; gap:14px;">
+                    <div style="display:flex; justify-content:space-between; align-items:baseline;">
+                      <span style="font-family:'Cormorant', serif; font-size:28px;">Lockdown</span>
+                      <span style="font-family:'IBM Plex Mono', monospace; font-size:12px; color:#A8875A;">0 / 18</span>
+                    </div>
+                    <div style="height:5px; background:rgba(232,224,207,.1);"><div style="width:0%; height:100%; background:#A8875A;"></div></div>
+                    <div style="font-family:'IBM Plex Mono', monospace; font-size:10.5px; letter-spacing:.12em; text-transform:uppercase; color:rgba(232,224,207,.42); line-height:1.8;">Bar 0/7&nbsp;·&nbsp;Floor 0/6&nbsp;·&nbsp;Security 0/5</div>
+                    <div style="height:64px; border:1px solid rgba(168,135,90,.5); display:flex; align-items:center; justify-content:center; font-family:'IBM Plex Mono', monospace; font-size:12px; letter-spacing:.2em; text-transform:uppercase; color:#A8875A;">Start closing</div>
+                  </div>
+
+                  <div style="border:1px solid rgba(232,224,207,.1); background:#1B1518; padding:22px; display:flex; flex-direction:column; gap:12px;">
+                    <span style="font-family:'Cormorant', serif; font-size:28px;">Flag stock</span>
+                    <div style="font-family:'IBM Plex Mono', monospace; font-size:10.5px; letter-spacing:.12em; text-transform:uppercase; color:rgba(232,224,207,.42); line-height:1.9;">3 flagged&nbsp;·&nbsp;last 21:02</div>
+                    <div style="height:64px; border:1px solid rgba(232,224,207,.18); display:flex; align-items:center; justify-content:center; font-family:'IBM Plex Mono', monospace; font-size:12px; letter-spacing:.2em; text-transform:uppercase; color:rgba(232,224,207,.7);">Report an item</div>
+                  </div>
+
+                  <div style="flex:1; border:1px solid rgba(232,224,207,.1); padding:22px; display:flex; flex-direction:column; justify-content:space-between;">
+                    <div>
+                      <span style="font-family:'Cormorant', serif; font-size:28px;">Clock</span>
+                      <div style="font-family:'IBM Plex Mono', monospace; font-size:10.5px; letter-spacing:.14em; text-transform:uppercase; color:rgba(232,224,207,.38); margin-top:8px;">Optional&nbsp;·&nbsp;not clocked in</div>
+                    </div>
+                    <div style="height:64px; border:1px solid rgba(232,224,207,.14); display:flex; align-items:center; justify-content:center; font-family:'IBM Plex Mono', monospace; font-size:12px; letter-spacing:.2em; text-transform:uppercase; color:rgba(232,224,207,.55);">Clock in</div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+        <div style="font-family:'IBM Plex Mono', monospace; font-size:12px; letter-spacing:.14em; text-transform:uppercase; color:rgba(232,224,207,.55);"><span style="color:#A8875A;">iPad 2</span>&nbsp;&nbsp;Home&nbsp;·&nbsp;rail + three columns</div>
+      </div>
+
+      <!-- iPad Checklist -->
+      <div style="display:flex; flex-direction:column; gap:16px;">
+        <div style="width:1194px; height:834px; border-radius:30px; padding:12px; background:#080506; border:1px solid rgba(232,224,207,.09); box-shadow:0 34px 80px rgba(0,0,0,.6);">
+          <div style="width:100%; height:100%; border-radius:20px; overflow:hidden; background:#14100F; color:#E8E0CF; display:flex;">
+
+            <div style="flex:0 0 116px; background:#100C0C; border-right:1px solid rgba(232,224,207,.09); display:flex; flex-direction:column; align-items:center; padding:22px 0 20px;">
+              <svg width="30" height="30" viewBox="0 0 100 100" fill="none" aria-hidden="true" style="margin-bottom:26px;">
+                <path d="M 52 8 A 42 42 0 1 0 52 92 A 31 42 0 1 1 52 8 Z" fill="none" stroke="rgba(168,135,90,.6)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"></path>
+              </svg>
+              <div style="display:flex; flex-direction:column; gap:6px; width:100%; flex:1;">
+                <div style="height:84px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:6px;">
+                  <span style="width:13px; height:13px; border:1.5px solid rgba(232,224,207,.4);"></span>
+                  <span style="font-family:'IBM Plex Mono', monospace; font-size:10px; letter-spacing:.14em; text-transform:uppercase; color:rgba(232,224,207,.5);">Home</span>
+                </div>
+                <div style="height:84px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:6px;">
+                  <span style="width:13px; height:13px; border:1.5px solid rgba(232,224,207,.4);"></span>
+                  <span style="font-family:'IBM Plex Mono', monospace; font-size:10px; letter-spacing:.14em; text-transform:uppercase; color:rgba(232,224,207,.5);">Books</span>
+                </div>
+                <div style="height:84px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:6px;">
+                  <span style="width:13px; height:13px; border:1.5px solid rgba(232,224,207,.4);"></span>
+                  <span style="font-family:'IBM Plex Mono', monospace; font-size:10px; letter-spacing:.14em; text-transform:uppercase; color:rgba(232,224,207,.5);">Rota</span>
+                </div>
+                <div style="height:84px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:6px; background:rgba(168,135,90,.14); border-left:2px solid #A8875A;">
+                  <span style="width:13px; height:13px; background:#A8875A;"></span>
+                  <span style="font-family:'IBM Plex Mono', monospace; font-size:10px; letter-spacing:.14em; text-transform:uppercase; color:#E8E0CF;">Close</span>
+                </div>
+                <div style="height:84px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:6px;">
+                  <span style="width:13px; height:13px; border:1.5px solid rgba(232,224,207,.4);"></span>
+                  <span style="font-family:'IBM Plex Mono', monospace; font-size:10px; letter-spacing:.14em; text-transform:uppercase; color:rgba(232,224,207,.5);">Stock</span>
+                </div>
+              </div>
+              <div style="width:84px; height:84px; border:1px solid rgba(232,224,207,.22); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:7px;">
+                <span style="width:12px; height:12px; border:1.5px solid rgba(232,224,207,.7); border-radius:2px;"></span>
+                <span style="font-family:'IBM Plex Mono', monospace; font-size:10px; letter-spacing:.16em; text-transform:uppercase; color:rgba(232,224,207,.8);">Lock</span>
+              </div>
+            </div>
+
+            <div style="flex:1; padding:34px 40px 0; display:flex; flex-direction:column; overflow:hidden;">
+              <div style="display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:18px;">
+                <div>
+                  <div style="font-family:'IBM Plex Mono', monospace; font-size:12px; letter-spacing:.24em; text-transform:uppercase; color:rgba(232,224,207,.45);">Fri 24 Jul&nbsp;·&nbsp;23:52</div>
+                  <div style="font-family:'Cormorant', serif; font-size:52px; font-weight:300; line-height:1; margin-top:8px;">Closing up</div>
+                </div>
+                <div style="text-align:right;">
+                  <div style="font-family:'Cormorant', serif; font-size:44px; line-height:1; color:#A8875A;">7<span style="font-size:24px; color:rgba(232,224,207,.45);">&nbsp;/ 18</span></div>
+                  <div style="font-family:'IBM Plex Mono', monospace; font-size:10.5px; letter-spacing:.16em; text-transform:uppercase; color:rgba(232,224,207,.4); margin-top:6px;">Three of you ticking</div>
+                </div>
+              </div>
+              <div style="height:5px; background:rgba(232,224,207,.1); margin-bottom:26px;"><div style="width:39%; height:100%; background:#A8875A;"></div></div>
+
+              <div style="display:grid; grid-template-columns:repeat(3, 1fr); gap:26px; flex:1; min-height:0; overflow:hidden;">
+
+                <div>
+                  <div style="font-family:'IBM Plex Mono', monospace; font-size:10.5px; letter-spacing:.26em; text-transform:uppercase; color:#A8875A; margin-bottom:10px;">Bar&nbsp;<span style="color:rgba(232,224,207,.35);">5 / 7</span></div>
+                  <div style="border-top:1px solid rgba(232,224,207,.1);">
+                    <div style="display:flex; align-items:center; gap:14px; min-height:76px; padding:10px 0; border-bottom:1px solid rgba(232,224,207,.08);">
+                      <span style="width:32px; height:32px; flex:0 0 auto; background:#6E7F68; display:flex; align-items:center; justify-content:center; color:#14100F; font-size:18px;">✓</span>
+                      <div style="flex:1;">
+                        <div style="font-size:18px; color:rgba(232,224,207,.55);">Wine fridges to 6°</div>
+                        <div style="font-family:'IBM Plex Mono', monospace; font-size:10px; letter-spacing:.12em; text-transform:uppercase; color:rgba(232,224,207,.58); margin-top:3px;">Sam 23:31</div>
+                      </div>
+                    </div>
+                    <div style="display:flex; align-items:center; gap:14px; min-height:76px; padding:10px 0; border-bottom:1px solid rgba(232,224,207,.08);">
+                      <span style="width:32px; height:32px; flex:0 0 auto; background:#6E7F68; display:flex; align-items:center; justify-content:center; color:#14100F; font-size:18px;">✓</span>
+                      <div style="flex:1;">
+                        <div style="font-size:18px; color:rgba(232,224,207,.55);">Ice machine drained</div>
+                        <div style="font-family:'IBM Plex Mono', monospace; font-size:10px; letter-spacing:.12em; text-transform:uppercase; color:rgba(232,224,207,.58); margin-top:3px;">Sam 23:34&nbsp;·&nbsp;1 note</div>
+                      </div>
+                    </div>
+                    <div style="display:flex; align-items:center; gap:14px; min-height:76px; padding:10px 0; border-bottom:1px solid rgba(232,224,207,.08);">
+                      <span style="width:32px; height:32px; flex:0 0 auto; background:#6E7F68; display:flex; align-items:center; justify-content:center; color:#14100F; font-size:18px;">✓</span>
+                      <div style="flex:1;">
+                        <div style="font-size:18px; color:rgba(232,224,207,.55);">Glassware through</div>
+                        <div style="font-family:'IBM Plex Mono', monospace; font-size:10px; letter-spacing:.12em; text-transform:uppercase; color:rgba(232,224,207,.58); margin-top:3px;">Priya 23:41</div>
+                      </div>
+                    </div>
+                    <div style="display:flex; align-items:center; gap:14px; min-height:76px; padding:10px 0; border-bottom:1px solid rgba(232,224,207,.08);">
+                      <span style="width:32px; height:32px; flex:0 0 auto; border:1.5px solid rgba(232,224,207,.34);"></span>
+                      <span style="flex:1; font-size:18px;">Wipe the back bar and taps</span>
+                    </div>
+                    <div style="display:flex; align-items:center; gap:14px; min-height:76px; padding:10px 0;">
+                      <span style="width:32px; height:32px; flex:0 0 auto; border:1.5px solid rgba(232,224,207,.34);"></span>
+                      <span style="flex:1; font-size:18px;">Cash counted, bag in safe</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div>
+                  <div style="font-family:'IBM Plex Mono', monospace; font-size:10.5px; letter-spacing:.26em; text-transform:uppercase; color:rgba(232,224,207,.5); margin-bottom:10px;">Floor&nbsp;<span style="color:rgba(232,224,207,.3);">2 / 6</span></div>
+                  <div style="border-top:1px solid rgba(232,224,207,.1);">
+                    <div style="display:flex; align-items:center; gap:14px; min-height:76px; padding:10px 0; border-bottom:1px solid rgba(232,224,207,.08);">
+                      <span style="width:32px; height:32px; flex:0 0 auto; background:#6E7F68; display:flex; align-items:center; justify-content:center; color:#14100F; font-size:18px;">✓</span>
+                      <div style="flex:1;">
+                        <div style="font-size:18px; color:rgba(232,224,207,.55);">Tables wiped, chairs up</div>
+                        <div style="font-family:'IBM Plex Mono', monospace; font-size:10px; letter-spacing:.12em; text-transform:uppercase; color:rgba(232,224,207,.58); margin-top:3px;">Tom 23:44</div>
+                      </div>
+                    </div>
+                    <div style="display:flex; align-items:center; gap:14px; min-height:76px; padding:10px 0; border-bottom:1px solid rgba(232,224,207,.08);">
+                      <span style="width:32px; height:32px; flex:0 0 auto; background:#6E7F68; display:flex; align-items:center; justify-content:center; color:#14100F; font-size:18px;">✓</span>
+                      <div style="flex:1;">
+                        <div style="font-size:18px; color:rgba(232,224,207,.55);">Upstairs swept</div>
+                        <div style="font-family:'IBM Plex Mono', monospace; font-size:10px; letter-spacing:.12em; text-transform:uppercase; color:rgba(232,224,207,.58); margin-top:3px;">Tom 23:49</div>
+                      </div>
+                    </div>
+                    <div style="display:flex; align-items:center; gap:14px; min-height:76px; padding:10px 0; border-bottom:1px solid rgba(232,224,207,.08);">
+                      <span style="width:32px; height:32px; flex:0 0 auto; border:1.5px solid rgba(232,224,207,.34);"></span>
+                      <span style="flex:1; font-size:18px;">Candles out — all of them</span>
+                    </div>
+                    <div style="display:flex; align-items:center; gap:14px; min-height:76px; padding:10px 0; border-bottom:1px solid rgba(232,224,207,.08);">
+                      <span style="width:32px; height:32px; flex:0 0 auto; border:1.5px solid rgba(232,224,207,.34);"></span>
+                      <span style="flex:1; font-size:18px;">Records in sleeves, deck off</span>
+                    </div>
+                    <div style="display:flex; align-items:center; gap:14px; min-height:76px; padding:10px 0;">
+                      <span style="width:32px; height:32px; flex:0 0 auto; border:1.5px solid rgba(232,224,207,.34);"></span>
+                      <span style="flex:1; font-size:18px;">Bins out to the yard</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div>
+                  <div style="font-family:'IBM Plex Mono', monospace; font-size:10.5px; letter-spacing:.26em; text-transform:uppercase; color:rgba(232,224,207,.5); margin-bottom:10px;">Security&nbsp;<span style="color:rgba(232,224,207,.3);">0 / 5</span></div>
+                  <div style="border-top:1px solid rgba(232,224,207,.1);">
+                    <div style="display:flex; align-items:center; gap:14px; min-height:76px; padding:10px 0; border-bottom:1px solid rgba(232,224,207,.08);">
+                      <span style="width:32px; height:32px; flex:0 0 auto; border:1.5px solid rgba(232,224,207,.34);"></span>
+                      <span style="flex:1; font-size:18px;">Back door bolted, top and bottom</span>
+                    </div>
+                    <div style="display:flex; align-items:center; gap:14px; min-height:76px; padding:10px 0; border-bottom:1px solid rgba(232,224,207,.08);">
+                      <span style="width:32px; height:32px; flex:0 0 auto; border:1.5px solid rgba(232,224,207,.34);"></span>
+                      <span style="flex:1; font-size:18px;">Skylight closed</span>
+                    </div>
+                    <div style="display:flex; align-items:center; gap:14px; min-height:76px; padding:10px 0; border-bottom:1px solid rgba(232,224,207,.08);">
+                      <span style="width:32px; height:32px; flex:0 0 auto; border:1.5px solid rgba(232,224,207,.34);"></span>
+                      <span style="flex:1; font-size:18px;">Alarm set, code confirmed</span>
+                    </div>
+                    <div style="display:flex; align-items:center; gap:14px; min-height:76px; padding:10px 0; border-bottom:1px solid rgba(232,224,207,.08);">
+                      <span style="width:32px; height:32px; flex:0 0 auto; border:1.5px solid rgba(232,224,207,.34);"></span>
+                      <span style="flex:1; font-size:18px;">Shutter down and locked</span>
+                    </div>
+                    <div style="display:flex; align-items:center; gap:14px; min-height:76px; padding:10px 0;">
+                      <span style="width:32px; height:32px; flex:0 0 auto; border:1.5px solid rgba(232,224,207,.34);"></span>
+                      <span style="flex:1; font-size:18px;">Keys back on the hook</span>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+
+              <div style="display:flex; align-items:center; gap:24px; padding:20px 0 24px; border-top:1px solid rgba(232,224,207,.1); flex:0 0 auto;">
+                <span style="flex:1; font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:rgba(232,224,207,.4); line-height:1.7;">Tap the row, not the box.&nbsp;·&nbsp;Every tick is signed by whoever's PIN is in.</span>
+                <div style="flex:0 0 320px; height:72px; border:1px dashed rgba(232,224,207,.2); display:flex; align-items:center; justify-content:center; font-family:'IBM Plex Mono', monospace; font-size:13px; letter-spacing:.22em; text-transform:uppercase; color:rgba(232,224,207,.42);">Submit&nbsp;—&nbsp;11 left</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div style="font-family:'IBM Plex Mono', monospace; font-size:12px; letter-spacing:.14em; text-transform:uppercase; color:rgba(232,224,207,.55);"><span style="color:#A8875A;">iPad 3</span>&nbsp;&nbsp;Lockdown&nbsp;·&nbsp;all three groups at once</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ============================= BUILD SPEC ============================= -->
+  <sc-if value="{{ showSpec }}" hint-placeholder-val="{{ true }}">
+  <div style="width:1194px; border:1px solid rgba(232,224,207,.14); background:#100C0D; padding:48px 44px;">
+    <div style="display:flex; flex-wrap:wrap; gap:20px 44px; align-items:flex-end; justify-content:space-between; padding-bottom:28px; border-bottom:1px solid rgba(232,224,207,.14); margin-bottom:36px;">
+      <div>
+        <div style="font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:.28em; text-transform:uppercase; color:#A8875A; margin-bottom:12px;">Build to spec</div>
+        <h2 style="margin:0; font-family:'Cormorant', serif; font-weight:400; font-size:44px; line-height:1;">Type, spacing, targets</h2>
+      </div>
+      <div style="font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:rgba(232,224,207,.4); line-height:1.9; text-align:right;">Cormorant&nbsp;·&nbsp;Hanken Grotesk&nbsp;·&nbsp;IBM Plex Mono<br>8px base grid&nbsp;·&nbsp;no hover, no long-press, no drag</div>
+    </div>
+
+    <div style="display:grid; grid-template-columns:1.25fr 1fr 1fr; gap:44px;">
+
+      <div>
+        <div style="font-family:'IBM Plex Mono', monospace; font-size:10.5px; letter-spacing:.26em; text-transform:uppercase; color:rgba(232,224,207,.42); margin-bottom:16px;">Type scale</div>
+        <div style="display:flex; flex-direction:column; gap:0;">
+          <div style="display:flex; align-items:baseline; gap:20px; padding:14px 0; border-top:1px solid rgba(232,224,207,.1);">
+            <span style="flex:1; font-family:'Cormorant', serif; font-weight:300; font-size:46px; line-height:1;">Evening, Priya</span>
+            <span style="flex:0 0 190px; font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:.1em; color:rgba(232,224,207,.5); line-height:1.6;">Cormorant 300<br>46 / 60 iPad&nbsp;·&nbsp;lh 1.0</span>
+          </div>
+          <div style="display:flex; align-items:baseline; gap:20px; padding:14px 0; border-top:1px solid rgba(232,224,207,.1);">
+            <span style="flex:1; font-family:'Cormorant', serif; font-weight:400; font-size:34px; line-height:1;">17:00 → 01:00</span>
+            <span style="flex:0 0 190px; font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:.1em; color:rgba(232,224,207,.5); line-height:1.6;">Cormorant 400<br>34 / 44 iPad&nbsp;·&nbsp;shift + data hero</span>
+          </div>
+          <div style="display:flex; align-items:baseline; gap:20px; padding:14px 0; border-top:1px solid rgba(232,224,207,.1);">
+            <span style="flex:1; font-family:'Cormorant', serif; font-size:26px; line-height:1;">Bennett&nbsp;·&nbsp;Bookings</span>
+            <span style="flex:0 0 190px; font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:.1em; color:rgba(232,224,207,.5); line-height:1.6;">Cormorant 400 · 26 / 24<br>names, tiles, list titles</span>
+          </div>
+          <div style="display:flex; align-items:baseline; gap:20px; padding:14px 0; border-top:1px solid rgba(232,224,207,.1);">
+            <span style="flex:1; font-size:19px; line-height:1.25;">Candles out — all of them</span>
+            <span style="flex:0 0 190px; font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:.1em; color:rgba(232,224,207,.5); line-height:1.6;">Hanken 300 · 19 min<br>every tappable label</span>
+          </div>
+          <div style="display:flex; align-items:baseline; gap:20px; padding:14px 0; border-top:1px solid rgba(232,224,207,.1);">
+            <span style="flex:1; font-size:16px; line-height:1.6; color:rgba(232,224,207,.62);">Supporting line, 16/1.6 — never below 15.</span>
+            <span style="flex:0 0 190px; font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:.1em; color:rgba(232,224,207,.5); line-height:1.6;">Hanken 300 · 16<br>body / helper</span>
+          </div>
+          <div style="display:flex; align-items:baseline; gap:20px; padding:14px 0; border-top:1px solid rgba(232,224,207,.1);">
+            <span style="flex:1; font-family:'IBM Plex Mono', monospace; font-size:20px;">21:47&nbsp;&nbsp;7 / 18</span>
+            <span style="flex:0 0 190px; font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:.1em; color:rgba(232,224,207,.5); line-height:1.6;">Plex Mono 400 · 20<br>times, counts, covers</span>
+          </div>
+          <div style="display:flex; align-items:baseline; gap:20px; padding:14px 0; border-top:1px solid rgba(232,224,207,.1); border-bottom:1px solid rgba(232,224,207,.1);">
+            <span style="flex:1; font-family:'IBM Plex Mono', monospace; font-size:10.5px; letter-spacing:.26em; text-transform:uppercase;">Flagged tonight&nbsp;·&nbsp;Sam 19:20</span>
+            <span style="flex:0 0 190px; font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:.1em; color:rgba(232,224,207,.5); line-height:1.6;">Plex Mono 400 · 10.5–12<br>tracking .26em · caps only</span>
+          </div>
+        </div>
+        <p style="margin:18px 0 0; font-size:15px; line-height:1.65; color:rgba(232,224,207,.5);">Serif carries anything a person reads at arm's length; mono carries anything they scan for a number. Sans does the work in between. No sans or serif text below 15px, and nothing tappable below 19px; mono labels run 10.5–13px, caps only, at 55–60% cream.</p>
+      </div>
+
+      <div>
+        <div style="font-family:'IBM Plex Mono', monospace; font-size:10.5px; letter-spacing:.26em; text-transform:uppercase; color:rgba(232,224,207,.42); margin-bottom:16px;">Tap targets</div>
+        <div style="display:flex; flex-direction:column; font-family:'IBM Plex Mono', monospace; font-size:12.5px; letter-spacing:.06em; color:rgba(232,224,207,.75);">
+          <div style="display:flex; justify-content:space-between; gap:16px; padding:13px 0; border-top:1px solid rgba(232,224,207,.1);"><span>Absolute floor</span><span style="color:#A8875A;">60 px</span></div>
+          <div style="display:flex; justify-content:space-between; gap:16px; padding:13px 0; border-top:1px solid rgba(232,224,207,.1);"><span>List / checklist row</span><span>76 px</span></div>
+          <div style="display:flex; justify-content:space-between; gap:16px; padding:13px 0; border-top:1px solid rgba(232,224,207,.1);"><span>Booking row</span><span>84 px</span></div>
+          <div style="display:flex; justify-content:space-between; gap:16px; padding:13px 0; border-top:1px solid rgba(232,224,207,.1);"><span>Primary button</span><span>72 px</span></div>
+          <div style="display:flex; justify-content:space-between; gap:16px; padding:13px 0; border-top:1px solid rgba(232,224,207,.1);"><span>Keypad key</span><span>92 / 108 iPad</span></div>
+          <div style="display:flex; justify-content:space-between; gap:16px; padding:13px 0; border-top:1px solid rgba(232,224,207,.1);"><span>Segmented toggle</span><span>60 px</span></div>
+          <div style="display:flex; justify-content:space-between; gap:16px; padding:13px 0; border-top:1px solid rgba(232,224,207,.1);"><span>Quick-action tile</span><span>88 px</span></div>
+          <div style="display:flex; justify-content:space-between; gap:16px; padding:13px 0; border-top:1px solid rgba(232,224,207,.1);"><span>iPad rail item / Lock</span><span>84 px</span></div>
+          <div style="display:flex; justify-content:space-between; gap:16px; padding:13px 0; border-top:1px solid rgba(232,224,207,.1);"><span>Clock button</span><span>240 px circle</span></div>
+          <div style="display:flex; justify-content:space-between; gap:16px; padding:13px 0; border-top:1px solid rgba(232,224,207,.1); border-bottom:1px solid rgba(232,224,207,.1);"><span>Gap between targets</span><span>≥ 10 px</span></div>
+        </div>
+        <p style="margin:18px 0 0; font-size:15px; line-height:1.65; color:rgba(232,224,207,.5);">The checkbox glyph is 34px but the hit area is the whole 76px row — draw the box, tap the row. No swipe-to-do, no press-and-hold, no double-tap anywhere in the app.</p>
+
+        <div style="font-family:'IBM Plex Mono', monospace; font-size:10.5px; letter-spacing:.26em; text-transform:uppercase; color:rgba(232,224,207,.42); margin:32px 0 16px;">Spacing</div>
+        <div style="display:flex; flex-direction:column; font-family:'IBM Plex Mono', monospace; font-size:12.5px; letter-spacing:.06em; color:rgba(232,224,207,.75);">
+          <div style="display:flex; justify-content:space-between; gap:16px; padding:13px 0; border-top:1px solid rgba(232,224,207,.1);"><span>Base grid</span><span>8 px</span></div>
+          <div style="display:flex; justify-content:space-between; gap:16px; padding:13px 0; border-top:1px solid rgba(232,224,207,.1);"><span>Phone gutter</span><span>22–24 px</span></div>
+          <div style="display:flex; justify-content:space-between; gap:16px; padding:13px 0; border-top:1px solid rgba(232,224,207,.1);"><span>iPad gutter</span><span>40–44 px</span></div>
+          <div style="display:flex; justify-content:space-between; gap:16px; padding:13px 0; border-top:1px solid rgba(232,224,207,.1);"><span>Block spacing</span><span>26 / 32 px</span></div>
+          <div style="display:flex; justify-content:space-between; gap:16px; padding:13px 0; border-top:1px solid rgba(232,224,207,.1); border-bottom:1px solid rgba(232,224,207,.1);"><span>Hairline</span><span>1 px @ 8–12% cream</span></div>
+        </div>
+      </div>
+
+      <div>
+        <div style="font-family:'IBM Plex Mono', monospace; font-size:10.5px; letter-spacing:.26em; text-transform:uppercase; color:rgba(232,224,207,.42); margin-bottom:16px;">Colour &amp; roles</div>
+        <div style="display:flex; flex-direction:column;">
+          <div style="display:flex; align-items:center; gap:14px; padding:12px 0; border-top:1px solid rgba(232,224,207,.1);">
+            <span style="width:36px; height:36px; background:#14100F; border:1px solid rgba(232,224,207,.16); flex:0 0 auto;"></span>
+            <span style="flex:1; font-family:'IBM Plex Mono', monospace; font-size:12px; letter-spacing:.06em; color:rgba(232,224,207,.72);">#14100F&nbsp;&nbsp;screen</span>
+          </div>
+          <div style="display:flex; align-items:center; gap:14px; padding:12px 0; border-top:1px solid rgba(232,224,207,.1);">
+            <span style="width:36px; height:36px; background:#1B1518; flex:0 0 auto;"></span>
+            <span style="flex:1; font-family:'IBM Plex Mono', monospace; font-size:12px; letter-spacing:.06em; color:rgba(232,224,207,.72);">#1B1518&nbsp;&nbsp;tile / raised</span>
+          </div>
+          <div style="display:flex; align-items:center; gap:14px; padding:12px 0; border-top:1px solid rgba(232,224,207,.1);">
+            <span style="width:36px; height:36px; background:#E8E0CF; flex:0 0 auto;"></span>
+            <span style="flex:1; font-family:'IBM Plex Mono', monospace; font-size:12px; letter-spacing:.06em; color:rgba(232,224,207,.72);">#E8E0CF&nbsp;&nbsp;type — never #FFF</span>
+          </div>
+          <div style="display:flex; align-items:center; gap:14px; padding:12px 0; border-top:1px solid rgba(232,224,207,.1);">
+            <span style="width:36px; height:36px; background:#A8875A; flex:0 0 auto;"></span>
+            <span style="flex:1; font-family:'IBM Plex Mono', monospace; font-size:12px; letter-spacing:.06em; color:rgba(232,224,207,.72);">#A8875A&nbsp;&nbsp;action / attention</span>
+          </div>
+          <div style="display:flex; align-items:center; gap:14px; padding:12px 0; border-top:1px solid rgba(232,224,207,.1);">
+            <span style="width:36px; height:36px; background:#6E7F68; flex:0 0 auto;"></span>
+            <span style="flex:1; font-family:'IBM Plex Mono', monospace; font-size:12px; letter-spacing:.06em; color:rgba(232,224,207,.72);">#6E7F68&nbsp;&nbsp;done / all clear</span>
+          </div>
+          <div style="display:flex; align-items:center; gap:14px; padding:12px 0; border-top:1px solid rgba(232,224,207,.1);">
+            <span style="width:36px; height:36px; background:#B4596B; flex:0 0 auto;"></span>
+            <span style="flex:1; font-family:'IBM Plex Mono', monospace; font-size:12px; letter-spacing:.06em; color:rgba(232,224,207,.72);">#B4596B&nbsp;&nbsp;out / wrong PIN</span>
+          </div>
+          <div style="display:flex; align-items:center; gap:14px; padding:12px 0; border-top:1px solid rgba(232,224,207,.1); border-bottom:1px solid rgba(232,224,207,.1);">
+            <span style="width:36px; height:36px; background:#241019; flex:0 0 auto;"></span>
+            <span style="flex:1; font-family:'IBM Plex Mono', monospace; font-size:12px; letter-spacing:.06em; color:rgba(232,224,207,.72);">#241019&nbsp;&nbsp;wine — lock screen only</span>
+          </div>
+        </div>
+
+        <div style="font-family:'IBM Plex Mono', monospace; font-size:10.5px; letter-spacing:.26em; text-transform:uppercase; color:rgba(232,224,207,.42); margin:32px 0 14px;">Rules for a dim room</div>
+        <ul style="margin:0; padding-left:20px; font-size:15px; line-height:1.75; color:rgba(232,224,207,.62);">
+          <li>Largest lit area on any screen stays under 20% — no white sheets, no filled cards.</li>
+          <li>Brass is the only fill. One filled button per screen, maximum.</li>
+          <li>Dim past states (passed bookings, ticked items) to ~45–62% rather than hiding them.</li>
+          <li>Elevation by hairline and a half-step darker surface, never by shadow or gradient.</li>
+          <li>Locks itself after 2 minutes on the iPad; a phone follows the OS.</li>
+          <li>No red badges, no counts that climb, no push. Nudges are stated once and stay put.</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+  </sc-if>
+
+  <sc-if value="{{ candlelight }}" hint-placeholder-val="{{ false }}">
+    <div style="position:fixed; inset:0; background:rgba(6,4,5,.62); pointer-events:none; z-index:9;"></div>
+  </sc-if>
+
+  <!--APPEND-->
+
+</section>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;showSpec&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Board&quot;},&quot;candlelight&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Board&quot;}}">
+class Component extends DCLogic {
+  renderVals() {
+    return {
+      showSpec: this.props.showSpec ?? true,
+      candlelight: this.props.candlelight ?? false
+    };
+  }
+}
+</script>
+</body>
+</html>

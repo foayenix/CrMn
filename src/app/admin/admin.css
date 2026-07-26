@@ -76,6 +76,20 @@
   background: rgba(168, 135, 90, 0.22);
   color: #fff;
 }
+/* The staff app never carries a badge. This one is the boss's, and it has to
+   stand alone whether or not push notifications are ever set up. */
+.nav-badge {
+  display: inline-block;
+  margin-left: 8px;
+  min-width: 18px;
+  padding: 1px 5px;
+  border-radius: 999px;
+  background: var(--gold);
+  color: var(--wine);
+  font-size: 9.5px;
+  line-height: 16px;
+  text-align: center;
+}
 .admin-sidebar-footer {
   margin-top: auto;
   padding-top: 18px;

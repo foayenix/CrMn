@@ -12,7 +12,9 @@
     "db:migrate": "prisma migrate deploy",
     "seed": "tsx scripts/seed.ts",
     "set-password": "tsx scripts/set-password.ts",
-    "set-pin": "tsx scripts/set-pin.ts"
+    "set-pin": "tsx scripts/set-pin.ts",
+    "seed-stock": "tsx scripts/seed-stock.ts",
+    "vapid": "tsx scripts/generate-vapid.ts"
   },
   "prisma": {
     "seed": "tsx scripts/seed.ts"

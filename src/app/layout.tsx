@@ -21,9 +21,11 @@ export default function RootLayout({
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
-        {/* Same families/weights the original static site loaded. Hanken Grotesk
-            is the body face and Cormorant 300 the display weight — omitting
-            either makes the whole page fall back to browser defaults. */}
+        {/* The union of what all three surfaces need: the public site's ported
+            design (Hanken Grotesk body, Cormorant 300 display), the staff app's
+            type scale (Cormorant 300-500, Hanken Grotesk 300/400) and IBM Plex
+            Mono for labels. Dropping a weight here silently falls back to a
+            browser default face. */}
         <link
           href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,300;0,400;0,500;1,400&family=Hanken+Grotesk:wght@300;400;500&family=IBM+Plex+Mono:wght@400;500&display=swap"
           rel="stylesheet"

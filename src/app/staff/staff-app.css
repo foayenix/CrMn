@@ -1,0 +1,1251 @@
+/* Crescent Moon staff app — built to design/staff-app.html.
+   A dim room, wet hands, ten-second gaps: dimmed cream on warm black, brass for
+   the one action that matters, nothing that needs hover or precision.
+
+   Rules this file enforces:
+     · type is never pure white — #E8E0CF
+     · brass is the only fill, one filled control per screen
+     · elevation is a hairline and a half-step darker surface, never a shadow
+     · no hover, no long-press, no swipe, no drag, no double-tap
+*/
+
+.staff-root {
+  --screen: #14100f;
+  --raised: #1b1518;
+  --key: #1e1719;
+  --cream: #e8e0cf;
+  --brass: #a8875a;
+  --sage: #6e7f68;
+  --rose: #b4596b;
+  --wine: #241019;
+  --hair: rgba(232, 224, 207, 0.1);
+  --hair-strong: rgba(232, 224, 207, 0.24);
+  --dim: rgba(232, 224, 207, 0.62);
+  --dimmer: rgba(232, 224, 207, 0.45);
+
+  min-height: 100vh;
+  min-height: 100dvh;
+  background: var(--screen);
+  color: var(--cream);
+  font-family: "Hanken Grotesk", ui-sans-serif, system-ui, sans-serif;
+  font-weight: 300;
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.staff-root * {
+  box-sizing: border-box;
+}
+
+/* No hover, anywhere. The design rules it out, and the public site's global
+   `a:hover` would otherwise repaint a tile the instant a tap finished with the
+   pointer left sitting on it — which is exactly what a touch device does. */
+.staff-root a,
+.staff-root a:hover,
+.staff-root a:focus,
+.staff-root a:visited {
+  color: inherit;
+  text-decoration: none;
+}
+
+.staff-serif {
+  font-family: "Cormorant", Georgia, serif;
+  font-weight: 300;
+}
+
+/* Mono is for anything scanned for a number: times, counts, labels.
+   10.5–13px, caps only, 55–60% cream, tracking .26em. */
+.staff-mono {
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 11px;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: rgba(232, 224, 207, 0.55);
+}
+
+.staff-page {
+  max-width: 460px;
+  margin: 0 auto;
+  padding: 22px 22px 28px;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  min-height: 100dvh;
+}
+
+/* ---- lock screen ---------------------------------------------------------- */
+/* The one place wine (#241019) is allowed — flat, because elevation here is a
+   hairline and a half-step darker surface, never a gradient. */
+.staff-lock {
+  background: var(--wine);
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+}
+
+.staff-lock-top {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 26px;
+  padding: 34px 26px 0;
+  text-align: center;
+}
+
+.staff-lock-title {
+  font-family: "Cormorant", Georgia, serif;
+  font-weight: 300;
+  font-size: 34px;
+  line-height: 1;
+  margin: 0;
+}
+
+.staff-dots {
+  display: flex;
+  gap: 18px;
+  margin-top: 8px;
+}
+.staff-dot {
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  border: 1px solid rgba(232, 224, 207, 0.28);
+}
+.staff-dot.filled {
+  background: var(--brass);
+  border-color: var(--brass);
+}
+.staff-dots.wrong .staff-dot,
+.staff-dots.wrong .staff-dot.filled {
+  background: transparent;
+  border-color: var(--rose);
+}
+
+.staff-keypad {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  padding: 0 26px 34px;
+}
+.staff-key {
+  height: 92px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 31px;
+  background: var(--key);
+  border: 1px solid rgba(232, 224, 207, 0.09);
+  border-radius: 8px;
+  color: var(--cream);
+  padding: 0;
+  cursor: pointer;
+  user-select: none;
+  touch-action: manipulation;
+}
+.staff-key.blank {
+  background: none;
+  border: none;
+  pointer-events: none;
+}
+.staff-key.del {
+  background: none;
+  font-size: 20px;
+  color: rgba(232, 224, 207, 0.55);
+}
+.staff-key:active {
+  border-color: rgba(232, 224, 207, 0.3);
+}
+.staff-keypad.parked {
+  opacity: 0.22;
+  pointer-events: none;
+}
+
+.staff-countdown {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  border: 1px solid rgba(180, 89, 107, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Cormorant", Georgia, serif;
+  font-size: 40px;
+  font-weight: 300;
+}
+
+.staff-lock-foot {
+  padding: 0 26px 26px;
+  text-align: center;
+}
+
+/* ---- shared pieces -------------------------------------------------------- */
+.staff-eyebrow {
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 11px;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--dimmer);
+}
+
+.staff-greeting {
+  font-family: "Cormorant", Georgia, serif;
+  font-weight: 300;
+  font-size: 42px;
+  line-height: 1;
+  margin: 6px 0 16px;
+}
+
+.staff-panel {
+  border: 1px solid var(--hair);
+  background: var(--raised);
+  padding: 16px 20px;
+}
+.staff-panel.brass {
+  border-color: rgba(168, 135, 90, 0.38);
+  background: rgba(168, 135, 90, 0.07);
+}
+
+/* Every tappable label is at least 19px; every target at least 60px. */
+.staff-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-height: 76px;
+  border-bottom: 1px solid var(--hair);
+  padding: 10px 0;
+  width: 100%;
+  background: none;
+  border-left: none;
+  border-right: none;
+  border-top: none;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+.staff-row .label {
+  font-size: 19px;
+  line-height: 1.25;
+}
+
+/* Brass is the only fill, so the resting button is outlined: present, not
+   pushy. `.filled` is the single exception each screen is allowed. */
+.staff-button {
+  height: 72px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  border: 1px solid var(--hair-strong);
+  background: none;
+  color: rgba(232, 224, 207, 0.8);
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 13px;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+.staff-button.filled {
+  background: var(--brass);
+  border-color: var(--brass);
+  color: #14100f;
+}
+.staff-button:disabled {
+  opacity: 0.45;
+  cursor: default;
+}
+
+.staff-note {
+  font-size: 15px;
+  line-height: 1.5;
+  color: rgba(232, 224, 207, 0.5);
+}
+.staff-note.wrong {
+  color: var(--rose);
+}
+
+/* Deliberately dimmed rather than hidden — 45–62%, never gone. */
+.staff-past {
+  opacity: 0.5;
+}
+
+.staff-tables {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 16px;
+}
+.staff-tables th {
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 10.5px;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: rgba(232, 224, 207, 0.55);
+  font-weight: 400;
+  text-align: left;
+  padding: 0 0 10px;
+  border-bottom: 1px solid var(--hair);
+}
+.staff-tables td {
+  padding: 16px 0;
+  border-bottom: 1px solid var(--hair);
+  vertical-align: top;
+}
+
+/* ---- shell ---------------------------------------------------------------- */
+.staff-shell {
+  min-height: 100vh;
+  min-height: 100dvh;
+}
+
+/* Phone: a 60px back target, a mono title, and the screen's one number. */
+.staff-topbar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 64px;
+  margin: 0 -10px 6px;
+  flex: 0 0 auto;
+}
+.staff-back {
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 26px;
+  color: rgba(232, 224, 207, 0.7);
+}
+.staff-topbar-title {
+  flex: 1;
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 12px;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: rgba(232, 224, 207, 0.6);
+}
+.staff-topbar-stat {
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 14px;
+  letter-spacing: 0.06em;
+  color: rgba(232, 224, 207, 0.4);
+  padding-right: 10px;
+}
+
+.staff-home {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+/* On the phone the column wrapper is only there for the iPad's grid. */
+.staff-home-col {
+  display: contents;
+}
+
+/* Worth knowing — one band, stated once. No badge, no red, no climbing count. */
+.staff-band {
+  border-top: 1px solid var(--hair);
+  border-bottom: 1px solid var(--hair);
+}
+.staff-band-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-height: 78px;
+  padding: 16px 0;
+}
+.staff-band-mark {
+  width: 9px;
+  height: 9px;
+  flex: 0 0 auto;
+}
+.staff-band-mark.sage {
+  background: var(--sage);
+}
+.staff-band-mark.brass {
+  background: var(--brass);
+}
+.staff-band-mark.rose {
+  background: var(--rose);
+}
+.staff-band-text {
+  flex: 1;
+  font-size: 18px;
+  line-height: 1.3;
+  color: rgba(232, 224, 207, 0.86);
+}
+.serif-note {
+  font-family: "Cormorant", Georgia, serif;
+  font-style: italic;
+  font-size: 20px;
+  line-height: 1.3;
+  color: #9faf97;
+}
+
+.staff-tiles {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+.staff-tile {
+  height: 88px;
+  background: var(--raised);
+  border: 1px solid rgba(232, 224, 207, 0.09);
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  color: var(--cream);
+}
+.staff-tile-title {
+  font-family: "Cormorant", Georgia, serif;
+  font-size: 26px;
+  line-height: 1;
+}
+.staff-tile-stat {
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  color: rgba(232, 224, 207, 0.45);
+}
+
+/* ---- rota ----------------------------------------------------------------- */
+.staff-toggle {
+  display: flex;
+  gap: 6px;
+  padding: 6px 0 18px;
+}
+.staff-toggle-opt {
+  flex: 1;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--hair);
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 13px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(232, 224, 207, 0.55);
+}
+.staff-toggle-opt.on {
+  background: rgba(168, 135, 90, 0.16);
+  border-color: var(--brass);
+  color: var(--cream);
+}
+
+.staff-week-label {
+  font-size: 10.5px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(232, 224, 207, 0.12);
+}
+
+.staff-rota-day {
+  display: flex;
+  gap: 16px;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--hair);
+}
+.staff-rota-day.today {
+  background: rgba(168, 135, 90, 0.05);
+}
+.staff-rota-date {
+  flex: 0 0 62px;
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(232, 224, 207, 0.62);
+  padding-top: 6px;
+  line-height: 1.5;
+}
+/* A merged run of closed days dims each day after the first. */
+.staff-rota-date div + div {
+  color: rgba(232, 224, 207, 0.28);
+}
+.staff-rota-day.today .staff-rota-date {
+  color: var(--brass);
+}
+.staff-rota-date .today-mark {
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  color: rgba(168, 135, 90, 0.75);
+}
+.staff-slot-rule {
+  height: 1px;
+  background: var(--hair);
+  margin: 14px 0;
+}
+.staff-slot-note {
+  font-size: 15px;
+  color: rgba(232, 224, 207, 0.6);
+  margin-top: 6px;
+}
+.staff-slot-ends {
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 10.5px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(232, 224, 207, 0.58);
+  margin-top: 3px;
+}
+.staff-daynote {
+  display: flex;
+  gap: 10px;
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid rgba(110, 127, 104, 0.35);
+}
+.staff-daynote .staff-band-mark {
+  width: 8px;
+  height: 8px;
+  margin-top: 7px;
+}
+
+.staff-team-day {
+  padding: 16px 0 6px;
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 12px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(232, 224, 207, 0.5);
+}
+.staff-team-day.today {
+  color: var(--brass);
+}
+.staff-team-group {
+  border-top: 1px solid var(--hair);
+}
+.staff-team-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  height: 62px;
+  border-bottom: 1px solid rgba(232, 224, 207, 0.08);
+}
+.staff-team-times {
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 13px;
+  color: rgba(232, 224, 207, 0.72);
+}
+.staff-you {
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--brass);
+  margin-left: 8px;
+}
+
+/* ---- lockdown checklist --------------------------------------------------- */
+.staff-progress {
+  height: 5px;
+  background: rgba(232, 224, 207, 0.1);
+  flex: 0 0 auto;
+  margin-bottom: 4px;
+}
+.staff-progress-fill {
+  height: 100%;
+}
+
+.staff-section-head {
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 10.5px;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: rgba(232, 224, 207, 0.45);
+  padding: 20px 0 10px;
+}
+.staff-section-list {
+  border-top: 1px solid var(--hair);
+}
+
+.staff-check-row {
+  border-bottom: 1px solid rgba(232, 224, 207, 0.08);
+  padding: 12px 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+}
+/* The 34px box is drawn; the whole 76px row is the target. A square that size
+   with a wet thumb is a miss waiting to happen. */
+.staff-check-hit {
+  flex: 1;
+  min-width: 60%;
+}
+.staff-check-button {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+  min-height: 76px;
+  background: none;
+  border: none;
+  padding: 0;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+.staff-box {
+  width: 34px;
+  height: 34px;
+  flex: 0 0 auto;
+  border: 1.5px solid rgba(232, 224, 207, 0.34);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 19px;
+  font-weight: 500;
+}
+.staff-box.done {
+  background: var(--sage);
+  border-color: var(--sage);
+  color: #14100f;
+}
+.staff-box.big {
+  width: 38px;
+  height: 38px;
+  font-size: 21px;
+}
+.staff-box.small {
+  width: 26px;
+  height: 26px;
+  font-size: 15px;
+  background: rgba(110, 127, 104, 0.5);
+  border-color: transparent;
+}
+.staff-check-body {
+  flex: 1;
+}
+.staff-check-label {
+  display: block;
+  font-size: 19px;
+  line-height: 1.25;
+}
+/* Done items dim rather than vanish — the list is the record of the night. */
+.staff-check-label.done {
+  color: rgba(232, 224, 207, 0.55);
+}
+.staff-check-sig {
+  display: block;
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 10.5px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(232, 224, 207, 0.58);
+  margin-top: 4px;
+}
+.staff-check-note {
+  width: 100%;
+  padding: 10px 12px;
+  background: rgba(232, 224, 207, 0.04);
+  border-left: 2px solid rgba(168, 135, 90, 0.5);
+  font-family: "Cormorant", Georgia, serif;
+  font-style: italic;
+  font-size: 18px;
+  line-height: 1.35;
+  color: rgba(232, 224, 207, 0.72);
+}
+
+.staff-note-chip {
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 10.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(232, 224, 207, 0.38);
+  border: 1px solid rgba(232, 224, 207, 0.16);
+  background: none;
+  padding: 0 14px;
+  height: 60px;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+.staff-note-form {
+  width: 100%;
+}
+.staff-textarea {
+  width: 100%;
+  background: var(--raised);
+  border: 1px solid var(--hair-strong);
+  color: var(--cream);
+  font-family: "Hanken Grotesk", ui-sans-serif, sans-serif;
+  font-weight: 300;
+  font-size: 17px;
+  line-height: 1.5;
+  padding: 12px 14px;
+  resize: vertical;
+}
+.staff-note-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+.staff-note-save,
+.staff-note-cancel {
+  height: 60px;
+  padding: 0 20px;
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 12px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  background: none;
+  border: 1px solid var(--brass);
+  color: var(--brass);
+  cursor: pointer;
+  touch-action: manipulation;
+}
+.staff-note-cancel {
+  border-color: var(--hair-strong);
+  color: rgba(232, 224, 207, 0.6);
+}
+.staff-note-hint {
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 10.5px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(232, 224, 207, 0.4);
+  margin-top: 10px;
+}
+
+/* Submit stays reachable however long the list gets — sticky rather than
+   floating, and solid rather than a gradient scrim. */
+.staff-submit-bar {
+  position: sticky;
+  bottom: 0;
+  padding: 14px 0 6px;
+  flex: 0 0 auto;
+  background: var(--screen);
+}
+/* Visibly unavailable, not hidden: it says what's left rather than nothing. */
+.staff-button.waiting {
+  border-style: dashed;
+  border-color: rgba(232, 224, 207, 0.2);
+  color: rgba(232, 224, 207, 0.42);
+  opacity: 1;
+}
+
+.staff-locked-panel {
+  border: 1px solid rgba(110, 127, 104, 0.5);
+  background: rgba(110, 127, 104, 0.1);
+  padding: 24px 22px;
+  margin-top: 16px;
+}
+.staff-locked-meta {
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #9faf97;
+  line-height: 1.8;
+}
+.staff-signature-list {
+  border-top: 1px solid var(--hair);
+}
+.staff-signature {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-height: 66px;
+  padding: 8px 0;
+  border-bottom: 1px solid rgba(232, 224, 207, 0.08);
+  opacity: 0.62;
+}
+.staff-signature-by {
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 11px;
+  color: rgba(232, 224, 207, 0.5);
+}
+
+.staff-band-detail {
+  display: block;
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  color: rgba(232, 224, 207, 0.42);
+  margin-top: 4px;
+}
+.staff-chevron {
+  font-size: 24px;
+  color: rgba(232, 224, 207, 0.35);
+}
+
+/* ---- clock ---------------------------------------------------------------- */
+.staff-clock {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 34px;
+  padding: 20px 12px;
+}
+
+/* 240px, and outlined rather than filled — present, not pushy. */
+.staff-dial {
+  width: 240px;
+  height: 240px;
+  border-radius: 50%;
+  border: 1.5px solid var(--brass);
+  background: none;
+  color: var(--cream);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 0;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+.staff-dial.on {
+  border-color: rgba(110, 127, 104, 0.7);
+  background: rgba(110, 127, 104, 0.1);
+  gap: 4px;
+  cursor: default;
+}
+.staff-dial-label {
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 10.5px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(232, 224, 207, 0.5);
+}
+.staff-dial-label.brass {
+  color: var(--brass);
+  letter-spacing: 0.2em;
+}
+
+.staff-clock-foot {
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 10.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(232, 224, 207, 0.32);
+  line-height: 1.8;
+  border-top: 1px solid var(--hair);
+  padding-top: 16px;
+  margin-top: 8px;
+}
+
+.staff-tile.wide {
+  grid-column: span 2;
+  height: 72px;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 18px;
+}
+
+/* ---- low stock ------------------------------------------------------------ */
+/* What's already flagged sits above the pickable list, so nobody re-flags the
+   Picpoul. */
+.staff-flagged-box {
+  border: 1px solid rgba(232, 224, 207, 0.12);
+  background: rgba(232, 224, 207, 0.03);
+}
+.staff-flagged-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 70px;
+  padding: 12px 14px;
+  border-bottom: 1px solid rgba(232, 224, 207, 0.08);
+}
+.staff-flagged-row:last-child {
+  border-bottom: none;
+}
+.staff-flagged-sig {
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(232, 224, 207, 0.4);
+  margin-top: 3px;
+}
+.staff-flagged-note {
+  font-family: "Cormorant", Georgia, serif;
+  font-style: italic;
+  font-size: 17px;
+  line-height: 1.35;
+  color: rgba(232, 224, 207, 0.7);
+  margin-top: 6px;
+}
+
+.staff-level {
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 10.5px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  padding: 6px 10px;
+  flex: 0 0 auto;
+}
+.staff-level.low {
+  color: var(--brass);
+  border: 1px solid rgba(168, 135, 90, 0.6);
+}
+.staff-level.out {
+  color: #14100f;
+  background: var(--rose);
+}
+
+.staff-pick-list {
+  border-top: 1px solid var(--hair);
+}
+.staff-pick-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 66px;
+  padding: 8px 0;
+  border-bottom: 1px solid rgba(232, 224, 207, 0.08);
+  color: var(--cream);
+}
+/* Dimmed and unpickable. The name stays in serif — only the label that says
+   why goes to mono caps. */
+.staff-pick-row.flagged {
+  opacity: 0.35;
+}
+.staff-pick-flag {
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.staff-something-else {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 80px;
+  margin-top: 12px;
+  border: 1px solid rgba(168, 135, 90, 0.45);
+  padding: 12px 16px;
+  color: var(--cream);
+}
+
+.staff-report {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+.staff-report-name {
+  font-size: 40px;
+  font-weight: 300;
+  line-height: 1.05;
+  margin: 8px 0 4px;
+}
+.staff-freetext {
+  width: 100%;
+  background: none;
+  border: none;
+  border-bottom: 1px solid var(--hair-strong);
+  color: var(--cream);
+  font-family: "Cormorant", Georgia, serif;
+  font-size: 34px;
+  font-weight: 300;
+  line-height: 1.1;
+  padding: 8px 0;
+  margin: 8px 0 6px;
+}
+.staff-freetext::placeholder {
+  color: rgba(232, 224, 207, 0.28);
+}
+
+/* Two 96px targets, because Low or Out is the only choice on the screen. */
+.staff-level-choice {
+  flex: 1;
+  height: 96px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  border: 1px solid rgba(232, 224, 207, 0.16);
+  background: none;
+  color: rgba(232, 224, 207, 0.75);
+  cursor: pointer;
+  touch-action: manipulation;
+}
+.staff-level-choice.on {
+  background: rgba(168, 135, 90, 0.16);
+  border-color: var(--brass);
+  color: var(--cream);
+}
+.staff-level-choice.on.out {
+  background: rgba(180, 89, 107, 0.14);
+  border-color: var(--rose);
+}
+.staff-level-hint {
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(232, 224, 207, 0.4);
+}
+.staff-level-choice.on .staff-level-hint {
+  color: var(--brass);
+}
+.staff-level-choice.on.out .staff-level-hint {
+  color: var(--rose);
+}
+
+.staff-textarea.note {
+  min-height: 110px;
+  background: none;
+  border-color: rgba(232, 224, 207, 0.16);
+  font-family: "Cormorant", Georgia, serif;
+  font-style: italic;
+  font-size: 21px;
+  line-height: 1.4;
+}
+
+.staff-report-actions {
+  display: flex;
+  gap: 10px;
+  padding-top: 14px;
+  position: sticky;
+  bottom: 0;
+  background: var(--screen);
+}
+
+/* ---- bookings ------------------------------------------------------------- */
+.staff-booking-list {
+  border-top: 1px solid rgba(232, 224, 207, 0.12);
+}
+.staff-booking {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  height: 84px;
+  border-bottom: 1px solid var(--hair);
+}
+/* Passed times dim rather than disappear — the night still happened. */
+.staff-booking.passed {
+  opacity: 0.45;
+}
+.staff-booking-time {
+  flex: 0 0 62px;
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 20px;
+}
+.staff-booking-name {
+  flex: 1;
+  font-size: 26px;
+  font-weight: 400;
+}
+.staff-booking-party {
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 16px;
+  color: rgba(232, 224, 207, 0.7);
+}
+.staff-footnote {
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 10.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(232, 224, 207, 0.34);
+  line-height: 1.7;
+  margin-top: 20px;
+}
+
+.staff-empty {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  padding: 0 20px 80px;
+  text-align: center;
+}
+
+.staff-lock-mark {
+  width: 11px;
+  height: 11px;
+  border: 1.5px solid rgba(232, 224, 207, 0.7);
+  border-radius: 2px;
+}
+
+/* ---- iPad ----------------------------------------------------------------- */
+@media (min-width: 900px) {
+  .staff-page {
+    max-width: 720px;
+    padding: 40px 44px 44px;
+  }
+  /* 108px keys on the iPad, but the pad stays a pad — full-width keys would be
+     a 380px stripe, not something you tap without looking. */
+  .staff-keypad {
+    max-width: 420px;
+    width: 100%;
+    margin: 0 auto;
+  }
+  .staff-key {
+    height: 108px;
+  }
+  .staff-greeting {
+    font-size: 60px;
+  }
+
+  /* A permanent 116px rail: Lock always one reach away, and no screen more
+     than one tap from another. */
+  .staff-shell.pad {
+    display: flex;
+  }
+  .staff-shell.pad .staff-page {
+    flex: 1;
+    max-width: none;
+    padding: 40px 44px 44px;
+  }
+  .staff-rail {
+    flex: 0 0 116px;
+    background: #100c0c;
+    border-right: 1px solid rgba(232, 224, 207, 0.09);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 22px 0 20px;
+    gap: 26px;
+  }
+  .staff-rail-items {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    width: 100%;
+    flex: 1;
+  }
+  .staff-rail-item {
+    height: 84px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: rgba(232, 224, 207, 0.5);
+  }
+  .staff-rail-item.active {
+    background: rgba(168, 135, 90, 0.14);
+    border-left: 2px solid var(--brass);
+    color: var(--cream);
+  }
+  .staff-rail-mark {
+    width: 13px;
+    height: 13px;
+    border: 1.5px solid rgba(232, 224, 207, 0.4);
+  }
+  .staff-rail-item.active .staff-rail-mark {
+    background: var(--brass);
+    border-color: var(--brass);
+  }
+  .staff-rail-lock {
+    width: 84px;
+    height: 84px;
+    border: 1px solid rgba(232, 224, 207, 0.22);
+    background: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: rgba(232, 224, 207, 0.8);
+    cursor: pointer;
+  }
+
+  /* Home runs three columns: your shift and the nudges, tonight's tables, then
+     the tiles. Same content as the phone, none of it behind a tap. */
+  .staff-shell.pad .staff-home {
+    display: grid;
+    grid-template-columns: 1.15fr 1fr 1fr;
+    grid-template-rows: auto 1fr;
+    gap: 22px;
+    align-content: start;
+  }
+  .staff-shell.pad .staff-home-head {
+    grid-column: 1 / -1;
+  }
+  .staff-shell.pad .staff-home-col {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+  }
+  .staff-shell.pad .staff-tiles {
+    grid-template-columns: 1fr;
+    align-content: start;
+  }
+  .staff-shell.pad .staff-booking.pad {
+    height: 66px;
+    gap: 12px;
+  }
+  .staff-shell.pad .staff-booking.pad .staff-booking-time {
+    flex: 0 0 56px;
+    font-size: 17px;
+  }
+  .staff-shell.pad .staff-booking.pad .staff-booking-name {
+    font-size: 23px;
+  }
+  .staff-shell.pad .staff-booking.pad .staff-booking-party {
+    font-size: 14px;
+  }
+  .staff-shell.pad .staff-panel {
+    padding: 24px;
+  }
+  .staff-shell.pad .staff-band-row {
+    min-height: 82px;
+  }
+
+  .staff-pad-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 24px;
+    margin-bottom: 22px;
+  }
+  .staff-shell.pad .staff-toggle {
+    max-width: 420px;
+  }
+  .staff-shell.pad .staff-rota-date {
+    flex: 0 0 90px;
+  }
+
+  /* The checklist opens all three groups side by side, because that's how
+     closing actually happens — one person on the bar, one on the floor. */
+  .staff-groups.pad {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 0 32px;
+    align-items: start;
+  }
+  .staff-shell.pad .staff-submit-bar {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    padding-top: 20px;
+    border-top: 1px solid var(--hair);
+    margin-top: 8px;
+  }
+  .staff-shell.pad .staff-submit-bar .staff-footnote {
+    flex: 1;
+    margin: 0;
+  }
+  .staff-shell.pad .staff-submit-bar form {
+    flex: 0 0 320px;
+  }
+}

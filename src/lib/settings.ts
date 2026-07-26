@@ -1,10 +1,13 @@
 import { prisma } from "@/lib/prisma";
-import bcrypt from "bcryptjs";
 
 // Keys used in the Setting table.
 export const SETTINGS = {
-  STAFF_PIN_HASH: "staff_pin_hash",
   STAFF_SLUG: "staff_slug",
+  VENUE_PHONE: "venue_phone",
+  // Retired: the staff app used to share one PIN across the whole team. It's
+  // per-staff now (StaffMember.pinLookup / pinHash). The key stays named here
+  // only so the row can be cleaned out — nothing reads it.
+  LEGACY_STAFF_PIN_HASH: "staff_pin_hash",
 } as const;
 
 export async function getSetting(key: string): Promise<string | null> {
@@ -20,21 +23,24 @@ export async function setSetting(key: string, value: string) {
   });
 }
 
-// ---- Staff PIN -------------------------------------------------------------
+// ---- Retired shared staff PIN ----------------------------------------------
+// Called on seed and whenever the boss saves a per-staff PIN, so the old shared
+// hash doesn't sit in the database after the changeover.
 
-export async function isStaffPinSet(): Promise<boolean> {
-  return (await getSetting(SETTINGS.STAFF_PIN_HASH)) !== null;
+export async function retireSharedStaffPin() {
+  await prisma.setting.deleteMany({ where: { key: SETTINGS.LEGACY_STAFF_PIN_HASH } });
 }
 
-export async function setStaffPin(pin: string) {
-  const hash = await bcrypt.hash(pin, 10);
-  await setSetting(SETTINGS.STAFF_PIN_HASH, hash);
+export async function hasLegacySharedPin(): Promise<boolean> {
+  return (await getSetting(SETTINGS.LEGACY_STAFF_PIN_HASH)) !== null;
 }
 
-export async function verifyStaffPin(pin: string): Promise<boolean> {
-  const hash = await getSetting(SETTINGS.STAFF_PIN_HASH);
-  if (!hash) return false;
-  return bcrypt.compare(pin, hash);
+// ---- Venue phone -----------------------------------------------------------
+// The room's phone number. It stays visible on the lock screen — someone locked
+// out at 00:12 needs a way to reach the person who can let them in.
+
+export async function getVenuePhone(): Promise<string | null> {
+  return getSetting(SETTINGS.VENUE_PHONE);
 }
 
 // ---- Staff view slug -------------------------------------------------------

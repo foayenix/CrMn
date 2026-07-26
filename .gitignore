@@ -25,5 +25,5 @@ npm-debug.log*
 .vercel
 .env*
 
-# typescript incremental build info
-tsconfig.tsbuildinfo
+# typescript
+*.tsbuildinfo

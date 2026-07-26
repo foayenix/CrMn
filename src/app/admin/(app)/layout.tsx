@@ -1,5 +1,6 @@
 import { requireAdmin } from "@/lib/auth";
 import { AdminNav } from "@/components/admin-nav";
+import { openReportCount } from "@/lib/stock";
 import { logoutAction } from "../auth-actions";
 
 export default async function AuthedAdminLayout({
@@ -8,6 +9,7 @@ export default async function AuthedAdminLayout({
   children: React.ReactNode;
 }) {
   const user = await requireAdmin();
+  const openStock = await openReportCount();
 
   return (
     <div className="admin-shell">
@@ -18,7 +20,7 @@ export default async function AuthedAdminLayout({
             <small>Admin</small>
           </h1>
         </div>
-        <AdminNav />
+        <AdminNav badges={{ "/admin/stock": openStock }} />
         <div className="admin-sidebar-footer">
           <div
             style={{
