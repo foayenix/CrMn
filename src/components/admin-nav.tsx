@@ -9,6 +9,7 @@ const LINKS = [
   { href: "/admin/rota", label: "Rota" },
   { href: "/admin/checklist", label: "Lockdown" },
   { href: "/admin/stock", label: "Low stock" },
+  { href: "/admin/clock", label: "Clock" },
   { href: "/admin/bookings", label: "Bookings" },
   { href: "/admin/analytics", label: "Analytics" },
   { href: "/admin/staff-view", label: "Staff app & PINs" },

@@ -58,6 +58,7 @@ Screens so far:
 | `/staff/<slug>/bookings` | tonight's tables: time, name, party size, nothing else |
 | `/staff/<slug>/lockdown` | the closing checklist for tonight, then read-only once submitted |
 | `/staff/<slug>/stock` | what's already flagged, then the menu; free text for off-menu things |
+| `/staff/<slug>/clock` | one circle that flips state; reached from Home, not the rail |
 
 On the iPad a permanent 116px rail replaces the back arrow and Lock stays one
 reach away; Home gains a column so tonight's tables aren't behind a tap.
@@ -82,6 +83,15 @@ rows: they go through the free-text row, which is what it's for. What's already
 flagged sits above the list and is unpickable, so nobody re-flags the Picpoul.
 The boss works through open reports in Admin → Low stock, which carries the
 count as a badge.
+
+Clocking in is optional and nobody is chased for it. Forgetting to clock *out*
+costs nothing: `src/lib/clock.ts` closes a stale entry at that person's rostered
+end — the late slot of a split shift, never the lunchtime one — or caps it at 12
+hours with a note when there was no shift to close against. It reconciles lazily
+whenever the clock screen or Admin → Clock is read, so there's no cron to keep
+alive, and a two-hour grace window means a manual clock-out always wins. Admin
+shows clocked hours **beside** rostered ones, never instead of them: the rota is
+what gets paid, and the staff app says so on screen.
 
 ## Layout
 - `src/app` — public site (`/`, `/menu`) + admin (`/admin/*`) + staff view (`/staff/*`)

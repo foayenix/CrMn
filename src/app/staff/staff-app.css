@@ -780,6 +780,73 @@
   color: rgba(232, 224, 207, 0.35);
 }
 
+/* ---- clock ---------------------------------------------------------------- */
+.staff-clock {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 34px;
+  padding: 20px 12px;
+}
+
+/* 240px, and outlined rather than filled — present, not pushy. */
+.staff-dial {
+  width: 240px;
+  height: 240px;
+  border-radius: 50%;
+  border: 1.5px solid var(--brass);
+  background: none;
+  color: var(--cream);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 0;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+.staff-dial.on {
+  border-color: rgba(110, 127, 104, 0.7);
+  background: rgba(110, 127, 104, 0.1);
+  gap: 4px;
+  cursor: default;
+}
+.staff-dial-label {
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 10.5px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(232, 224, 207, 0.5);
+}
+.staff-dial-label.brass {
+  color: var(--brass);
+  letter-spacing: 0.2em;
+}
+
+.staff-clock-foot {
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 10.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(232, 224, 207, 0.32);
+  line-height: 1.8;
+  border-top: 1px solid var(--hair);
+  padding-top: 16px;
+  margin-top: 8px;
+}
+
+.staff-tile.wide {
+  grid-column: span 2;
+  height: 72px;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 18px;
+}
+
 /* ---- low stock ------------------------------------------------------------ */
 /* What's already flagged sits above the pickable list, so nobody re-flags the
    Picpoul. */

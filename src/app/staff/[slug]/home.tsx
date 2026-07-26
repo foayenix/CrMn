@@ -38,7 +38,8 @@ export async function Home({
   const monday = startOfWeekMonday(now);
   const sunday = endOfWeekSunday(now);
 
-  const [shifts, dayNote, checklist, lastRun, flaggedCount, oldestFlag] = await Promise.all([
+  const [shifts, dayNote, checklist, lastRun, flaggedCount, oldestFlag, clockedIn] =
+    await Promise.all([
     prisma.shift.findMany({
       where: { staffMemberId: me.id, date: { gte: monday, lte: sunday } },
       orderBy: [{ date: "asc" }, { slot: "asc" }],
@@ -48,6 +49,11 @@ export async function Home({
     lastSubmittedRun(now),
     openReportCount(),
     oldestOpenReport(),
+    prisma.timeEntry.findFirst({
+      where: { staffId: me.id, clockOutAt: null },
+      orderBy: { clockInAt: "desc" },
+      select: { clockInAt: true },
+    }),
   ]);
 
   // A service being down must never take this screen with it.
@@ -266,6 +272,16 @@ export async function Home({
             <span className="staff-tile-title">Low stock</span>
             <span className="staff-tile-stat">
               {flaggedCount === 0 ? "NOTHING FLAGGED" : `${flaggedCount} FLAGGED`}
+            </span>
+          </Link>
+          {/* Full width, and never a badge: it's a state, not a count that
+              climbs at anyone. */}
+          <Link href={`/staff/${slug}/clock`} className="staff-tile wide">
+            <span className="staff-tile-title">{clockedIn ? "Clock out" : "Clock in"}</span>
+            <span className="staff-tile-stat">
+              {clockedIn
+                ? `ON SINCE ${clockedIn.clockInAt.toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit", timeZone: "UTC" })}`
+                : "OPTIONAL"}
             </span>
           </Link>
         </div>

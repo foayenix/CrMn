@@ -75,6 +75,7 @@ model StaffMember {
   checksTicked  ChecklistCheck[] @relation("ChecklistCheckedBy")
   runsSubmitted ChecklistRun[]   @relation("ChecklistSubmittedBy")
   stockReports  StockReport[]    @relation("StockReportedBy")
+  timeEntries   TimeEntry[]
 
   @@index([active, sortOrder])
 }
@@ -226,6 +227,29 @@ model StockReport {
 
   @@index([resolvedAt, createdAt])
   @@index([itemId, resolvedAt])
+}
+
+// ---------------------------------------------------------------------------
+// Staff app — clock in / out. Entirely optional: nobody is chased for it, and
+// the rota is still what gets paid. This is a record of what happened, not an
+// authority on what's owed.
+// ---------------------------------------------------------------------------
+
+model TimeEntry {
+  id          String      @id @default(cuid())
+  staff       StaffMember @relation(fields: [staffId], references: [id], onDelete: Cascade)
+  staffId     String
+  clockInAt   DateTime
+  clockOutAt  DateTime?
+  // Closed by reconciliation rather than by the person — at their rota end
+  // where there was one, or at a cap where there wasn't. Nobody is told off
+  // for it; the boss just sees which entries weren't closed by hand.
+  autoClosed  Boolean     @default(false)
+  adminEdited Boolean     @default(false)
+  note        String?
+
+  @@index([staffId, clockInAt])
+  @@index([clockOutAt])
 }
 
 // ---------------------------------------------------------------------------

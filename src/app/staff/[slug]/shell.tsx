@@ -3,10 +3,11 @@ import { lockAction } from "./actions";
 import { IdleLock } from "./idle-lock";
 import { IPAD_IDLE_SECONDS } from "@/lib/staff-session";
 
-export type Section = "home" | "bookings" | "rota" | "lockdown" | "stock";
+export type Section = "home" | "bookings" | "rota" | "lockdown" | "stock" | "clock";
 
-// The rail carries one item per built section. Clock joins it as its phase
-// lands — a rail item that goes nowhere is worse than a short rail.
+// Home / Books / Rota / Close / Stock, then Lock — the rail the design
+// specifies. Clock is deliberately not on it: it's reached from Home, because
+// it's the one thing in this app nobody has to do.
 const RAIL: { key: Section; label: string; href: (slug: string) => string }[] = [
   { key: "home", label: "Home", href: (s) => `/staff/${s}` },
   { key: "bookings", label: "Books", href: (s) => `/staff/${s}/bookings` },
