@@ -253,8 +253,27 @@ model TimeEntry {
 }
 
 // ---------------------------------------------------------------------------
-// Phase 6 (+ general) — key/value settings the boss controls, e.g. the
-// staff-app slug and the room's phone number.
+// Push — the boss's device(s) only.
+//
+// The staff app has no push, no badges and no counts, and that rule is
+// absolute. This is a different surface for a different audience: one person,
+// who asked for it, about stock they need to order.
+// ---------------------------------------------------------------------------
+
+model PushSubscription {
+  id        String   @id @default(cuid())
+  endpoint  String   @unique
+  p256dh    String
+  auth      String
+  // Which browser it came from, so the boss can tell two devices apart.
+  label     String?
+  createdAt DateTime @default(now())
+  lastSentAt DateTime?
+}
+
+// ---------------------------------------------------------------------------
+// Key/value settings the boss controls, e.g. the staff-app slug and the room's
+// phone number.
 // ---------------------------------------------------------------------------
 model Setting {
   key       String   @id

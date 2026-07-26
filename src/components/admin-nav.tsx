@@ -13,6 +13,7 @@ const LINKS = [
   { href: "/admin/bookings", label: "Bookings" },
   { href: "/admin/analytics", label: "Analytics" },
   { href: "/admin/staff-view", label: "Staff app & PINs" },
+  { href: "/admin/notifications", label: "Notifications" },
 ];
 
 // Counts to surface beside a link, keyed by href. Push notifications are the

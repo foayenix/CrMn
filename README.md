@@ -93,10 +93,33 @@ alive, and a two-hour grace window means a manual clock-out always wins. Admin
 shows clocked hours **beside** rostered ones, never instead of them: the rota is
 what gets paid, and the staff app says so on screen.
 
+## Push notifications (the boss only)
+
+The staff app has **no** push, no badges and no counts — that rule is absolute.
+Push is a separate surface for a separate audience: one buzz on the boss's phone
+when the floor flags something low.
+
+Web Push is implemented directly against RFC 8291 (message encryption), RFC 8188
+(aes128gcm) and RFC 8292 (VAPID) in `src/lib/web-push.ts`, using Node's crypto
+and the `jose` already here — **no new dependency**. Generate a keypair once:
+```bash
+npm run vapid                 # then paste the three lines into .env
+```
+On Android/Chrome it works straight away. On iPhone and iPad it only works once
+the admin app has been added to the Home Screen (Apple has required that since
+iOS 16.4), and the Notifications page says so when it detects that case.
+
+If push never works — no keys, no permission, unsupported browser — nothing is
+lost: the count beside **Low stock** in the sidebar and the dashboard block are
+the same information, on every device, with no set-up. Push is the convenience;
+the badge is the guarantee. Sending happens in `after()` with a 10-second
+timeout, so a push service having a bad night can never make someone on the
+floor wait for a screen.
+
 ## Layout
 - `src/app` — public site (`/`, `/menu`) + admin (`/admin/*`) + staff view (`/staff/*`)
 - `src/lib` — prisma client, session/auth, settings, ported homepage/menu templates
-- `scripts` — seed, seed-stock, set-password, set-pin
+- `scripts` — seed, seed-stock, set-password, set-pin, generate-vapid
 - `design` — the staff app design spec + build brief
 - `reference/legacy-site` — the original static site, kept for reference
 
