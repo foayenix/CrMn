@@ -14,9 +14,13 @@
 // `GET {base}/v1/bookings?apiKey=...`, which is the hosted Cal.com API, not the
 // self-hosted one.
 //
-// The version header is not optional in practice: the endpoint's own docs say
-// that omitting it silently falls back to an older response shape, which would
-// break the mapping below without any error to notice.
+// The version header is not optional in practice. Verified against a running
+// cal.diy: omit it and the endpoint still answers HTTP 200 with
+// status: "success", but `data` comes back as an OBJECT from an older version —
+// {"bookings":[],"recurringInfo":[],"totalCount":0,"nextCursor":null} — with the
+// list empty, because that version does not understand the query below. A client
+// that trusted `status` alone would quietly report a quiet night on a night with
+// tables in it. The Array.isArray(data) check further down is what catches this.
 //
 // CAL_API_URL points at the API base of your self-hosted instance. Both
 // "https://cal.example" and "https://cal.example/api" work — the API rewrites
@@ -70,6 +74,11 @@ export function isCalConfigured(): boolean {
 // since our widget submits it as metadata[partySize]. v2 renamed v1's
 // `responses` to `bookingFieldsResponses`; both are read so a booking taken
 // before the cutover still shows its party size.
+//
+// Metadata is the reliable half, and it is the half our widget uses. v2 returns
+// metadata verbatim, but it parses the responses against a schema requiring a
+// valid name and email: a booking whose stored responses fail that check comes
+// back with the defaults and every extra key — partySize included — dropped.
 function extractPartySize(b: Record<string, unknown>): string | null {
   const meta = b.metadata as Record<string, unknown> | undefined;
   if (meta && typeof meta.partySize !== "undefined") return String(meta.partySize);
