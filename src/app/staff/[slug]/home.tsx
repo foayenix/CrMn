@@ -9,7 +9,7 @@ import {
   minutesTo24h,
   formatHours,
 } from "@/lib/dates";
-import { businessDateFor, businessNightRange } from "@/lib/business-date";
+import { businessDateFor, businessNightRange, ROLLOVER_HOUR } from "@/lib/business-date";
 import { shiftsOn, nextWorkingShift, slotFrom, type ShiftRow } from "@/lib/staff-rota";
 import { slotHours } from "@/lib/rota";
 import { fetchBookings, isCalConfigured } from "@/lib/cal";
@@ -70,7 +70,18 @@ export async function Home({
 
   const firstName = me.name.split(" ")[0];
   const hour = now.getUTCHours();
-  const greeting = hour < 12 ? "Morning" : hour < 17 ? "Afternoon" : "Evening";
+  // The trading night, not the calendar day: at 00:53 the person reading this is
+  // closing up, not starting a morning. Anything before the ROLLOVER_HOUR still
+  // belongs to the night that began yesterday evening, which is what the rest of
+  // this screen (closingTime, tonight's shift, the checklist) already assumes.
+  const greeting =
+    hour < ROLLOVER_HOUR
+      ? "Evening"
+      : hour < 12
+        ? "Morning"
+        : hour < 17
+          ? "Afternoon"
+          : "Evening";
   const clock = now.toLocaleTimeString("en-GB", {
     hour: "2-digit",
     minute: "2-digit",
@@ -80,7 +91,7 @@ export async function Home({
   // The lockdown nudge only appears once closing is plausibly on the horizon —
   // a checklist reminder at eleven in the morning is noise, and this app never
   // nags. It's stated once, and it never becomes a badge.
-  const closingTime = hour >= 18 || hour < 5;
+  const closingTime = hour >= 18 || hour < ROLLOVER_HOUR;
   const checklistStarted = checklist.done > 0;
   const nudges: {
     key: string;

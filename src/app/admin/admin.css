@@ -11,14 +11,42 @@
   --green: #5c6b57;
   --wine: #2b1420;
   --danger: #9d3b2f;
-  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  /* Secondary ink. 0.5 put it at 3.25:1 on sand, under the 4.5:1 a paragraph
+     this size needs; 0.7 clears it at 6.02:1 without going to full ink. */
+  --ink-soft: rgba(28, 21, 18, 0.7);
+  /* Mono carries what gets scanned — labels, counts, times, table data. Prose
+     is read, so it is set in the same sans the rest of the site reads in; the
+     public site uses mono the same way, for labels and never for sentences. */
+  font-family: "Hanken Grotesk", ui-sans-serif, system-ui, sans-serif;
+  font-weight: 300;
   color: var(--ink);
   background: var(--sand);
   min-height: 100vh;
+  min-height: 100dvh;
 }
 
 .admin-serif {
   font-family: "Cormorant", Georgia, serif;
+}
+
+/* Anything scanned for a value rather than read as a sentence. */
+.admin-root .btn,
+.admin-root .badge,
+.admin-root .nav-badge,
+.admin-root label.field span,
+.admin-root table.grid,
+.admin-root input,
+.admin-root textarea,
+.admin-root select,
+.admin-root code,
+.admin-mono {
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+}
+
+/* Counts, hours and times line up in columns only with tabular figures. */
+.admin-root table.grid,
+.admin-root .admin-mono {
+  font-variant-numeric: tabular-nums;
 }
 
 /* ---- layout ---- */
@@ -107,8 +135,8 @@
   letter-spacing: -0.01em;
 }
 .admin-sub {
-  color: rgba(28, 21, 18, 0.6);
-  font-size: 12.5px;
+  color: var(--ink-soft);
+  font-size: 14px;
   margin: 0 0 28px;
   line-height: 1.6;
 }
@@ -250,15 +278,16 @@ table.grid th {
   border: 1px solid var(--line-strong);
 }
 .badge.off {
-  color: rgba(28, 21, 18, 0.45);
+  color: var(--ink-soft);
 }
 .muted {
-  color: rgba(28, 21, 18, 0.5);
+  color: var(--ink-soft);
 }
 
 /* ---- login ---- */
 .login-wrap {
   min-height: 100vh;
+  min-height: 100dvh;
   display: grid;
   place-items: center;
   padding: 24px;
@@ -292,4 +321,55 @@ table.grid th {
     padding: 0;
     border: none;
   }
+}
+
+/* ---- browser surfaces ---- */
+/* Selection, focus ring and figures ship with browser defaults that belong to
+   no design system; they are part of the page too. */
+.admin-root ::selection {
+  background: rgba(168, 135, 90, 0.3);
+  color: var(--ink);
+}
+.admin-root :focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 2px;
+}
+/* The browser's default placeholder grey belongs to no palette. */
+.admin-root ::placeholder {
+  color: rgba(28, 21, 18, 0.62);
+  opacity: 1;
+}
+
+/* A setting name belongs to whoever deploys, not to the sentence the boss is
+   reading — so it sits under the line in mono, at label size. */
+.admin-setup-hint {
+  display: block;
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 11px;
+  line-height: 1.5;
+  margin-top: 2px;
+}
+
+/* A text action: available on every row without competing with the row itself.
+   Use it for housekeeping that sits beside the primary task, not for the task. */
+.btn.link {
+  border: none;
+  background: none;
+  padding: 0;
+  font-size: 10.5px;
+  letter-spacing: 0.1em;
+  color: var(--green);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1px;
+  text-decoration-color: rgba(92, 107, 87, 0.4);
+}
+.btn.link:hover {
+  background: none;
+  color: var(--ink);
+  text-decoration-color: currentColor;
+}
+.row-actions.quiet {
+  gap: 12px;
+  margin-top: 4px;
 }

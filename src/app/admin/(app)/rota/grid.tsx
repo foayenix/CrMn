@@ -105,7 +105,7 @@ export function RotaGrid({
               {days.map((d) => (
                 <th key={d.key} style={{ minWidth: 104 }}>
                   <div>{d.dow}</div>
-                  <div style={{ fontWeight: 400, color: "rgba(28,21,18,.55)" }}>{d.date}</div>
+                  <div style={{ fontWeight: 400, color: "var(--ink-soft)" }}>{d.date}</div>
                   <DayNoteEditor day={d} weekAnchor={weekAnchor} />
                 </th>
               ))}
@@ -201,8 +201,8 @@ function StaffCell({ staff }: { staff: Staff }) {
           <button className="btn sm" type="submit">
             Save
           </button>
-          <button className="btn ghost sm" type="button" onClick={() => setEditing(false)}>
-            ✕
+          <button className="btn link" type="button" onClick={() => setEditing(false)}>
+            Cancel
           </button>
         </div>
       </form>
@@ -214,15 +214,17 @@ function StaffCell({ staff }: { staff: Staff }) {
         {staff.name}
         {!staff.active && <span className="badge off" style={{ marginLeft: 6 }}>off</span>}
       </div>
-      <div style={{ display: "flex", gap: 6, marginTop: 4 }}>
-        <button className="btn ghost sm" style={{ padding: "2px 6px", fontSize: 10 }} onClick={() => setEditing(true)}>
-          rename
+      {/* Housekeeping, not the job: setting shifts is. These stay reachable on
+          every row but read as text, so the name and the grid keep the weight. */}
+      <div className="row-actions quiet">
+        <button className="btn link" type="button" onClick={() => setEditing(true)}>
+          Rename
         </button>
         <form action={setStaffActive}>
           <input type="hidden" name="id" value={staff.id} />
           <input type="hidden" name="active" value={staff.active ? "false" : "true"} />
-          <button className="btn ghost sm" style={{ padding: "2px 6px", fontSize: 10 }} type="submit">
-            {staff.active ? "deactivate" : "reactivate"}
+          <button className="btn link" type="submit">
+            {staff.active ? "Deactivate" : "Reactivate"}
           </button>
         </form>
       </div>
@@ -246,7 +248,7 @@ function DayNoteEditor({ day, weekAnchor }: { day: Day; weekAnchor: string }) {
         e.stopPropagation();
         setEditing(true);
       }}
-      style={{ fontSize: 10, color: "var(--gold)", fontWeight: 400, cursor: "text", minHeight: 12 }}
+      style={{ fontSize: 10, color: "var(--green)", fontWeight: 400, cursor: "text", minHeight: 12 }}
       title="Click to add a day note"
     >
       {day.note || <span style={{ opacity: 0.4 }}>+ note</span>}
