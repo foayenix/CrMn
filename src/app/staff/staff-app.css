@@ -21,7 +21,11 @@
   --hair: rgba(232, 224, 207, 0.1);
   --hair-strong: rgba(232, 224, 207, 0.24);
   --dim: rgba(232, 224, 207, 0.62);
-  --dimmer: rgba(232, 224, 207, 0.45);
+  /* The build spec puts mono labels at 55–60% cream. On #14100F that band is
+     also exactly where WCAG AA starts (0.55 → 4.99:1), so the spec's own floor
+     is the accessible one: nothing a person has to read goes below --label. */
+  --label: rgba(232, 224, 207, 0.58);
+  --dimmer: rgba(232, 224, 207, 0.55);
 
   min-height: 100vh;
   min-height: 100dvh;
@@ -62,7 +66,7 @@
   font-size: 11px;
   letter-spacing: 0.26em;
   text-transform: uppercase;
-  color: rgba(232, 224, 207, 0.55);
+  color: var(--label);
 }
 
 .staff-page {
@@ -156,7 +160,7 @@
 .staff-key.del {
   background: none;
   font-size: 20px;
-  color: rgba(232, 224, 207, 0.55);
+  color: var(--label);
 }
 .staff-key:active {
   border-color: rgba(232, 224, 207, 0.3);
@@ -190,13 +194,13 @@
   font-size: 11px;
   letter-spacing: 0.24em;
   text-transform: uppercase;
-  color: var(--dimmer);
+  color: var(--label);
 }
 
 .staff-greeting {
   font-family: "Cormorant", Georgia, serif;
   font-weight: 300;
-  font-size: 42px;
+  font-size: 46px;
   line-height: 1;
   margin: 6px 0 16px;
 }
@@ -258,15 +262,23 @@
   border-color: var(--brass);
   color: #14100f;
 }
+/* A disabled control is not "the one filled control this screen is allowed", so
+   it drops back to the outlined resting state rather than fading the brass —
+   fading it puts the ink on it at 2.5:1 and the label stops being readable. */
 .staff-button:disabled {
-  opacity: 0.45;
+  color: var(--label);
   cursor: default;
+}
+.staff-button.filled:disabled {
+  background: none;
+  border-color: var(--hair-strong);
+  color: var(--label);
 }
 
 .staff-note {
   font-size: 15px;
   line-height: 1.5;
-  color: rgba(232, 224, 207, 0.5);
+  color: var(--label);
 }
 .staff-note.wrong {
   color: var(--rose);
@@ -274,7 +286,7 @@
 
 /* Deliberately dimmed rather than hidden — 45–62%, never gone. */
 .staff-past {
-  opacity: 0.5;
+  opacity: 0.62;
 }
 
 .staff-tables {
@@ -287,7 +299,7 @@
   font-size: 10.5px;
   letter-spacing: 0.26em;
   text-transform: uppercase;
-  color: rgba(232, 224, 207, 0.55);
+  color: var(--label);
   font-weight: 400;
   text-align: left;
   padding: 0 0 10px;
@@ -329,13 +341,13 @@
   font-size: 12px;
   letter-spacing: 0.26em;
   text-transform: uppercase;
-  color: rgba(232, 224, 207, 0.6);
+  color: var(--label);
 }
 .staff-topbar-stat {
   font-family: "IBM Plex Mono", ui-monospace, monospace;
   font-size: 14px;
   letter-spacing: 0.06em;
-  color: rgba(232, 224, 207, 0.4);
+  color: var(--label);
   padding-right: 10px;
 }
 
@@ -414,7 +426,7 @@
   font-family: "IBM Plex Mono", ui-monospace, monospace;
   font-size: 11px;
   letter-spacing: 0.1em;
-  color: rgba(232, 224, 207, 0.45);
+  color: var(--label);
 }
 
 /* ---- rota ----------------------------------------------------------------- */
@@ -434,7 +446,7 @@
   font-size: 13px;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: rgba(232, 224, 207, 0.55);
+  color: var(--label);
 }
 .staff-toggle-opt.on {
   background: rgba(168, 135, 90, 0.16);
@@ -469,7 +481,7 @@
 }
 /* A merged run of closed days dims each day after the first. */
 .staff-rota-date div + div {
-  color: rgba(232, 224, 207, 0.28);
+  color: var(--dimmer);
 }
 .staff-rota-day.today .staff-rota-date {
   color: var(--brass);
@@ -477,7 +489,7 @@
 .staff-rota-date .today-mark {
   font-size: 10px;
   letter-spacing: 0.14em;
-  color: rgba(168, 135, 90, 0.75);
+  color: var(--brass);
 }
 .staff-slot-rule {
   height: 1px;
@@ -486,7 +498,7 @@
 }
 .staff-slot-note {
   font-size: 15px;
-  color: rgba(232, 224, 207, 0.6);
+  color: var(--label);
   margin-top: 6px;
 }
 .staff-slot-ends {
@@ -494,7 +506,7 @@
   font-size: 10.5px;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: rgba(232, 224, 207, 0.58);
+  color: var(--label);
   margin-top: 3px;
 }
 .staff-daynote {
@@ -516,7 +528,7 @@
   font-size: 12px;
   letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: rgba(232, 224, 207, 0.5);
+  color: var(--label);
 }
 .staff-team-day.today {
   color: var(--brass);
@@ -561,7 +573,7 @@
   font-size: 10.5px;
   letter-spacing: 0.26em;
   text-transform: uppercase;
-  color: rgba(232, 224, 207, 0.45);
+  color: var(--label);
   padding: 20px 0 10px;
 }
 .staff-section-list {
@@ -635,7 +647,7 @@
 }
 /* Done items dim rather than vanish — the list is the record of the night. */
 .staff-check-label.done {
-  color: rgba(232, 224, 207, 0.55);
+  color: var(--label);
 }
 .staff-check-sig {
   display: block;
@@ -643,7 +655,7 @@
   font-size: 10.5px;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: rgba(232, 224, 207, 0.58);
+  color: var(--label);
   margin-top: 4px;
 }
 .staff-check-note {
@@ -663,7 +675,7 @@
   font-size: 10.5px;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: rgba(232, 224, 207, 0.38);
+  color: var(--label);
   border: 1px solid rgba(232, 224, 207, 0.16);
   background: none;
   padding: 0 14px;
@@ -714,7 +726,7 @@
   font-size: 10.5px;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: rgba(232, 224, 207, 0.4);
+  color: var(--label);
   margin-top: 10px;
 }
 
@@ -731,7 +743,7 @@
 .staff-button.waiting {
   border-style: dashed;
   border-color: rgba(232, 224, 207, 0.2);
-  color: rgba(232, 224, 207, 0.42);
+  color: var(--label);
   opacity: 1;
 }
 
@@ -764,7 +776,7 @@
 .staff-signature-by {
   font-family: "IBM Plex Mono", ui-monospace, monospace;
   font-size: 11px;
-  color: rgba(232, 224, 207, 0.5);
+  color: var(--label);
 }
 
 .staff-band-detail {
@@ -772,12 +784,12 @@
   font-family: "IBM Plex Mono", ui-monospace, monospace;
   font-size: 11px;
   letter-spacing: 0.1em;
-  color: rgba(232, 224, 207, 0.42);
+  color: var(--label);
   margin-top: 4px;
 }
 .staff-chevron {
   font-size: 24px;
-  color: rgba(232, 224, 207, 0.35);
+  color: var(--label);
 }
 
 /* ---- clock ---------------------------------------------------------------- */
@@ -819,7 +831,7 @@
   font-size: 10.5px;
   letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: rgba(232, 224, 207, 0.5);
+  color: var(--label);
 }
 .staff-dial-label.brass {
   color: var(--brass);
@@ -831,7 +843,7 @@
   font-size: 10.5px;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: rgba(232, 224, 207, 0.32);
+  color: var(--label);
   line-height: 1.8;
   border-top: 1px solid var(--hair);
   padding-top: 16px;
@@ -958,8 +970,10 @@
   padding: 8px 0;
   margin: 8px 0 6px;
 }
+/* A placeholder is read before anything is typed, so it clears AA too; it stays
+   below --label so it never reads as an entered value. */
 .staff-freetext::placeholder {
-  color: rgba(232, 224, 207, 0.28);
+  color: var(--dimmer);
 }
 
 /* Two 96px targets, because Low or Out is the only choice on the screen. */
@@ -991,13 +1005,19 @@
   font-size: 10px;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: rgba(232, 224, 207, 0.4);
+  color: var(--label);
 }
 .staff-level-choice.on .staff-level-hint {
   color: var(--brass);
 }
 .staff-level-choice.on.out .staff-level-hint {
   color: var(--rose);
+}
+
+/* The note field's placeholder is a worked example, so it is read before a word
+   is typed; --dimmer keeps it clear of AA while staying lighter than real input. */
+.staff-textarea::placeholder {
+  color: var(--dimmer);
 }
 
 .staff-textarea.note {
@@ -1054,7 +1074,7 @@
   font-size: 10.5px;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: rgba(232, 224, 207, 0.34);
+  color: var(--label);
   line-height: 1.7;
   margin-top: 20px;
 }
@@ -1071,10 +1091,10 @@
 }
 
 .staff-lock-mark {
-  width: 11px;
-  height: 11px;
-  border: 1.5px solid rgba(232, 224, 207, 0.7);
-  border-radius: 2px;
+  width: 16px;
+  height: 16px;
+  flex: 0 0 auto;
+  color: rgba(232, 224, 207, 0.7);
 }
 
 /* ---- iPad ----------------------------------------------------------------- */
@@ -1248,4 +1268,37 @@
   .staff-shell.pad .staff-submit-bar form {
     flex: 0 0 320px;
   }
+}
+
+/* ---- browser surfaces ------------------------------------------------------ */
+/* The parts nobody draws still ship with a default that belongs to no design
+   system: the selection colour, the focus ring, and the numerals. */
+
+.staff-root ::selection {
+  background: rgba(168, 135, 90, 0.35);
+  color: var(--cream);
+}
+
+/* The app is touch-first and rules out hover, but a keyboard still has to be
+   able to see where it is — brass, because that is the attention colour. */
+.staff-root :focus-visible {
+  outline: 2px solid var(--brass);
+  outline-offset: 2px;
+}
+
+/* Times, counts and covers are scanned in columns; proportional digits make
+   21:47 and 19:20 different widths and the column stops lining up. */
+.staff-mono,
+.staff-key,
+.staff-topbar-stat,
+.staff-tile-stat,
+.staff-check-sig,
+.staff-countdown,
+.staff-team-times,
+.staff-rota-date,
+.staff-slot-ends,
+.staff-tables td,
+.staff-dial-label,
+.staff-band-detail {
+  font-variant-numeric: tabular-nums;
 }

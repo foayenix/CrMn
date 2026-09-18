@@ -5,6 +5,27 @@ import { IPAD_IDLE_SECONDS } from "@/lib/staff-session";
 
 export type Section = "home" | "bookings" | "rota" | "lockdown" | "stock" | "clock";
 
+// Drawn, not a glyph: the previous mark was an empty 11px square, which reads as
+// a checkbox or a missing character rather than a lock. One stroke weight, sized
+// to sit on the cream it inherits.
+function LockMark() {
+  return (
+    <svg
+      className="staff-lock-mark"
+      viewBox="0 0 16 16"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.25"
+      strokeLinecap="round"
+      aria-hidden="true"
+      focusable="false"
+    >
+      <path d="M5 7V5a3 3 0 0 1 6 0v2" />
+      <rect x="3.25" y="7" width="9.5" height="6.75" rx="1" />
+    </svg>
+  );
+}
+
 // Home / Books / Rota / Close / Stock, then Lock — the rail the design
 // specifies. Clock is deliberately not on it: it's reached from Home, because
 // it's the one thing in this app nobody has to do.
@@ -117,7 +138,7 @@ function Rail({ slug, section }: { slug: string; section: Section }) {
       <form action={lockAction}>
         <input type="hidden" name="slug" value={slug} />
         <button type="submit" className="staff-rail-lock">
-          <span className="staff-lock-mark" />
+          <LockMark />
           <span>Lock</span>
         </button>
       </form>
@@ -131,7 +152,7 @@ export function LockButton({ slug }: { slug: string }) {
     <form action={lockAction} style={{ marginTop: 22 }}>
       <input type="hidden" name="slug" value={slug} />
       <button type="submit" className="staff-button">
-        <span className="staff-lock-mark" />
+        <LockMark />
         Lock
       </button>
     </form>

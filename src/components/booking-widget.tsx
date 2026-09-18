@@ -58,6 +58,15 @@ export function BookingWidget() {
       if (bookingLink && calBase) {
         // Deep-link into cal.diy's booking page with the party size as metadata.
         // cal.diy then shows real availability for the reservation event type.
+        //
+        // Both params were walked end to end against a running cal.diy.
+        // metadata[partySize] survives: the booker reads metadata[...] off the
+        // query string, and it lands verbatim on Booking.metadata, which is where
+        // src/lib/cal.ts reads it back from.
+        // duration is conditional: cal.diy only honours it when the event type has
+        // multiple durations configured and 90 is one of them. Without that the
+        // booking silently takes the event type's own length, so the website can
+        // promise 90 minutes while the diary holds 60. See .env.example.
         const url = new URL(`${calBase.replace(/\/$/, "")}/${bookingLink}`);
         url.searchParams.set("metadata[partySize]", state.size);
         url.searchParams.set("duration", "90");

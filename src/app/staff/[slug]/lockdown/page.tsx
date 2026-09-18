@@ -78,7 +78,7 @@ export default async function LockdownScreen({ params }: { params: Promise<{ slu
                       color:
                         section.done === section.total
                           ? "var(--sage)"
-                          : "rgba(232,224,207,.35)",
+                          : "var(--label)",
                     }}
                   >
                     {section.done} / {section.total}

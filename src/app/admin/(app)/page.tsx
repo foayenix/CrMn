@@ -187,11 +187,28 @@ export default async function Dashboard() {
             {staffWithPin === 0 ? (
               <strong>none set — nobody can sign in yet</strong>
             ) : (
-              `${staffWithPin} of ${activeStaff} active staff ✓`
+              `${staffWithPin} of ${activeStaff} active staff`
             )}
           </li>
-          <li>cal.diy bookings: {calConfigured ? "connected ✓" : "not connected yet (add CAL_API_URL / CAL_API_KEY)"}</li>
-          <li>Plausible analytics: {plausibleConfigured ? "connected ✓" : "not connected yet (add PLAUSIBLE_SHARED_LINK)"}</li>
+          {/* The boss reads the status; whoever deploys reads the setting name.
+              Both need it, so the name sits under the line rather than inside
+              it, where it was competing with the sentence it explains. */}
+          <li>
+            Table bookings: {calConfigured ? "connected" : "not connected yet"}
+            {!calConfigured && (
+              <span className="muted admin-setup-hint">
+                Needs CAL_API_URL and CAL_API_KEY set on the deployment.
+              </span>
+            )}
+          </li>
+          <li>
+            Visitor stats: {plausibleConfigured ? "connected" : "not connected yet"}
+            {!plausibleConfigured && (
+              <span className="muted admin-setup-hint">
+                Needs PLAUSIBLE_SHARED_LINK set on the deployment.
+              </span>
+            )}
+          </li>
         </ul>
       </div>
     </div>

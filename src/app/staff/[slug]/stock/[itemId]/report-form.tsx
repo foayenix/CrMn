@@ -88,7 +88,7 @@ export function ReportForm({
         </div>
 
         <div className="staff-mono" style={{ margin: "30px 0 10px" }}>
-          Note&nbsp;<span style={{ color: "rgba(232,224,207,.28)" }}>optional</span>
+          Note&nbsp;<span style={{ color: "var(--dimmer)" }}>optional</span>
         </div>
         <textarea
           name="note"

@@ -6,6 +6,16 @@ export const metadata: Metadata = {
   title: "Crescent Moon — Wine Bar, Colchester",
   description:
     "A wine bar on Crouch Street, Colchester. English cheese & charcuterie, a list that knows where it is, and a quiet room to linger in.",
+  // Without these the browser probes /favicon.ico on every page load and gets a
+  // 404. The moon mark already ships for the admin PWA; it is the site's mark
+  // too, so it serves both rather than being duplicated.
+  icons: {
+    icon: [
+      { url: "/icon-192.png", type: "image/png", sizes: "192x192" },
+      { url: "/icon-512.png", type: "image/png", sizes: "512x512" },
+    ],
+    apple: "/icon-512.png",
+  },
 };
 
 export default function RootLayout({
