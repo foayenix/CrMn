@@ -5,12 +5,28 @@
   img { display: block; max-width: 100%; }
   a { color: #5C6B57; text-decoration: none; transition: color .25s ease; }
   a:hover { color: #1C1512; }
+  /* The footer is #1C1512, so the link green lands at 3.2:1 on it and the global
+     hover colour is the background itself — the links vanished under the cursor. */
+  footer a { color: var(--cm-green-on-dark); }
+  footer a:hover { color: #F7F4EC; }
+  /* The two inputs on the dark sections otherwise take the browser's grey
+     placeholder, which is 3.7:1 there and belongs to no palette. */
+  footer input::placeholder,
+  .cm-custom-box input::placeholder { color: rgba(247, 244, 236, .55); opacity: 1; }
   ::selection { background: #A8875A; color: #F7F4EC; }
   @media (max-width: 640px) {
     #hero-est, #hero-loc { display: none; }
   }
 
   :root {
+    /* #A8875A is the brand accent and clears AA on every dark surface it sits on
+       (5.1-5.4:1), but reaches only 2.7:1 on sand and 3.0:1 on paper. This is the
+       same brass taken down to where it clears 4.5:1 on both, for text on light;
+       the accent itself is unchanged everywhere it already passes. */
+    --cm-brass-on-light: #796141;
+    /* The link green does the reverse: fine on sand, 3.2:1 on the dark footer. */
+    --cm-green-on-dark: #7d8979;
+
     --cm-dark-hero: #241019;
     --cm-dark-line: #2B1420;
     --cm-dark-line-rgb: 43, 20, 32;
