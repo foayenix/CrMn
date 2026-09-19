@@ -6,7 +6,7 @@
     "dev": "next dev",
     "build": "prisma generate && node scripts/deploy-bootstrap.mjs && next build",
     "start": "next start",
-    "lint": "next lint",
+    "lint": "eslint",
     "postinstall": "prisma generate",
     "db:push": "prisma db push",
     "db:migrate": "prisma migrate deploy",
@@ -15,7 +15,9 @@
     "set-password": "tsx scripts/set-password.ts",
     "set-pin": "tsx scripts/set-pin.ts",
     "seed-stock": "tsx scripts/seed-stock.ts",
-    "vapid": "tsx scripts/generate-vapid.ts"
+    "vapid": "tsx scripts/generate-vapid.ts",
+    "lint:fix": "eslint --fix",
+    "typecheck": "tsc --noEmit"
   },
   "prisma": {
     "seed": "tsx scripts/seed.ts"
@@ -30,10 +32,13 @@
     "zod": "^3.24.1"
   },
   "devDependencies": {
+    "@eslint/eslintrc": "^3.3.7",
     "@types/bcryptjs": "^2.4.6",
     "@types/node": "^22.10.5",
     "@types/react": "^19.0.2",
     "@types/react-dom": "^19.0.2",
+    "eslint": "^9.39.5",
+    "eslint-config-next": "^15.5.25",
     "playwright": "^1.61.1",
     "prisma": "^6.2.1",
     "tsx": "^4.19.2",

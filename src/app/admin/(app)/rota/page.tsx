@@ -46,7 +46,6 @@ export default async function RotaPage({
       </p>
 
       <RotaGrid
-        weekAnchor={dateKey(monday)}
         prevWeek={prevWeek}
         nextWeek={nextWeek}
         thisWeek={thisWeek}

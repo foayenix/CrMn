@@ -65,7 +65,7 @@ export default async function Dashboard() {
     <div>
       <h1 className="admin-h1">Good day.</h1>
       <p className="admin-sub">
-        Everything for Crescent Moon in one place — the website's What&apos;s On
+        Everything for Crescent Moon in one place — the website&apos;s What&apos;s On
         section, the staff rota, table bookings and visitor stats.
       </p>
 

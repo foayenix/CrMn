@@ -36,6 +36,11 @@ export default function RootLayout({
             type scale (Cormorant 300-500, Hanken Grotesk 300/400) and IBM Plex
             Mono for labels. Dropping a weight here silently falls back to a
             browser default face. */}
+        {/* eslint-disable-next-line @next/next/no-page-custom-font --
+            The rule warns that a font added in a Pages Router *page* loads
+            for that page only, and points at pages/_document.js as the fix.
+            This is the App Router root layout, which is the equivalent: it
+            wraps every route, so the sheet is requested once and shared. */}
         <link
           href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,300;0,400;0,500;1,400&family=Hanken+Grotesk:wght@300;400;500&family=IBM+Plex+Mono:wght@400;500&display=swap"
           rel="stylesheet"

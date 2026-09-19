@@ -37,7 +37,6 @@ const KIND_LABELS: Record<Shift["kind"], string> = {
 };
 
 export function RotaGrid({
-  weekAnchor,
   prevWeek,
   nextWeek,
   thisWeek,
@@ -45,7 +44,6 @@ export function RotaGrid({
   staff,
   shifts,
 }: {
-  weekAnchor: string;
   prevWeek: string;
   nextWeek: string;
   thisWeek: string;
@@ -106,7 +104,7 @@ export function RotaGrid({
                 <th key={d.key} style={{ minWidth: 104 }}>
                   <div>{d.dow}</div>
                   <div style={{ fontWeight: 400, color: "var(--ink-soft)" }}>{d.date}</div>
-                  <DayNoteEditor day={d} weekAnchor={weekAnchor} />
+                  <DayNoteEditor day={d} />
                 </th>
               ))}
               <th style={{ minWidth: 80 }}>Total hours</th>
@@ -232,7 +230,7 @@ function StaffCell({ staff }: { staff: Staff }) {
   );
 }
 
-function DayNoteEditor({ day, weekAnchor }: { day: Day; weekAnchor: string }) {
+function DayNoteEditor({ day }: { day: Day }) {
   const [editing, setEditing] = useState(false);
   if (editing) {
     return (
