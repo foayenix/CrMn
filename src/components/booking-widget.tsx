@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
+import { publicBookingUrl, bookingsMailto } from "@/lib/cal-public";
 
 // Progressive enhancement for the booking module that lives in the static
 // homepage markup (HOME_TAIL). We attach behaviour by DOM id/class rather than
@@ -14,9 +15,6 @@ import { useEffect } from "react";
 //     it falls back to the bookings email so the button is never dead.
 export function BookingWidget() {
   useEffect(() => {
-    const bookingLink = process.env.NEXT_PUBLIC_CAL_BOOKING_LINK || "";
-    const calBase = process.env.NEXT_PUBLIC_CAL_URL_BASE || "";
-
     const state = { size: "2", day: "Fr 10", time: "7:00" };
 
     function selectParty(chip: HTMLElement) {
@@ -55,27 +53,25 @@ export function BookingWidget() {
     }
 
     function openBooking() {
-      if (bookingLink && calBase) {
-        // Deep-link into cal.diy's booking page with the party size as metadata.
-        // cal.diy then shows real availability for the reservation event type.
-        //
-        // Both params were walked end to end against a running cal.diy.
-        // metadata[partySize] survives: the booker reads metadata[...] off the
-        // query string, and it lands verbatim on Booking.metadata, which is where
-        // src/lib/cal.ts reads it back from.
-        // duration is conditional: cal.diy only honours it when the event type has
-        // multiple durations configured and 90 is one of them. Without that the
-        // booking silently takes the event type's own length, so the website can
-        // promise 90 minutes while the diary holds 60. See .env.example.
-        const url = new URL(`${calBase.replace(/\/$/, "")}/${bookingLink}`);
-        url.searchParams.set("metadata[partySize]", state.size);
-        url.searchParams.set("duration", "90");
-        window.open(url.toString(), "_blank", "noopener");
+      // Deep-link into cal.diy's booking page with the party size as metadata.
+      // cal.diy then shows real availability for the reservation event type.
+      //
+      // Both params were walked end to end against a running cal.diy.
+      // metadata[partySize] survives: the booker reads metadata[...] off the
+      // query string, and it lands verbatim on Booking.metadata, which is where
+      // src/lib/cal.ts reads it back from.
+      // duration is conditional: cal.diy only honours it when the event type has
+      // multiple durations configured and 90 is one of them. Without that the
+      // booking silently takes the event type's own length, so the website can
+      // promise 90 minutes while the diary holds 60. See .env.example.
+      const url = publicBookingUrl(state.size);
+      if (url) {
+        window.open(url, "_blank", "noopener");
       } else {
-        // Not configured yet — never leave the button dead.
-        window.location.href =
-          "mailto:bookings@crescentmoonwinebar.co.uk?subject=" +
-          encodeURIComponent(`Table for ${state.size}`);
+        // Not configured yet — never leave the button dead. Admin → Dashboard
+        // says so in as many words, because a mail client opening is not a
+        // symptom anyone reads as "the booking link is missing from the build".
+        window.location.href = bookingsMailto(state.size);
       }
     }
 

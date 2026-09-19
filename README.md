@@ -1,8 +1,9 @@
 # Crescent Moon — site + admin backend
 
 Single Next.js app that serves the public wine-bar site **and** the boss's admin
-area, replacing the old static Vercel site. Built to run on Coolify alongside
-self-hosted cal.diy (bookings) and Plausible (analytics).
+area, replacing the old static Vercel site. Runs on Vercel or Coolify; bookings
+come from Cal.com — hosted or self-hosted cal.diy, see [Taking
+bookings](#taking-bookings) — and analytics from Plausible.
 
 ## Stack
 - Next.js 15 (App Router) + React 19 + TypeScript
@@ -50,6 +51,59 @@ correct on whatever domain you deploy to with nothing to configure.
 
 Note `next.config.ts` only asks for Next's `standalone` output when not building
 on Vercel, which builds its own serverless output.
+
+## Taking bookings
+
+Two independent halves, and they fail independently — which is why Admin →
+Dashboard reports on each.
+
+| half | variables | read when |
+| --- | --- | --- |
+| The website's **"Hold this table"** button | `NEXT_PUBLIC_CAL_URL_BASE`, `NEXT_PUBLIC_CAL_BOOKING_LINK` | **build time** |
+| Reading bookings back into admin + the staff app | `CAL_API_URL`, `CAL_API_KEY` | runtime |
+
+The `NEXT_PUBLIC_` pair is baked into the page when it is built, so setting them
+on the host and not rebuilding leaves the old values in the shipped JavaScript.
+**Set them, then redeploy.** The other pair takes effect without a rebuild, so
+bookings can start arriving in admin while the button is still sending email.
+
+With no booking link in the build the button opens an email instead of dying,
+which is deliberate but has no symptom — the dashboard says
+"Website booking button: emailing, not booking" so it is findable without
+someone pressing it.
+
+### Against hosted Cal.com
+
+The path of least ceremony: no server, and their free individual plan covers one
+venue. Create an event type for the reservation, then:
+
+```
+NEXT_PUBLIC_CAL_URL_BASE      https://cal.com
+NEXT_PUBLIC_CAL_BOOKING_LINK  <username>/<event-type-slug>
+CAL_API_URL                   https://api.cal.com
+CAL_API_KEY                   cal_…      # Settings → Developer → API keys
+```
+
+**Set the event type's own length to 90 minutes** — the length the website
+promises. The button also sends `&duration=90`, but that is only honoured when
+the event type has multiple durations configured and 90 is one of them; matching
+the length means the parameter has nothing to override and cannot silently
+disagree with the site.
+
+### Against self-hosted cal.diy
+
+Same variables, pointed at your instance — `CAL_API_URL` is the API host, with
+or without an `/api` suffix. Worth knowing before you start:
+
+- cal.diy ships **only** the v2 API, and it is a separate long-running service
+  from the web app (`apps/api/v2`, its own Dockerfile). The web app alone gives
+  you a booking page with nothing for `CAL_API_URL` to talk to. Its
+  `docker-compose.yml` runs both, plus Postgres and Redis.
+- An event type needs a row in the `_user_eventtype` join table or its public
+  page 404s even with `userId` set, and its owner needs a schedule with
+  availability or the page loads with no times to pick.
+- cal.diy's own README calls it "strictly recommended for personal,
+  non-production use" and points commercial users at hosted Cal.com.
 
 ## Staff app (`/staff/<slug>`)
 

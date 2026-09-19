@@ -2,6 +2,7 @@ import { prisma } from "@/lib/prisma";
 import Link from "next/link";
 import { getStaffSlug } from "@/lib/settings";
 import { startOfWeekMonday, endOfWeekSunday } from "@/lib/dates";
+import { isPublicBookingConfigured } from "@/lib/cal-public";
 
 export const dynamic = "force-dynamic";
 
@@ -49,6 +50,9 @@ export default async function Dashboard() {
   const escalated = (lastNight?.checks ?? []).filter((c) => c.note);
 
   const calConfigured = !!process.env.CAL_API_URL && !!process.env.CAL_API_KEY;
+  // Same helper the button itself calls, so this line cannot claim the website
+  // is booking while the shipped bundle is quietly emailing.
+  const publicBookingConfigured = isPublicBookingConfigured();
   const plausibleConfigured = !!process.env.PLAUSIBLE_SHARED_LINK;
 
   const tiles = [
@@ -193,6 +197,24 @@ export default async function Dashboard() {
           {/* The boss reads the status; whoever deploys reads the setting name.
               Both need it, so the name sits under the line rather than inside
               it, where it was competing with the sentence it explains. */}
+          {/* The button a customer actually presses. It never dies — with no
+              booking link in the build it opens an email instead — so the only
+              way to notice it isn't booking is to press it. Hence this line. */}
+          <li>
+            Website booking button:{" "}
+            {publicBookingConfigured ? (
+              "opens cal.diy"
+            ) : (
+              <strong>emailing, not booking</strong>
+            )}
+            {!publicBookingConfigured && (
+              <span className="muted admin-setup-hint">
+                Needs NEXT_PUBLIC_CAL_URL_BASE and NEXT_PUBLIC_CAL_BOOKING_LINK set
+                on the deployment — then a REBUILD, because these two are baked
+                into the page at build time and a redeploy is what picks them up.
+              </span>
+            )}
+          </li>
           <li>
             Table bookings: {calConfigured ? "connected" : "not connected yet"}
             {!calConfigured && (
