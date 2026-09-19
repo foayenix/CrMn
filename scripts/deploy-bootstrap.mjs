@@ -5,8 +5,8 @@
  * don't all give us a shell:
  *
  *   - Vercel is serverless. `npm start` never runs there, so anything hung off
- *     the start script (schema push, seeding) would silently never happen and
- *     the app would boot against an empty or missing database.
+ *     the start script (migrations, seeding) would silently never happen and the
+ *     app would boot against an empty or missing database.
  *   - Coolify/Docker do run a start command, but doing it here keeps one code
  *     path for both.
  *
@@ -25,7 +25,7 @@ const run = (cmd, opts = {}) =>
 
 if (!process.env.DATABASE_URL) {
   console.log(
-    "[deploy-bootstrap] No DATABASE_URL — skipping schema push and seeding.\n" +
+    "[deploy-bootstrap] No DATABASE_URL — skipping migrations and seeding.\n" +
       "[deploy-bootstrap] Set DATABASE_URL in the deployment's environment to " +
       "bootstrap the database at build time.",
   );
@@ -35,60 +35,64 @@ if (!process.env.DATABASE_URL) {
 // ---------------------------------------------------------------------------
 // Schema
 //
-// Try the safe push first. `prisma db push` refuses, without --accept-data-loss,
-// any change it *might* not be able to apply — including purely additive ones.
-// Adding the unique index on StaffMember.pinLookup trips this: Prisma warns that
-// existing duplicates would fail, even though the column is new and therefore
-// NULL everywhere, and Postgres allows unlimited NULLs in a unique index.
+// `prisma migrate deploy` applies the reviewed migration files in
+// prisma/migrations and nothing else. It never invents a change, never drops a
+// column to make the schema fit, and has no --accept-data-loss equivalent.
 //
-// So: attempt it safely, show exactly what Prisma objected to, then retry with
-// the flag. Set SAFE_DB_PUSH=1 to keep the guard and fail instead — worth doing
-// once the database holds clock-in/out history and checklist signatures, where a
-// genuinely destructive change should stop a deploy rather than be applied.
-// The durable fix is `prisma migrate` with reviewed migration files.
+// This replaced `prisma db push`, which this script used to run with an
+// --accept-data-loss retry when the safe push was refused. That was fine while
+// the database was empty and is not fine now: it hands a build step permission
+// to drop production data, and it left no record of what had been applied.
+//
+// A database created by the old `db push` path has the right tables but no
+// migration history, so `migrate deploy` refuses it with P3005 rather than
+// replaying 0_init over live tables. Baselining it once is what clears that —
+// see docs/MIGRATIONS.md. The error handler below says so in as many words,
+// because P3005 at deploy time is otherwise a puzzle.
 // ---------------------------------------------------------------------------
-console.log("\n[deploy-bootstrap] Pushing Prisma schema…");
+console.log("\n[deploy-bootstrap] Applying Prisma migrations…");
 try {
-  process.stdout.write(run("prisma db push --skip-generate"));
+  process.stdout.write(run("prisma migrate deploy"));
 } catch (err) {
   const output = `${err.stdout ?? ""}${err.stderr ?? ""}`;
   process.stdout.write(output);
 
-  const dataLossOnly = output.includes("--accept-data-loss");
-  if (!dataLossOnly) {
+  if (output.includes("P3005")) {
     console.error(
-      "\n[deploy-bootstrap] FAILED: could not push the schema.\n" +
-        "[deploy-bootstrap] This is not a data-loss warning — the database is " +
-        "unreachable or rejected the connection. Check DATABASE_URL, and that " +
-        "the database accepts connections from the build environment (Prisma " +
-        "needs the direct, non-pooled URL, usually with ?sslmode=require).",
+      "\n[deploy-bootstrap] FAILED: this database has tables but no migration " +
+        "history, so Prisma will not apply migrations to it.\n" +
+        "[deploy-bootstrap] That is what a database created by the old " +
+        "`prisma db push` path looks like. Baseline it ONCE, against this " +
+        "database, from a shell with the same DATABASE_URL:\n\n" +
+        "    npx prisma migrate resolve --applied 0_init\n\n" +
+        "[deploy-bootstrap] Before you do, confirm the database really does " +
+        "match the schema — the baseline asserts that it does:\n\n" +
+        "    npx prisma migrate diff --from-url \"$DATABASE_URL\" \\\n" +
+        "      --to-schema-datamodel prisma/schema.prisma --exit-code\n\n" +
+        "[deploy-bootstrap] \"No difference detected\" means it is safe. Any " +
+        "other output means the database has drifted and needs looking at by " +
+        "hand first. Full procedure: docs/MIGRATIONS.md",
     );
     process.exit(1);
   }
 
-  if (process.env.SAFE_DB_PUSH) {
+  if (output.includes("P1001") || output.includes("P1000") || output.includes("P1017")) {
     console.error(
-      "\n[deploy-bootstrap] FAILED: the schema change above needs " +
-        "--accept-data-loss and SAFE_DB_PUSH is set.\n" +
-        "[deploy-bootstrap] Review the warning, then either unset SAFE_DB_PUSH " +
-        "or apply the change deliberately with a migration.",
+      "\n[deploy-bootstrap] FAILED: could not reach the database.\n" +
+        "[deploy-bootstrap] Check DATABASE_URL, and that the database accepts " +
+        "connections from the build environment (Prisma needs the direct, " +
+        "non-pooled URL, usually with ?sslmode=require).",
     );
     process.exit(1);
   }
 
-  console.warn(
-    "\n[deploy-bootstrap] ⚠  The change above was flagged as possibly lossy. " +
-      "Retrying with --accept-data-loss.\n" +
-      "[deploy-bootstrap] ⚠  Set SAFE_DB_PUSH=1 to fail here instead once this " +
-      "database holds data worth protecting.",
+  console.error(
+    "\n[deploy-bootstrap] FAILED: migrations did not apply cleanly.\n" +
+      "[deploy-bootstrap] Read the Prisma output above. A migration that " +
+      "failed part-way is recorded as failed and blocks later deploys until it " +
+      "is resolved — see docs/MIGRATIONS.md.",
   );
-  try {
-    process.stdout.write(run("prisma db push --skip-generate --accept-data-loss"));
-  } catch (retryErr) {
-    process.stdout.write(`${retryErr.stdout ?? ""}${retryErr.stderr ?? ""}`);
-    console.error("\n[deploy-bootstrap] FAILED: schema push failed even with --accept-data-loss.");
-    process.exit(1);
-  }
+  process.exit(1);
 }
 
 // ---------------------------------------------------------------------------

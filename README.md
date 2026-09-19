@@ -14,11 +14,13 @@ bookings](#taking-bookings) — and analytics from Plausible.
 ```bash
 npm install
 cp .env.example .env          # then edit DATABASE_URL / SESSION_SECRET
-npx prisma db push            # create tables
+npm run db:migrate            # create tables from prisma/migrations
 npm run seed                  # seed What's On + staff + checklist + admin login
 npm run seed-stock            # parse the menu into pickable low-stock items
 npm run dev                   # http://localhost:3000
 ```
+
+Schema changes go through migration files — see [docs/MIGRATIONS.md](docs/MIGRATIONS.md). An existing database created by the old `prisma db push` path needs a one-time baseline before it will accept deploys; that procedure is in the same document.
 Default seeded login: `boss@crescentmoonbar.co.uk` / `changeme123` — change it:
 ```bash
 npm run set-password -- boss@crescentmoonbar.co.uk 'a-strong-password'
