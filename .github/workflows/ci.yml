@@ -1,0 +1,73 @@
+# Continuous integration for the Crescent Moon app.
+#
+# Runs the three checks a contributor can run locally, in the same order and by
+# the same npm scripts, so a green run here means the same thing as a clean
+# working copy.
+#
+# Two deliberate omissions:
+#
+#   - No database service. The whole app renders dynamically and nothing
+#     connects to Postgres at build time — verified by building with
+#     DATABASE_URL unset. Pointing CI at a throwaway database would not test
+#     anything the build actually does, and a fake URL would only hide the day
+#     that stops being true.
+#
+#   - No `npm run build`. That script chains scripts/deploy-bootstrap.mjs,
+#     which pushes the Prisma schema at a live database and, without
+#     SAFE_DB_PUSH, can retry with --accept-data-loss. CI must never be able to
+#     reach a real database, so the build step below calls `next build`
+#     directly. When the deploy script is replaced with `prisma migrate deploy`
+#     (roadmap Phase 1), revisit this.
+#
+# There is no test step yet because there are no tests yet. Add one here the
+# moment the first spec lands — that is the point of having this file first.
+
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+# A newer push to the same branch makes an in-flight run redundant.
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  checks:
+    name: Lint, typecheck, build
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          # Matches the version the app is developed against.
+          node-version: '22'
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      # `npm ci` already triggers this through postinstall. Repeating it makes
+      # the run survive an --ignore-scripts install, and costs a second.
+      - name: Generate the Prisma client
+        run: npx prisma generate
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Typecheck
+        run: npm run typecheck
+
+      - name: Build
+        run: npx next build
