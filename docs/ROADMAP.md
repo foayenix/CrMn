@@ -78,12 +78,17 @@ repository. There is no model, no action, no provider integration.
 `devDependencies` with no config file and no spec files anywhere in the tree.
 `package.json` has no `test` script.
 
-**Deployment can drop data.** `package.json` `build` runs
-`scripts/deploy-bootstrap.mjs`, which attempts `prisma db push` and, on a
-data-loss refusal, retries with `--accept-data-loss` unless `SAFE_DB_PUSH` is
-set. The script's own comment at line 48 states: "The durable fix is
-`prisma migrate` with reviewed migration files." Because this runs inside
-`build`, the risk is on every deploy, not only on manual operations.
+**Deployment could drop data — now fixed in code, pending one
+operator step.** `build` runs `scripts/deploy-bootstrap.mjs`, which used to
+attempt `prisma db push` and retry with `--accept-data-loss` unless
+`SAFE_DB_PUSH` was set. It now runs `prisma migrate deploy` against reviewed
+migration files in `prisma/migrations`, and there is no data-loss flag left in
+the script. What remains is a one-time baseline of each existing database, which
+needs shell access to that database and so cannot be done from here — see
+[MIGRATIONS.md](MIGRATIONS.md). Until it is done, deploys fail safely with
+`P3005` rather than touching live tables. Migrations still run from `build`,
+which is a platform constraint rather than a preference; the note in
+MIGRATIONS.md explains why and what to watch.
 
 **Configuration-dependent screens.** Bookings, analytics and push all render
 "not connected" states until `CAL_API_URL`/`CAL_API_KEY`, `PLAUSIBLE_*` and
@@ -180,11 +185,13 @@ exists that mirrors it.*
 This is the most important phase in the document. Everything after it adds
 data that is expensive to lose.
 
-- **Migrations.** Generate an initial migration from the current schema,
-  baseline the production database against it, and change
-  `deploy-bootstrap.mjs` to run `prisma migrate deploy`. Delete the
-  `--accept-data-loss` retry path entirely. Remove schema mutation from the
-  `build` step — a build should not alter a database.
+- **Migrations.** *(Code side done.)* `prisma/migrations/0_init` is generated
+  and committed, `deploy-bootstrap.mjs` runs `prisma migrate deploy`, and the
+  `--accept-data-loss` path is deleted. Still outstanding: baseline each
+  existing database (`prisma migrate resolve --applied 0_init`), which needs a
+  shell against that database — procedure and the drift check that must precede
+  it are in [MIGRATIONS.md](MIGRATIONS.md). Moving schema mutation out of the
+  `build` step remains open, and is blocked on how Vercel deploys are run.
 - **Tests.** Add a `test` script. Unit-test the pure logic first, where the
   value-per-hour is highest: `src/lib/business-date.ts`, `dates.ts`, `rota.ts`,
   `checklist.ts`, `stock.ts`, `clock.ts`, and the `cal.ts` response parsing

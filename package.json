@@ -8,7 +8,6 @@
     "start": "next start",
     "lint": "eslint",
     "postinstall": "prisma generate",
-    "db:push": "prisma db push",
     "db:migrate": "prisma migrate deploy",
     "seed": "tsx scripts/seed.ts",
     "seed-rota": "tsx scripts/seed-july-rota.ts",
@@ -17,7 +16,9 @@
     "seed-stock": "tsx scripts/seed-stock.ts",
     "vapid": "tsx scripts/generate-vapid.ts",
     "lint:fix": "eslint --fix",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "db:migrate:dev": "prisma migrate dev",
+    "db:migrate:status": "prisma migrate status"
   },
   "prisma": {
     "seed": "tsx scripts/seed.ts"
