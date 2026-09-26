@@ -17,8 +17,8 @@ Everything in this section was checked against the tree, not recalled.
 
 | Area | Where | Notes |
 |---|---|---|
-| Public site | `src/app/page.tsx`, `src/lib/home-template.ts` | Static HTML fragments, auto-generated from `reference/legacy-site/`, injected via `dangerouslySetInnerHTML`. `home-template.ts` is ~38 KB of markup. |
-| Menu page | `src/app/menu/page.tsx`, `src/lib/menu-template.ts` | Same pattern. |
+| Public site | `src/app/page.tsx`, `src/app/home.css`, `src/components/booking-form.tsx` | JSX (the "Masthead" design, `design/home-options/c-masthead.html`). What's On is read from the database; the rest of the copy lives in `page.tsx`. *(Updated 26 September 2026; it was generated HTML fragments until then.)* |
+| Menu page | `src/app/menu/page.tsx`, `src/lib/menu-template.ts` | Static HTML auto-generated from `reference/legacy-site/`, injected via `dangerouslySetInnerHTML`. Still in the original illustrated design. |
 | Admin app | `src/app/admin/(app)/` | 10 sections: dashboard, what's on, rota, lockdown checklist, stock, clock, bookings, analytics, staff view/PINs, notifications. |
 | Staff app | `src/app/staff/[slug]/` | PIN entry, clock, rota, stock reporting, lockdown. |
 | Auth | `src/lib/auth.ts`, `session.ts`, `staff-pin.ts` | bcrypt admin password, `jose`-signed session cookie, HMAC-keyed staff PIN lookup with a throttle model. |
@@ -55,23 +55,21 @@ blocker to CRM and WhatsApp booking: there is no local record to attach a guest
 to, no booking history to count, and no way to answer "how many covers last
 Friday" without cal.diy being up.
 
-**3. The public site is a generated HTML blob.** Structuring the menu as data
+**3. The menu is a generated HTML blob.** Structuring the menu as data
 is not only a schema exercise — it means dismantling `menu-template.ts` and
 rendering from the database, which changes how the site is built and deployed.
 
 ### Confirmed gaps
 
-**Homepage date/time picker is inert.** `src/components/booking-widget.tsx`
-declares `state = { size, day, time }`, but only party size is ever written or
-read. `openBooking()` sends `metadata[partySize]` and `duration=90` and nothing
-else. The file's own header comment claims "day tiles and time slots become
-selectable" — no handler implements that. So the comment is stale as well as
-the feature being absent. The flow really is: pick party size → open cal.diy →
-pick the real date and time there.
+~~**Homepage date/time picker is inert.**~~ Resolved 26 September 2026: the
+homepage redesign replaced `booking-widget.tsx` with `booking-form.tsx`, which
+asks for party size only and says "Choose a time". The flow is unchanged: pick
+party size → open cal.diy (`metadata[partySize]`, `duration=90`) → pick the
+real date and time there.
 
-**Newsletter form cannot submit.** In `home-template.ts` the footer contains
-`<form onsubmit="return false">` wrapping an `<input type="email">`. Submission
-is actively blocked, and the string "newsletter" appears nowhere in the
+**Newsletter form cannot submit.** The homepage footer's `LetterForm`
+(`src/components/letter-form.tsx`) calls `preventDefault()` on submit, as the
+old `<form onsubmit="return false">` did. Submission is actively blocked, and the string "newsletter" appears nowhere in the
 repository. There is no model, no action, no provider integration.
 
 **No tests, no CI.** No `.github/` directory exists. `playwright` is in
@@ -257,8 +255,6 @@ reflects it, with no code deploy.*
   system never asserts something the guest did not say.
 - Customers section in the owner app: history, visit count, preferences, notes,
   consent state.
-- Fix or remove the homepage date/time picker (see Part 1) so the site stops
-  implying functionality it lacks.
 - Resolve the newsletter per Decision C.
 
 *Exit: a returning guest is recognised across bookings, and the owner can see
