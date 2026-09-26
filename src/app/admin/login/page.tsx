@@ -4,6 +4,7 @@ import { useActionState, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { loginAction, type LoginState } from "../auth-actions";
 import { Suspense } from "react";
+import { LogoLockup } from "@/components/logo";
 
 function LoginForm() {
   const params = useSearchParams();
@@ -18,15 +19,15 @@ function LoginForm() {
   return (
     <div className="login-wrap">
       <div className="login-card">
-        <h1 className="admin-serif" style={{ fontSize: 34, margin: "0 0 4px" }}>
-          Crescent Moon
+        <h1 style={{ margin: "0 0 4px" }}>
+          <LogoLockup className="login-logo" title="Crescent Moon" />
         </h1>
         <p
           style={{
             fontSize: 10.5,
             letterSpacing: "0.2em",
             textTransform: "uppercase",
-            color: "var(--green)",
+            color: "var(--terracotta-text)",
             margin: "0 0 26px",
           }}
         >

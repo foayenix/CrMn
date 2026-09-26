@@ -2,6 +2,7 @@ import { requireAdmin } from "@/lib/auth";
 import { AdminNav } from "@/components/admin-nav";
 import { openReportCount } from "@/lib/stock";
 import { logoutAction } from "../auth-actions";
+import { LogoMark } from "@/components/logo";
 
 export default async function AuthedAdminLayout({
   children,
@@ -16,6 +17,7 @@ export default async function AuthedAdminLayout({
       <aside className="admin-sidebar">
         <div>
           <h1 className="admin-brand">
+            <LogoMark className="admin-brand-mark" />
             Crescent Moon
             <small>Admin</small>
           </h1>
@@ -25,7 +27,7 @@ export default async function AuthedAdminLayout({
           <div
             style={{
               fontSize: 10.5,
-              color: "rgba(247,244,236,.5)",
+              color: "rgba(252,240,224,.62)",
               marginBottom: 10,
               wordBreak: "break-all",
             }}
@@ -36,7 +38,7 @@ export default async function AuthedAdminLayout({
             <button
               type="submit"
               className="btn ghost sm"
-              style={{ color: "rgba(247,244,236,.85)", borderColor: "rgba(247,244,236,.3)" }}
+              style={{ color: "rgba(252,240,224,.85)", borderColor: "rgba(252,240,224,.3)" }}
             >
               Sign out
             </button>

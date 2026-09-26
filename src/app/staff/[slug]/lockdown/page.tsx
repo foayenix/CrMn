@@ -27,12 +27,12 @@ export default async function LockdownScreen({ params }: { params: Promise<{ slu
 
   if (state.total === 0) {
     return (
-      <StaffShell slug={slug} section="lockdown" isPad={isPad} title="Lockdown" stat="—" statBrass={false}>
+      <StaffShell slug={slug} section="lockdown" isPad={isPad} title="Lockdown" stat="—" statAccent={false}>
         <div className="staff-empty">
           <div className="staff-serif" style={{ fontSize: 36, lineHeight: 1.1 }}>
             No list yet
           </div>
-          <p style={{ margin: 0, fontSize: 16, lineHeight: 1.6, color: "rgba(232,224,207,.58)", maxWidth: "28ch" }}>
+          <p style={{ margin: 0, fontSize: 16, lineHeight: 1.6, color: "rgba(237,227,210,.58)", maxWidth: "28ch" }}>
             A manager writes the closing list in the admin area. Until then,
             close the way you always have.
           </p>
@@ -48,7 +48,7 @@ export default async function LockdownScreen({ params }: { params: Promise<{ slu
       isPad={isPad}
       title="Lockdown"
       stat={submitted ? "Locked" : `${state.done} / ${state.total}`}
-      statBrass={!submitted && state.remaining > 0}
+      statAccent={!submitted && state.remaining > 0}
     >
       {!submitted && (
         <div className="staff-progress">
@@ -56,7 +56,7 @@ export default async function LockdownScreen({ params }: { params: Promise<{ slu
             className="staff-progress-fill"
             style={{
               width: `${Math.round((state.done / state.total) * 100)}%`,
-              background: state.remaining === 0 ? "var(--sage)" : "var(--brass)",
+              background: state.remaining === 0 ? "var(--sage)" : "var(--terracotta)",
             }}
           />
         </div>
@@ -167,7 +167,7 @@ function LockedPanel({ state, night }: { state: ChecklistState; night: string })
         <br />
         Submitted by {state.submittedBy} at {state.submittedAt ? time(state.submittedAt) : ""}
       </div>
-      <div style={{ fontSize: 16, lineHeight: 1.55, color: "rgba(232,224,207,.7)", marginTop: 14 }}>
+      <div style={{ fontSize: 16, lineHeight: 1.55, color: "rgba(237,227,210,.7)", marginTop: 14 }}>
         Go home.
         {notes.length === 1 && ` One note went to the manager: ${lower(notes[0].label)}.`}
         {notes.length > 1 && ` ${count(notes.length)} notes went to the manager.`}

@@ -63,7 +63,7 @@ export default async function RotaScreen({
       isPad={isPad}
       title={team ? "Team rota" : "My rota"}
       stat={team ? `${rostered} staff` : `${formatHours(myHours)}h`}
-      statBrass={!team}
+      statAccent={!team}
     >
       <div className="staff-toggle">
         <Link href={`/staff/${slug}/rota`} className={team ? "staff-toggle-opt" : "staff-toggle-opt on"}>
@@ -121,7 +121,7 @@ function MineView({ days }: { days: ReturnType<typeof mineWeek> }) {
                       fontSize: slot.working ? 27 : 24,
                       fontWeight: 400,
                       lineHeight: 1.1,
-                      color: slot.working ? undefined : "rgba(232,224,207,.42)",
+                      color: slot.working ? undefined : "rgba(237,227,210,.42)",
                     }}
                   >
                     {slot.label}

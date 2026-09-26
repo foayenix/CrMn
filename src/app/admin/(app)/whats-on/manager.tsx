@@ -96,7 +96,7 @@ function EditRow({ entry, isFirst, isLast }: { entry: Entry; isFirst: boolean; i
 
   if (editing) {
     return (
-      <div className="card" style={{ borderColor: "var(--gold)" }}>
+      <div className="card" style={{ borderColor: "var(--terracotta)" }}>
         {state.error && <div className="alert error">{state.error}</div>}
         <form action={action}>
           <input type="hidden" name="id" value={entry.id} />
@@ -152,7 +152,7 @@ function EditRow({ entry, isFirst, isLast }: { entry: Entry; isFirst: boolean; i
           {!entry.active && <span className="badge off">Hidden</span>}
         </div>
         {entry.description && (
-          <p style={{ margin: "6px 0 0", fontSize: 13, color: "rgba(28,21,18,.7)" }}>{entry.description}</p>
+          <p style={{ margin: "6px 0 0", fontSize: 13, color: "rgba(38,57,49,.7)" }}>{entry.description}</p>
         )}
         {entry.date && <p className="muted" style={{ margin: "4px 0 0", fontSize: 12 }}>Date: {entry.date}</p>}
       </div>

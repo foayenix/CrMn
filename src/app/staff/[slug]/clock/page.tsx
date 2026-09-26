@@ -38,7 +38,7 @@ export default async function ClockScreen({ params }: { params: Promise<{ slug: 
       isPad={isPad}
       title="Clock"
       stat={on ? "On" : undefined}
-      statBrass={false}
+      statAccent={false}
     >
       <div className="staff-clock">
         <div style={{ textAlign: "center" }}>
@@ -54,7 +54,7 @@ export default async function ClockScreen({ params }: { params: Promise<{ slug: 
               </div>
               <div
                 className="staff-serif"
-                style={{ fontSize: 30, fontWeight: 300, lineHeight: 1.15, marginTop: 10, color: "rgba(232,224,207,.85)" }}
+                style={{ fontSize: 30, fontWeight: 300, lineHeight: 1.15, marginTop: 10, color: "rgba(237,227,210,.85)" }}
               >
                 Not clocked in
               </div>
@@ -84,10 +84,10 @@ export default async function ClockScreen({ params }: { params: Promise<{ slug: 
                 <span className="staff-serif" style={{ fontSize: 40, fontWeight: 300, lineHeight: 1 }}>
                   Clock in
                 </span>
-                <span className="staff-dial-label brass">Tap once</span>
+                <span className="staff-dial-label accent">Tap once</span>
               </button>
             </form>
-            <p style={{ margin: 0, fontSize: 16, lineHeight: 1.6, color: "rgba(232,224,207,.55)", textAlign: "center", maxWidth: "28ch" }}>
+            <p style={{ margin: 0, fontSize: 16, lineHeight: 1.6, color: "rgba(237,227,210,.55)", textAlign: "center", maxWidth: "28ch" }}>
               Entirely optional. Nobody chases this, and nothing here changes if
               you never touch it.
             </p>

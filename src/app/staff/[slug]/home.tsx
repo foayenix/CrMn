@@ -95,7 +95,7 @@ export async function Home({
   const checklistStarted = checklist.done > 0;
   const nudges: {
     key: string;
-    mark: "brass" | "rose" | "sage";
+    mark: "accent" | "rose" | "sage";
     text: string;
     detail?: string;
     href: string;
@@ -106,14 +106,14 @@ export async function Home({
       checklistStarted
         ? {
             key: "lockdown",
-            mark: "brass",
+            mark: "accent",
             text: `Lockdown ${checklist.done} of ${checklist.total} done`,
             detail: `${checklist.remaining} LEFT`,
             href: `/staff/${slug}/lockdown`,
           }
         : {
             key: "lockdown",
-            mark: "brass",
+            mark: "accent",
             text: "Lockdown checklist not started",
             detail: `${checklist.total} ITEMS · ABOUT ${estimatedMinutes(checklist.total)} MIN`,
             href: `/staff/${slug}/lockdown`,
@@ -219,7 +219,7 @@ export async function Home({
               <span className="staff-mono" style={{ fontSize: 10.5 }}>
                 Tonight&apos;s tables
               </span>
-              <span className="staff-mono" style={{ fontSize: 11, letterSpacing: ".06em", color: "var(--brass)" }}>
+              <span className="staff-mono" style={{ fontSize: 11, letterSpacing: ".06em", color: "var(--terracotta)" }}>
                 {covers} covers
               </span>
             </div>
@@ -237,7 +237,7 @@ export async function Home({
                   const passed = b.start < now;
                   return (
                     <div key={String(b.id)} className={passed ? "staff-booking pad passed" : "staff-booking pad"}>
-                      <span className="staff-booking-time" style={passed ? undefined : { color: "var(--brass)" }}>
+                      <span className="staff-booking-time" style={passed ? undefined : { color: "var(--terracotta)" }}>
                         {b.start.toLocaleTimeString("en-GB", {
                           hour: "2-digit",
                           minute: "2-digit",
@@ -268,7 +268,7 @@ export async function Home({
                 checklist.submittedAt
                   ? { color: "var(--sage)" }
                   : checklist.total > 0 && closingTime
-                    ? { color: "var(--brass)" }
+                    ? { color: "var(--terracotta)" }
                     : undefined
               }
             >
@@ -310,10 +310,10 @@ function TonightPanel({ working, next }: { working: ShiftRow[]; next: ShiftRow |
         <div className="staff-mono" style={{ marginBottom: 8 }}>
           Tonight
         </div>
-        <div className="staff-serif" style={{ fontSize: 30, fontWeight: 400, lineHeight: 1.1, color: "rgba(232,224,207,.8)" }}>
+        <div className="staff-serif" style={{ fontSize: 30, fontWeight: 400, lineHeight: 1.1, color: "rgba(237,227,210,.8)" }}>
           You&apos;re not on.
         </div>
-        <div style={{ fontSize: 15, color: "rgba(232,224,207,.55)", marginTop: 8 }}>
+        <div style={{ fontSize: 15, color: "rgba(237,227,210,.55)", marginTop: 8 }}>
           {next && next.startMinutes !== null
             ? `Next shift ${dayLongLabel(next.date)}, ${minutesTo24h(next.startMinutes)}.`
             : "Nothing else on the rota this week."}
@@ -327,9 +327,9 @@ function TonightPanel({ working, next }: { working: ShiftRow[]; next: ShiftRow |
   const notes = slots.map((s) => s.note).filter(Boolean);
 
   return (
-    <div className="staff-panel brass">
+    <div className="staff-panel accent">
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", marginBottom: 8 }}>
-        <span className="staff-mono" style={{ color: "var(--brass)", fontSize: 10.5 }}>
+        <span className="staff-mono" style={{ color: "var(--terracotta)", fontSize: 10.5 }}>
           Tonight
         </span>
         {(endsLabel || slots.length > 1) && (
@@ -344,7 +344,7 @@ function TonightPanel({ working, next }: { working: ShiftRow[]; next: ShiftRow |
         </div>
       ))}
       {notes.length > 0 && (
-        <div style={{ fontSize: 15, color: "rgba(232,224,207,.6)", marginTop: 6 }}>
+        <div style={{ fontSize: 15, color: "rgba(237,227,210,.6)", marginTop: 6 }}>
           {notes.join(" · ")}
         </div>
       )}

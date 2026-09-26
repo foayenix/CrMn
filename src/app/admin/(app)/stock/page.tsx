@@ -86,7 +86,7 @@ export default async function StockPage() {
                         style={
                           r.level === "OUT"
                             ? { borderColor: "var(--danger)", color: "var(--danger)" }
-                            : { borderColor: "var(--gold)", color: "var(--gold)" }
+                            : { borderColor: "var(--terracotta)", color: "var(--terracotta-text)" }
                         }
                       >
                         {r.level === "OUT" ? "out" : "low"}

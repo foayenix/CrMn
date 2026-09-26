@@ -7,14 +7,14 @@ export const metadata: Metadata = {
   title: "Crescent Moon — Wine Bar, Colchester",
   description: `A wine bar on Crouch Street, Colchester. ${inWords(MENU_FACTS.wines)} wines, cocktails made by Edmunds of Bury St Edmunds, locally supplied food, and the Lounge upstairs for private hire.`,
   // Without these the browser probes /favicon.ico on every page load and gets a
-  // 404. These carry the printed menu's logo (the crescent over the waves); the
-  // admin and staff apps keep their own icon-192/512 via their own layouts.
+  // 404. They carry the printed menu's mark (the crescent over the waves) and
+  // serve the admin PWA and staff app too.
   icons: {
     icon: [
-      { url: "/site-icon-192.png", type: "image/png", sizes: "192x192" },
-      { url: "/site-icon-512.png", type: "image/png", sizes: "512x512" },
+      { url: "/icon-192.png", type: "image/png", sizes: "192x192" },
+      { url: "/icon-512.png", type: "image/png", sizes: "512x512" },
     ],
-    apple: "/site-icon-512.png",
+    apple: "/icon-512.png",
   },
 };
 

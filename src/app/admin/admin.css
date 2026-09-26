@@ -2,18 +2,24 @@
    clean, dense, utilitarian layout. */
 
 .admin-root {
-  --ink: #1c1512;
-  --line: rgba(28, 21, 18, 0.14);
-  --line-strong: rgba(28, 21, 18, 0.28);
-  --paper: #f7f4ec;
-  --sand: #ede6d6;
-  --gold: #a8875a;
+  --ink: #263931;
+  --line: rgba(38, 57, 49, 0.14);
+  --line-strong: rgba(38, 57, 49, 0.28);
+  --paper: #FFFBF4;
+  --sand: #FCF3E6;
+  /* The printed menu's palette (see src/app/site.css): deep green, cream,
+     terracotta. Terracotta itself is 3.2:1 on the cream, so it is a border and
+     fill colour here; text in it uses --terracotta-text (4.7:1), and a fill
+     with deep-green text on it uses --terracotta-light (4.8:1). */
+  --terracotta: #CC7050;
+  --terracotta-text: #A9553A;
+  --terracotta-light: #E08E6F;
   --green: #5c6b57;
-  --wine: #2b1420;
-  --danger: #9d3b2f;
-  /* Secondary ink. 0.5 put it at 3.25:1 on sand, under the 4.5:1 a paragraph
-     this size needs; 0.7 clears it at 6.02:1 without going to full ink. */
-  --ink-soft: rgba(28, 21, 18, 0.7);
+  --deep: #263931;
+  --danger: #9E2B3C;
+  /* Secondary ink. 0.5 puts it at 2.75:1 on sand, under the 4.5:1 a paragraph
+     this size needs; 0.7 clears it at 4.63:1 without going to full ink. */
+  --ink-soft: rgba(38, 57, 49, 0.7);
   /* Mono carries what gets scanned — labels, counts, times, table data. Prose
      is read, so it is set in the same sans the rest of the site reads in; the
      public site uses mono the same way, for labels and never for sentences. */
@@ -56,7 +62,7 @@
   min-height: 100vh;
 }
 .admin-sidebar {
-  background: var(--wine);
+  background: var(--deep);
   color: var(--paper);
   padding: 26px 18px;
   display: flex;
@@ -72,13 +78,20 @@
   line-height: 1.05;
   margin: 0 0 4px;
 }
+.admin-brand-mark {
+  display: block;
+  width: 33px;
+  height: 44px;
+  color: var(--terracotta);
+  margin-bottom: 14px;
+}
 .admin-brand small {
   display: block;
   font-family: "IBM Plex Mono", monospace;
   font-size: 9.5px;
   letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: rgba(247, 244, 236, 0.5);
+  color: rgba(252, 240, 224, 0.62);
   margin-top: 8px;
 }
 .admin-nav {
@@ -90,18 +103,21 @@
 .admin-nav a {
   display: block;
   padding: 10px 12px;
-  color: rgba(247, 244, 236, 0.82);
+  color: rgba(252, 240, 224, 0.82);
   font-size: 12px;
   letter-spacing: 0.06em;
   text-transform: uppercase;
   border-radius: 4px;
 }
 .admin-nav a:hover {
-  background: rgba(247, 244, 236, 0.08);
+  background: rgba(252, 240, 224, 0.08);
   color: #fff;
 }
+/* Terracotta washed over the deep green reads as brown, so the active item is
+   a cream wash with a terracotta edge instead. */
 .admin-nav a.active {
-  background: rgba(168, 135, 90, 0.22);
+  background: rgba(252, 240, 224, 0.1);
+  box-shadow: inset 3px 0 0 var(--terracotta-light);
   color: #fff;
 }
 /* The staff app never carries a badge. This one is the boss's, and it has to
@@ -112,8 +128,8 @@
   min-width: 18px;
   padding: 1px 5px;
   border-radius: 999px;
-  background: var(--gold);
-  color: var(--wine);
+  background: var(--terracotta-light);
+  color: var(--deep);
   font-size: 9.5px;
   line-height: 16px;
   text-align: center;
@@ -121,7 +137,7 @@
 .admin-sidebar-footer {
   margin-top: auto;
   padding-top: 18px;
-  border-top: 1px solid rgba(247, 244, 236, 0.14);
+  border-top: 1px solid rgba(252, 240, 224, 0.14);
 }
 .admin-main {
   padding: 34px clamp(20px, 4vw, 52px);
@@ -203,15 +219,15 @@ textarea {
   gap: 8px;
 }
 .btn:hover {
-  background: var(--wine);
-  border-color: var(--wine);
+  background: #1a2822;
+  border-color: #1a2822;
 }
 .btn.ghost {
   background: transparent;
   color: var(--ink);
 }
 .btn.ghost:hover {
-  background: rgba(28, 21, 18, 0.06);
+  background: rgba(38, 57, 49, 0.06);
   color: var(--ink);
 }
 .btn.danger {
@@ -260,8 +276,8 @@ table.grid th {
   margin-bottom: 16px;
 }
 .alert.error {
-  background: rgba(157, 59, 47, 0.1);
-  border: 1px solid rgba(157, 59, 47, 0.4);
+  background: rgba(158, 43, 60, 0.1);
+  border: 1px solid rgba(158, 43, 60, 0.4);
   color: var(--danger);
 }
 .alert.ok {
@@ -299,6 +315,13 @@ table.grid th {
   width: 100%;
   max-width: 380px;
 }
+.login-logo {
+  display: block;
+  width: 88px;
+  height: 130px;
+  color: var(--deep);
+  margin-bottom: 14px;
+}
 
 @media (max-width: 720px) {
   .admin-shell {
@@ -327,16 +350,16 @@ table.grid th {
 /* Selection, focus ring and figures ship with browser defaults that belong to
    no design system; they are part of the page too. */
 .admin-root ::selection {
-  background: rgba(168, 135, 90, 0.3);
+  background: rgba(204, 112, 80, 0.3);
   color: var(--ink);
 }
 .admin-root :focus-visible {
-  outline: 2px solid var(--gold);
+  outline: 2px solid var(--terracotta);
   outline-offset: 2px;
 }
 /* The browser's default placeholder grey belongs to no palette. */
 .admin-root ::placeholder {
-  color: rgba(28, 21, 18, 0.62);
+  color: rgba(38, 57, 49, 0.62);
   opacity: 1;
 }
 

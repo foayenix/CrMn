@@ -274,7 +274,7 @@ function CellEditor({
       style={{
         position: "fixed",
         inset: 0,
-        background: "rgba(28,21,18,.5)",
+        background: "rgba(38,57,49,.5)",
         display: "grid",
         placeItems: "center",
         zIndex: 1000,

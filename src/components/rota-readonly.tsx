@@ -40,8 +40,8 @@ export function RotaReadOnly({
             {days.map((d) => (
               <th key={d.key}>
                 <div>{d.dow}</div>
-                <div style={{ fontWeight: 400, color: "rgba(28,21,18,.55)" }}>{d.date}</div>
-                {d.note && <div style={{ fontSize: 10, color: "var(--gold)" }}>{d.note}</div>}
+                <div style={{ fontWeight: 400, color: "rgba(38,57,49,.55)" }}>{d.date}</div>
+                {d.note && <div style={{ fontSize: 10, color: "var(--terracotta-text)" }}>{d.note}</div>}
               </th>
             ))}
             <th>Total</th>

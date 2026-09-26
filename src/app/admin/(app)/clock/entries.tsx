@@ -36,7 +36,7 @@ export function EntryList({ entries }: { entries: EntryRow[] }) {
             <span>{e.label}</span>
             {e.hours && <span className="muted">({e.hours}h)</span>}
             {e.open && (
-              <span className="badge" style={{ borderColor: "var(--gold)", color: "var(--gold)" }}>
+              <span className="badge" style={{ borderColor: "var(--terracotta)", color: "var(--terracotta-text)" }}>
                 still open
               </span>
             )}
@@ -68,7 +68,7 @@ function EditEntry({ entry, onDone }: { entry: EntryRow; onDone: () => void }) {
   }, [state.ok, onDone]);
 
   return (
-    <form action={action} style={{ borderLeft: "2px solid var(--gold)", paddingLeft: 10 }}>
+    <form action={action} style={{ borderLeft: "2px solid var(--terracotta)", paddingLeft: 10 }}>
       <input type="hidden" name="id" value={entry.id} />
       {state.error && <div className="alert error">{state.error}</div>}
       <div style={{ display: "flex", gap: 8, alignItems: "end", flexWrap: "wrap" }}>

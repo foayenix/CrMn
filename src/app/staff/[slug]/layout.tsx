@@ -7,9 +7,6 @@ import "../staff-app.css";
 export const metadata: Metadata = {
   robots: { index: false, follow: false },
   title: "Crescent Moon — Staff",
-  // Pinned so the staff app keeps its own icon rather than inheriting the
-  // public site's.
-  icons: { icon: "/icon-192.png", apple: "/icon-512.png" },
 };
 
 export default function StaffLayout({ children }: { children: React.ReactNode }) {

@@ -29,7 +29,7 @@ export default async function BookingsScreen({ params }: { params: Promise<{ slu
       isPad={isPad}
       title="Bookings"
       stat={`${covers} covers`}
-      statBrass={covers > 0}
+      statAccent={covers > 0}
     >
       {!isCalConfigured() || down || bookings.length === 0 ? (
         <Empty connected={isCalConfigured()} down={down} night={businessNightLabel(now)} />
@@ -50,7 +50,7 @@ export default async function BookingsScreen({ params }: { params: Promise<{ slu
               const passed = b.start < now;
               return (
                 <div key={String(b.id)} className={passed ? "staff-booking passed" : "staff-booking"}>
-                  <span className="staff-booking-time" style={passed ? undefined : { color: "var(--brass)" }}>
+                  <span className="staff-booking-time" style={passed ? undefined : { color: "var(--terracotta)" }}>
                     {b.start.toLocaleTimeString("en-GB", {
                       hour: "2-digit",
                       minute: "2-digit",
@@ -94,7 +94,7 @@ function Empty({ connected, down, night }: { connected: boolean; down: boolean; 
         <path
           d="M 52 8 A 42 42 0 1 0 52 92 A 31 42 0 1 1 52 8 Z"
           fill="none"
-          stroke="rgba(168,135,90,.5)"
+          stroke="rgba(204,112,80,.5)"
           strokeWidth="4"
           strokeLinecap="round"
           strokeLinejoin="round"
@@ -103,7 +103,7 @@ function Empty({ connected, down, night }: { connected: boolean; down: boolean; 
       <div className="staff-serif" style={{ fontSize: 36, lineHeight: 1.1 }}>
         {headline}
       </div>
-      <p style={{ margin: 0, fontSize: 16, lineHeight: 1.6, color: "rgba(232,224,207,.58)", maxWidth: "26ch" }}>
+      <p style={{ margin: 0, fontSize: 16, lineHeight: 1.6, color: "rgba(237,227,210,.58)", maxWidth: "26ch" }}>
         {body}
       </p>
       <div className="staff-mono" style={{ fontSize: 10.5, letterSpacing: ".18em", marginTop: 6 }}>
