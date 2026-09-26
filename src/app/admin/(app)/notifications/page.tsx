@@ -13,8 +13,9 @@ export default async function NotificationsPage() {
     <div>
       <h1 className="admin-h1">Notifications</h1>
       <p className="admin-sub">
-        A buzz on your phone when the floor flags something low, so you can
-        order it before the delivery cut-off. This is yours alone —{" "}
+        A buzz on your phone when the floor flags something low, when a shift
+        swap is waiting for your approval, and when someone adds days they
+        can&apos;t work. This is yours alone —{" "}
         <strong>the staff app has no notifications at all</strong>, by design:
         nobody there is nagged, badged or counted at.
       </p>

@@ -43,6 +43,8 @@ export function RotaGrid({
   days,
   staff,
   shifts,
+  cantWork,
+  todayKey,
 }: {
   prevWeek: string;
   nextWeek: string;
@@ -50,9 +52,16 @@ export function RotaGrid({
   days: Day[];
   staff: Staff[];
   shifts: Shift[];
+  // "staffId|YYYY-MM-DD" → the reasons that person gave ("" for none).
+  cantWork: Record<string, string[]>;
+  todayKey: string;
 }) {
   const [cell, setCell] = useState<{ staff: Staff; day: Day } | null>(null);
   const [showInactive, setShowInactive] = useState(false);
+  // The phone's day view opens on today when today is in this week.
+  const [dayKey, setDayKey] = useState(
+    days.some((d) => d.key === todayKey) ? todayKey : (days[0]?.key ?? ""),
+  );
 
   // Index shifts by staff+day for fast cell lookup, and totals per staff.
   const byCell = useMemo(() => {
@@ -95,7 +104,18 @@ export function RotaGrid({
         </span>
       </div>
 
-      <div style={{ overflowX: "auto" }}>
+      <DayView
+        days={days}
+        staff={visibleStaff}
+        byCell={byCell}
+        cantWork={cantWork}
+        dayKey={dayKey}
+        setDayKey={setDayKey}
+        todayKey={todayKey}
+        onPick={(s, d) => setCell({ staff: s, day: d })}
+      />
+
+      <div className="rota-table" style={{ overflowX: "auto" }}>
         <table className="grid" style={{ minWidth: 900 }}>
           <thead>
             <tr>
@@ -118,13 +138,16 @@ export function RotaGrid({
                 </td>
                 {days.map((d) => {
                   const cellShifts = byCell.get(`${s.id}|${d.key}`) ?? [];
+                  const cant = cantWork[`${s.id}|${d.key}`];
                   return (
                     <td
                       key={d.key}
                       onClick={() => setCell({ staff: s, day: d })}
+                      className={cant ? "cant-work-cell" : undefined}
                       style={{ cursor: "pointer" }}
                       title="Click to edit"
                     >
+                      {cant && <CantWorkTag reasons={cant} />}
                       {cellShifts.length === 0 ? (
                         <span className="muted" style={{ fontSize: 11 }}>
                           +
@@ -177,9 +200,84 @@ export function RotaGrid({
           staff={cell.staff}
           day={cell.day}
           shifts={byCell.get(`${cell.staff.id}|${cell.day.key}`) ?? []}
+          cantWork={cantWork[`${cell.staff.id}|${cell.day.key}`]}
           onClose={() => setCell(null)}
         />
       )}
+    </div>
+  );
+}
+
+function CantWorkTag({ reasons }: { reasons: string[] }) {
+  const why = reasons.filter(Boolean).join("; ");
+  return (
+    <span className="cant-work-tag" title={why || undefined}>
+      Can&apos;t work{why ? `: ${why}` : ""}
+    </span>
+  );
+}
+
+// The phone's rota: one day at a time, everyone down the page, tap a person to
+// edit their day in the same editor the grid uses.
+function DayView({
+  days,
+  staff,
+  byCell,
+  cantWork,
+  dayKey,
+  setDayKey,
+  todayKey,
+  onPick,
+}: {
+  days: Day[];
+  staff: Staff[];
+  byCell: Map<string, Shift[]>;
+  cantWork: Record<string, string[]>;
+  dayKey: string;
+  setDayKey: (k: string) => void;
+  todayKey: string;
+  onPick: (s: Staff, d: Day) => void;
+}) {
+  const day = days.find((d) => d.key === dayKey) ?? days[0];
+  if (!day) return null;
+  return (
+    <div className="rota-days">
+      <div className="rota-day-tabs" role="tablist" aria-label="Day">
+        {days.map((d) => (
+          <button
+            key={d.key}
+            type="button"
+            role="tab"
+            aria-selected={d.key === day.key}
+            className={d.key === day.key ? "rota-day-tab on" : "rota-day-tab"}
+            onClick={() => setDayKey(d.key)}
+          >
+            <span>{d.dow}</span>
+            <span>{d.date.split(" ")[0]}</span>
+            {d.key === todayKey && <i aria-label="today" />}
+          </button>
+        ))}
+      </div>
+      <div className="rota-day-note">
+        <DayNoteEditor day={day} />
+      </div>
+      <ul className="rota-day-list">
+        {staff.map((s) => {
+          const cellShifts = byCell.get(`${s.id}|${day.key}`) ?? [];
+          const cant = cantWork[`${s.id}|${day.key}`];
+          return (
+            <li key={s.id}>
+              <button type="button" className="rota-day-row" onClick={() => onPick(s, day)}>
+                <span className="rota-day-name">{s.name}</span>
+                <span className="rota-day-shift">
+                  {cellShifts.length === 0 ? <span className="muted">—</span> : cellShifts.map((cs) => describeShift(cs)).join(" + ")}
+                  {cant && <CantWorkTag reasons={cant} />}
+                </span>
+              </button>
+            </li>
+          );
+        })}
+      </ul>
     </div>
   );
 }
@@ -260,40 +358,34 @@ function CellEditor({
   staff,
   day,
   shifts,
+  cantWork,
   onClose,
 }: {
   staff: Staff;
   day: Day;
   shifts: Shift[];
+  cantWork?: string[];
   onClose: () => void;
 }) {
   const nextSlot = (shifts.reduce((m, s) => Math.max(m, s.slot), 0) || 0) + 1;
   return (
-    <div
-      onClick={onClose}
-      style={{
-        position: "fixed",
-        inset: 0,
-        background: "rgba(38,57,49,.5)",
-        display: "grid",
-        placeItems: "center",
-        zIndex: 1000,
-        padding: 20,
-      }}
-    >
-      <div
-        onClick={(e) => e.stopPropagation()}
-        className="card"
-        style={{ maxWidth: 460, width: "100%", maxHeight: "90vh", overflowY: "auto", marginBottom: 0 }}
-      >
+    <div onClick={onClose} className="sheet-backdrop">
+      <div onClick={(e) => e.stopPropagation()} className="card sheet" role="dialog" aria-modal="true">
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline" }}>
           <h2 style={{ margin: 0 }}>
             {staff.name} — {day.dow} {day.date}
           </h2>
-          <button className="btn ghost sm" onClick={onClose}>
+          <button className="btn ghost sm" onClick={onClose} aria-label="Close">
             ✕
           </button>
         </div>
+
+        {cantWork && (
+          <div className="alert error" style={{ marginTop: 12 }}>
+            {staff.name} said they can&apos;t work this day
+            {cantWork.filter(Boolean).length ? `: ${cantWork.filter(Boolean).join("; ")}` : "."}
+          </div>
+        )}
 
         {shifts.map((s) => (
           <SlotForm key={s.id} staffId={staff.id} dateKey={day.key} shift={s} onDone={onClose} />

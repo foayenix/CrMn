@@ -22,13 +22,14 @@ model AdminUser {
   createdAt     DateTime      @default(now())
   updatedAt     DateTime      @updatedAt
   stockResolved StockReport[]
+  swapsDecided  ShiftSwap[]   @relation("SwapDecidedBy")
 }
 
 // ---------------------------------------------------------------------------
 // Phase 2 — "What's On" CMS entries. The public homepage renders these live.
 // ---------------------------------------------------------------------------
 model WhatsOnEntry {
-  id          String   @id @default(cuid())
+  id          String    @id @default(cuid())
   // e.g. "Soul Night"
   title       String
   // e.g. "Records, low light, no rush."
@@ -37,11 +38,11 @@ model WhatsOnEntry {
   schedule    String
   // Optional concrete date for one-off events.
   date        DateTime?
-  active      Boolean  @default(true)
+  active      Boolean   @default(true)
   // Lower sortOrder shows first.
-  sortOrder   Int      @default(0)
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  sortOrder   Int       @default(0)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
 
   @@index([active, sortOrder])
 }
@@ -51,11 +52,11 @@ model WhatsOnEntry {
 // a staff member never deletes past shifts.
 // ---------------------------------------------------------------------------
 model StaffMember {
-  id        String   @id @default(cuid())
+  id        String    @id @default(cuid())
   name      String
-  active    Boolean  @default(true)
+  active    Boolean   @default(true)
   // Ordering down the side of the grid.
-  sortOrder Int      @default(0)
+  sortOrder Int       @default(0)
   // --- Staff app PIN (phase: per-staff PIN auth) --------------------------
   // The PIN *is* the identity in the staff app: four digits, no name picker.
   // bcrypt salts per row, so a hash alone can't be looked up without looping
@@ -76,6 +77,9 @@ model StaffMember {
   runsSubmitted ChecklistRun[]   @relation("ChecklistSubmittedBy")
   stockReports  StockReport[]    @relation("StockReportedBy")
   timeEntries   TimeEntry[]
+  unavailable   Unavailability[]
+  swapsOffered  ShiftSwap[]      @relation("SwapFrom")
+  swapsTaken    ShiftSwap[]      @relation("SwapTo")
 
   @@index([active, sortOrder])
 }
@@ -114,6 +118,8 @@ model Shift {
   slot          Int         @default(1)
   // Free text like "CCC", "TBC", "1st England Game".
   notes         String?
+  swapsOffered  ShiftSwap[] @relation("SwapShift")
+  swapsReturned ShiftSwap[] @relation("SwapReturnShift")
   createdAt     DateTime    @default(now())
   updatedAt     DateTime    @updatedAt
 
@@ -261,13 +267,13 @@ model TimeEntry {
 // ---------------------------------------------------------------------------
 
 model PushSubscription {
-  id        String   @id @default(cuid())
-  endpoint  String   @unique
-  p256dh    String
-  auth      String
+  id         String    @id @default(cuid())
+  endpoint   String    @unique
+  p256dh     String
+  auth       String
   // Which browser it came from, so the boss can tell two devices apart.
-  label     String?
-  createdAt DateTime @default(now())
+  label      String?
+  createdAt  DateTime  @default(now())
   lastSentAt DateTime?
 }
 
@@ -279,4 +285,69 @@ model Setting {
   key       String   @id
   value     String
   updatedAt DateTime @updatedAt
+}
+
+// ---------------------------------------------------------------------------
+// Staff requests — "can't work" and shift swaps, made in the staff app.
+// ---------------------------------------------------------------------------
+
+enum UnavailabilityKind {
+  DATES // a day or an inclusive range of days
+  WEEKLY // the same weekday, every week
+}
+
+// Information for the boss while he builds the rota, not a request to approve.
+// It never writes to Shift: the rota stays his, and this shows beside it.
+model Unavailability {
+  id            String             @id @default(cuid())
+  staffMember   StaffMember        @relation(fields: [staffMemberId], references: [id], onDelete: Cascade)
+  staffMemberId String
+  kind          UnavailabilityKind
+  // DATES: inclusive; a single day has startDate == endDate.
+  startDate     DateTime?          @db.Date
+  endDate       DateTime?          @db.Date
+  // WEEKLY: 0 = Monday … 6 = Sunday, the rota's own week order.
+  weekday       Int?
+  note          String?
+  createdAt     DateTime           @default(now())
+
+  @@index([staffMemberId])
+  @@index([kind, endDate])
+}
+
+enum SwapStatus {
+  OFFERED // up for grabs
+  ACCEPTED // a colleague has taken it; waiting for the boss
+  APPROVED // the boss said yes and the rota has changed
+  DECLINED // the boss said no; the rota is unchanged
+  CANCELLED // withdrawn by the person who offered it
+}
+
+// One person's shift, offered to the team. A colleague takes it, either as
+// cover or in exchange for one of their own shifts (returnShift), and the
+// rota only changes when the boss approves.
+//
+// Both shift relations cascade: if the boss deletes either shift, a pending
+// swap about it has nothing left to decide, and a decided one is history of a
+// shift that no longer exists.
+model ShiftSwap {
+  id            String       @id @default(cuid())
+  shift         Shift        @relation("SwapShift", fields: [shiftId], references: [id], onDelete: Cascade)
+  shiftId       String
+  from          StaffMember  @relation("SwapFrom", fields: [fromId], references: [id])
+  fromId        String
+  to            StaffMember? @relation("SwapTo", fields: [toId], references: [id])
+  toId          String?
+  returnShift   Shift?       @relation("SwapReturnShift", fields: [returnShiftId], references: [id], onDelete: Cascade)
+  returnShiftId String?
+  note          String?
+  status        SwapStatus   @default(OFFERED)
+  createdAt     DateTime     @default(now())
+  acceptedAt    DateTime?
+  decidedAt     DateTime?
+  decidedBy     AdminUser?   @relation("SwapDecidedBy", fields: [decidedById], references: [id])
+  decidedById   String?
+
+  @@index([status, createdAt])
+  @@index([shiftId, status])
 }

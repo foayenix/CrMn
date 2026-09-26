@@ -10,6 +10,7 @@ import {
 } from "@/lib/dates";
 import { slotHours } from "@/lib/rota";
 import { mineWeek, teamWeek, type ShiftRow } from "@/lib/staff-rota";
+import { firstSwappableDate } from "@/lib/swaps";
 import { requireStaff } from "../access";
 import { StaffShell } from "../shell";
 
@@ -38,13 +39,16 @@ export default async function RotaScreen({
   const monday = startOfWeekMonday(now);
   const sunday = endOfWeekSunday(now);
 
-  const [shifts, staff, notes] = await Promise.all([
+  const [shifts, staff, notes, upForGrabs] = await Promise.all([
     prisma.shift.findMany({
       where: { date: { gte: monday, lte: sunday } },
       orderBy: [{ date: "asc" }, { slot: "asc" }],
     }),
     prisma.staffMember.findMany({ where: { active: true }, orderBy: { sortOrder: "asc" } }),
     prisma.dayNote.findMany({ where: { date: { gte: monday, lte: sunday } } }),
+    prisma.shiftSwap.count({
+      where: { status: "OFFERED", fromId: { not: me.id }, shift: { date: { gte: firstSwappableDate(now) } } },
+    }),
   ]);
 
   const rows = shifts as ShiftRow[];
@@ -71,6 +75,15 @@ export default async function RotaScreen({
         </Link>
         <Link href={`/staff/${slug}/rota?view=team`} className={team ? "staff-toggle-opt on" : "staff-toggle-opt"}>
           Team
+        </Link>
+      </div>
+
+      <div className="staff-rota-links">
+        <Link href={`/staff/${slug}/rota/cant-work`} className="staff-rota-link">
+          Can&apos;t work
+        </Link>
+        <Link href={`/staff/${slug}/rota/swaps`} className="staff-rota-link">
+          Swaps{upForGrabs > 0 && <b>{upForGrabs}</b>}
         </Link>
       </div>
 

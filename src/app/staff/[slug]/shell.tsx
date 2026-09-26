@@ -50,6 +50,7 @@ export function StaffShell({
   title,
   stat,
   statAccent = true,
+  backHref,
   children,
 }: {
   slug: string;
@@ -59,6 +60,8 @@ export function StaffShell({
   title?: string;
   stat?: string;
   statAccent?: boolean;
+  // Phone back arrow; Home unless the screen sits under another one.
+  backHref?: string;
   children: React.ReactNode;
 }) {
   return (
@@ -86,7 +89,11 @@ export function StaffShell({
         )}
         {!isPad && title && (
           <div className="staff-topbar">
-            <Link href={`/staff/${slug}`} className="staff-back" aria-label="Back to home">
+            <Link
+              href={backHref ?? `/staff/${slug}`}
+              className="staff-back"
+              aria-label={backHref ? "Back" : "Back to home"}
+            >
               ←
             </Link>
             <span className="staff-topbar-title">{title}</span>

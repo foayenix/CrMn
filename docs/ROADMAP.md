@@ -212,12 +212,20 @@ at least once.*
 The PWA shell already exists — this phase is information architecture, not
 installability.
 
-- Replace the flat 10-link `AdminNav` with a mobile bottom bar (Home, Bookings,
-  Team, Customers, More) and a More sheet for the rest.
-- Rebuild the dashboard as a tonight-first summary: covers, bookings, staff on,
-  stock flags, unresolved closing notes, then large tap targets.
-- Audit every admin form for one-handed phone use. `admin.css` currently has a
-  single `@media (max-width: 720px)` block; that is responsive, not designed.
+*Progress (26 September 2026):* done ahead of Phase 1 at the owner's request —
+a phone bottom bar (Home, What's On, Rota, Stock, More) with a More sheet; a
+"Needs you" dashboard (stock flags ticked off in place, swaps approved in
+place, new can't-work days) followed by who's on tonight; a day-at-a-time rota
+on phones with the shift editor as a bottom sheet; 16px inputs so iOS doesn't
+zoom; wide tables scroll in their own box; an install card on the phone
+dashboard. Checked in a phone-sized browser with no page scrolling sideways on
+any admin route; not yet on real devices. Staff shift swaps and "can't work"
+days were added alongside (see README, Staff app). Remaining:
+
+- Bookings and customers on the bottom bar once those phases exist.
+- Covers and bookings in the tonight summary once Cal is connected.
+- Audit the remaining forms one by one (Lockdown editor, Staff app & PINs,
+  Clock corrections) for one-handed use.
 - Offline behaviour: decide deliberately what `admin-sw.js` caches.
 
 *Exit: every admin operation can be completed on a phone without pinch-zoom or

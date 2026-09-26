@@ -142,6 +142,9 @@
 .admin-main {
   padding: 34px clamp(20px, 4vw, 52px);
   max-width: 1200px;
+  /* A grid item's minimum is its content, so without this one wide table
+     pushes the whole page sideways instead of scrolling in its own box. */
+  min-width: 0;
 }
 .admin-h1 {
   font-family: "Cormorant", serif;
@@ -323,28 +326,7 @@ table.grid th {
   margin-bottom: 14px;
 }
 
-@media (max-width: 720px) {
-  .admin-shell {
-    grid-template-columns: 1fr;
-  }
-  .admin-sidebar {
-    position: static;
-    height: auto;
-    flex-direction: row;
-    flex-wrap: wrap;
-    align-items: center;
-  }
-  .admin-nav {
-    margin-top: 0;
-    flex-direction: row;
-    flex-wrap: wrap;
-  }
-  .admin-sidebar-footer {
-    margin: 0;
-    padding: 0;
-    border: none;
-  }
-}
+
 
 /* ---- browser surfaces ---- */
 /* Selection, focus ring and figures ship with browser defaults that belong to
@@ -395,4 +377,465 @@ table.grid th {
 .row-actions.quiet {
   gap: 12px;
   margin-top: 4px;
+}
+
+.install-card {
+  border-color: var(--terracotta);
+}
+.install-card p {
+  margin: 0 0 12px;
+  font-size: 14px;
+  line-height: 1.55;
+}
+
+/* ---- What's On entries ---- */
+.form-2col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+.form-2col.end {
+  align-items: end;
+}
+.wo-entry {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+}
+.wo-move {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.wo-text {
+  flex: 1;
+  min-width: 0;
+}
+
+/* ---- decisions: stock flags and swaps the boss acts on ---- */
+.decision-list,
+.plain-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.decision {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px 16px;
+  padding: 12px 0;
+  border-top: 1px solid var(--line);
+}
+.decision:first-child {
+  border-top: 0;
+}
+.decision-text {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  flex: 1 1 260px;
+  min-width: 0;
+  font-size: 14px;
+  line-height: 1.45;
+}
+.decision-text strong {
+  font-weight: 500;
+}
+.decision-warn {
+  font-size: 13px;
+  color: var(--danger);
+}
+.decision-actions {
+  display: flex;
+  gap: 8px;
+}
+.plain-list > li {
+  padding: 8px 0;
+  border-top: 1px solid var(--line);
+  font-size: 14px;
+  line-height: 1.5;
+}
+.plain-list > li:first-child {
+  border-top: 0;
+}
+.plain-list ul {
+  list-style: none;
+  margin: 4px 0 0;
+  padding: 0 0 0 12px;
+}
+.plain-list strong {
+  font-weight: 500;
+}
+.badge.ok {
+  color: var(--green);
+  border-color: var(--green);
+}
+.badge.new {
+  margin-left: 8px;
+  color: var(--terracotta-text);
+  border-color: var(--terracotta);
+}
+.badge.count {
+  vertical-align: middle;
+  background: var(--terracotta-light);
+  border-color: var(--terracotta-light);
+  color: var(--deep);
+}
+.needs-block {
+  margin-top: 18px;
+}
+.needs-block:first-of-type {
+  margin-top: 8px;
+}
+.needs-block h3 {
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--terracotta-text);
+  margin: 0 0 4px;
+}
+.needs-foot {
+  margin: 10px 0 0;
+  font-size: 13px;
+}
+.dash-tiles {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+/* ---- rota: can't-work markers and the phone's day view ---- */
+.cant-work-cell {
+  background: repeating-linear-gradient(135deg, rgba(204, 112, 80, 0.08) 0 6px, transparent 6px 12px);
+}
+.cant-work-tag {
+  display: block;
+  font-size: 10.5px;
+  line-height: 1.35;
+  color: var(--terracotta-text);
+  margin-bottom: 3px;
+}
+.rota-days {
+  display: none;
+}
+
+/* ---- sheets (the shift editor, the More menu) ---- */
+.sheet-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(38, 57, 49, 0.5);
+  display: grid;
+  place-items: center;
+  z-index: 1000;
+  padding: 20px;
+}
+.sheet {
+  max-width: 460px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  margin-bottom: 0;
+}
+
+/* Phone-only chrome, hidden on anything wider. */
+.admin-topbar,
+.admin-tabbar {
+  display: none;
+}
+
+/* ---- phone ---- */
+@media (max-width: 720px) {
+  .admin-shell {
+    display: block;
+  }
+  .admin-sidebar {
+    display: none;
+  }
+  .admin-topbar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    padding: calc(10px + env(safe-area-inset-top, 0px)) 18px 10px;
+    background: var(--deep);
+    color: var(--paper);
+    font-family: "Cormorant", serif;
+    font-size: 20px;
+  }
+  .admin-topbar-mark {
+    width: 20px;
+    height: 27px;
+    color: var(--terracotta);
+    flex: none;
+  }
+  .admin-main {
+    padding: 22px 16px calc(92px + env(safe-area-inset-bottom, 0px));
+  }
+  .admin-sub {
+    margin-bottom: 20px;
+  }
+  .card {
+    padding: 16px;
+    margin-bottom: 14px;
+  }
+
+  /* A table wider than the phone scrolls inside its own box, never the page. */
+  .admin-root table.grid {
+    display: block;
+    max-width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Thumb-sized controls. */
+  .admin-root .btn {
+    min-height: 44px;
+  }
+  .admin-root .btn.sm {
+    min-height: 40px;
+  }
+  /* Anything under 16px makes iOS zoom the page into the field. */
+  .admin-root input,
+  .admin-root textarea,
+  .admin-root select {
+    font-size: 16px;
+  }
+
+  .decision-actions {
+    width: 100%;
+  }
+
+  .form-2col {
+    grid-template-columns: 1fr;
+  }
+  /* Arrows and text on one line, the buttons on their own row beneath. */
+  .wo-entry {
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .wo-actions {
+    flex: 1 1 100%;
+  }
+  .decision-actions form {
+    flex: 1;
+  }
+  .decision-actions .btn {
+    width: 100%;
+    justify-content: center;
+  }
+  .dash-tiles {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 8px;
+  }
+  .dash-tiles .card {
+    padding: 12px;
+  }
+
+  /* Rota: the grid is a desktop tool; phones get one day at a time. */
+  .rota-table {
+    display: none;
+  }
+  .rota-days {
+    display: block;
+  }
+  .rota-day-tabs {
+    display: grid;
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+    gap: 4px;
+    margin-bottom: 10px;
+  }
+  .rota-day-tab {
+    position: relative;
+    height: 56px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+    border: 1px solid var(--line-strong);
+    background: var(--paper);
+    color: var(--ink);
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+    font-size: 11px;
+    cursor: pointer;
+  }
+  .rota-day-tab span:last-of-type {
+    font-size: 15px;
+  }
+  .rota-day-tab.on {
+    background: var(--deep);
+    border-color: var(--deep);
+    color: var(--paper);
+  }
+  .rota-day-tab i {
+    position: absolute;
+    bottom: 5px;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: var(--terracotta);
+  }
+  .rota-day-note {
+    font-size: 13px;
+    min-height: 22px;
+    margin-bottom: 6px;
+  }
+  .rota-day-note input {
+    width: 100%;
+  }
+  .rota-day-list {
+    list-style: none;
+    margin: 0 0 8px;
+    padding: 0;
+    border-top: 1px solid var(--line);
+  }
+  .rota-day-row {
+    width: 100%;
+    min-height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 10px 2px;
+    border: 0;
+    border-bottom: 1px solid var(--line);
+    background: none;
+    color: var(--ink);
+    font: inherit;
+    text-align: left;
+    cursor: pointer;
+  }
+  .rota-day-name {
+    font-weight: 500;
+    font-size: 15px;
+  }
+  .rota-day-shift {
+    text-align: right;
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+    font-size: 12.5px;
+  }
+  .rota-day-shift .cant-work-tag {
+    margin: 3px 0 0;
+  }
+
+  /* The shift editor becomes a bottom sheet. */
+  .sheet-backdrop {
+    place-items: end stretch;
+    padding: 0;
+  }
+  .sheet {
+    max-width: none;
+    max-height: 88vh;
+    padding-bottom: calc(22px + env(safe-area-inset-bottom, 0px));
+  }
+
+  .admin-tabbar {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 60;
+    padding: 6px 4px calc(6px + env(safe-area-inset-bottom, 0px));
+    background: var(--deep);
+    border-top: 1px solid rgba(252, 240, 224, 0.12);
+  }
+  .admin-tabbar .tab {
+    position: relative;
+    height: 54px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    border: 0;
+    background: none;
+    color: rgba(252, 240, 224, 0.7);
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+    font-size: 10px;
+    letter-spacing: 0.04em;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  .admin-tabbar .tab svg {
+    width: 22px;
+    height: 22px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.5;
+    stroke-linejoin: round;
+    stroke-linecap: round;
+  }
+  .admin-tabbar .tab circle {
+    fill: currentColor;
+    stroke: none;
+  }
+  .admin-tabbar .tab.active {
+    color: #fff;
+  }
+  .admin-tabbar .tab.active svg {
+    color: var(--terracotta-light);
+  }
+  .tab-badge {
+    position: absolute;
+    top: 3px;
+    left: calc(50% + 6px);
+    min-width: 17px;
+    height: 17px;
+    padding: 0 4px;
+    border-radius: 999px;
+    background: var(--terracotta-light);
+    color: var(--deep);
+    font-size: 10px;
+    font-weight: 500;
+    line-height: 17px;
+    text-align: center;
+  }
+  .tab-badge.inline {
+    position: static;
+    margin-left: 8px;
+  }
+
+  .sheet-backdrop.more {
+    z-index: 55;
+  }
+  .more-sheet {
+    background: var(--paper);
+    padding: 8px 0 calc(78px + env(safe-area-inset-bottom, 0px));
+    border-top: 1px solid var(--line);
+  }
+  .more-sheet ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .more-sheet a {
+    display: flex;
+    align-items: center;
+    min-height: 52px;
+    padding: 0 20px;
+    border-bottom: 1px solid var(--line);
+    color: var(--ink);
+    text-decoration: none;
+    font-size: 16px;
+  }
+  .more-sheet a.active {
+    box-shadow: inset 3px 0 0 var(--terracotta);
+  }
+  .more-foot {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 14px 20px 0;
+    font-size: 12px;
+  }
 }

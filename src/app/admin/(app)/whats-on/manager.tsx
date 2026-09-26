@@ -24,7 +24,7 @@ const empty: Entry = { id: "", title: "", schedule: "", description: "", date: "
 function EntryFields({ entry }: { entry: Entry }) {
   return (
     <>
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
+      <div className="form-2col">
         <label className="field">
           <span>Schedule label (e.g. Sundays / Monthly)</span>
           <input type="text" name="schedule" defaultValue={entry.schedule} required />
@@ -38,7 +38,7 @@ function EntryFields({ entry }: { entry: Entry }) {
         <span>Description</span>
         <textarea name="description" defaultValue={entry.description} />
       </label>
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12, alignItems: "end" }}>
+      <div className="form-2col end">
         <label className="field">
           <span>Optional date (for one-off events)</span>
           <input type="date" name="date" defaultValue={entry.date} />
@@ -115,16 +115,8 @@ function EditRow({ entry, isFirst, isLast }: { entry: Entry; isFirst: boolean; i
   }
 
   return (
-    <div
-      className="card"
-      style={{
-        display: "flex",
-        gap: 16,
-        alignItems: "flex-start",
-        opacity: entry.active ? 1 : 0.55,
-      }}
-    >
-      <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
+    <div className="card wo-entry" style={{ opacity: entry.active ? 1 : 0.55 }}>
+      <div className="wo-move">
         <form action={moveEntry}>
           <input type="hidden" name="id" value={entry.id} />
           <input type="hidden" name="dir" value="up" />
@@ -141,7 +133,7 @@ function EditRow({ entry, isFirst, isLast }: { entry: Entry; isFirst: boolean; i
         </form>
       </div>
 
-      <div style={{ flex: 1 }}>
+      <div className="wo-text">
         <div style={{ display: "flex", gap: 10, alignItems: "baseline", flexWrap: "wrap" }}>
           <span style={{ fontSize: 11, letterSpacing: "0.14em", textTransform: "uppercase", color: "var(--green)" }}>
             {entry.schedule}
@@ -157,7 +149,7 @@ function EditRow({ entry, isFirst, isLast }: { entry: Entry; isFirst: boolean; i
         {entry.date && <p className="muted" style={{ margin: "4px 0 0", fontSize: 12 }}>Date: {entry.date}</p>}
       </div>
 
-      <div className="row-actions">
+      <div className="row-actions wo-actions">
         <button className="btn ghost sm" type="button" onClick={() => setEditing(true)}>
           Edit
         </button>

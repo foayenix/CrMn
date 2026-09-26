@@ -15,6 +15,7 @@ import { slotHours } from "@/lib/rota";
 import { fetchBookings, isCalConfigured } from "@/lib/cal";
 import { readChecklist, lastSubmittedRun, estimatedMinutes } from "@/lib/checklist";
 import { openReportCount, oldestOpenReport } from "@/lib/stock";
+import { firstSwappableDate, shiftLine } from "@/lib/swaps";
 import { StaffShell, LockButton } from "./shell";
 
 // Screen 02 — Home.
@@ -38,7 +39,7 @@ export async function Home({
   const monday = startOfWeekMonday(now);
   const sunday = endOfWeekSunday(now);
 
-  const [shifts, dayNote, checklist, lastRun, flaggedCount, oldestFlag, clockedIn] =
+  const [shifts, dayNote, checklist, lastRun, flaggedCount, oldestFlag, clockedIn, upForGrabs, decided] =
     await Promise.all([
     prisma.shift.findMany({
       where: { staffMemberId: me.id, date: { gte: monday, lte: sunday } },
@@ -53,6 +54,19 @@ export async function Home({
       where: { staffId: me.id, clockOutAt: null },
       orderBy: { clockInAt: "desc" },
       select: { clockInAt: true },
+    }),
+    prisma.shiftSwap.count({
+      where: { status: "OFFERED", fromId: { not: me.id }, shift: { date: { gte: firstSwappableDate(now) } } },
+    }),
+    // The only way staff hear the boss's answer: push is his alone.
+    prisma.shiftSwap.findFirst({
+      where: {
+        status: { in: ["APPROVED", "DECLINED"] },
+        decidedAt: { gte: new Date(now.getTime() - 3 * 24 * 60 * 60 * 1000) },
+        OR: [{ fromId: me.id }, { toId: me.id }],
+      },
+      include: { shift: true },
+      orderBy: { decidedAt: "desc" },
     }),
   ]);
 
@@ -130,6 +144,26 @@ export async function Home({
         ? `SINCE ${oldestFlag.createdAt.toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit", timeZone: "UTC" })}`
         : undefined,
       href: `/staff/${slug}/stock`,
+    });
+  }
+
+  if (decided) {
+    nudges.push({
+      key: "swap-decided",
+      mark: decided.status === "APPROVED" ? "sage" : "rose",
+      text: `Swap ${decided.status === "APPROVED" ? "approved" : "declined"}`,
+      detail: shiftLine(decided.shift).toUpperCase(),
+      href: `/staff/${slug}/rota/swaps`,
+    });
+  }
+
+  if (upForGrabs > 0) {
+    nudges.push({
+      key: "swaps",
+      mark: "accent",
+      text: `${upForGrabs} ${upForGrabs === 1 ? "shift" : "shifts"} up for grabs`,
+      detail: "SWAPS",
+      href: `/staff/${slug}/rota/swaps`,
     });
   }
 
