@@ -37,13 +37,13 @@ export default async function StockScreen({
           <div className="staff-serif" style={{ fontSize: 36, lineHeight: 1.1 }}>
             Nothing flagged
           </div>
-          <p style={{ margin: 0, fontSize: 16, lineHeight: 1.6, color: "rgba(232,224,207,.58)", maxWidth: "26ch" }}>
+          <p style={{ margin: 0, fontSize: 16, lineHeight: 1.6, color: "rgba(237,227,210,.58)", maxWidth: "26ch" }}>
             The list is clear as of {time(new Date())}. If you pour the last of
             something, this is where it goes.
           </p>
         </div>
         <div style={{ display: "flex", flexDirection: "column", gap: 10, paddingBottom: 8 }}>
-          <Link href={`/staff/${slug}/stock?pick=1`} className="staff-button" style={{ height: 76, borderColor: "rgba(168,135,90,.55)", color: "var(--brass)" }}>
+          <Link href={`/staff/${slug}/stock?pick=1`} className="staff-button" style={{ height: 76, borderColor: "rgba(204,112,80,.55)", color: "var(--terracotta)" }}>
             Flag an item
           </Link>
           <Link href={`/staff/${slug}/stock/other`} className="staff-button" style={{ height: 76 }}>
@@ -60,7 +60,7 @@ export default async function StockScreen({
         <>
           <div className="staff-mono" style={{ padding: "10px 0" }}>
             Flagged tonight&nbsp;
-            <span style={{ color: "rgba(232,224,207,.35)" }}>{flagged.length}</span>
+            <span style={{ color: "rgba(237,227,210,.35)" }}>{flagged.length}</span>
           </div>
           <div className="staff-flagged-box">
             {flagged.map((f) => (
@@ -136,7 +136,7 @@ function PickList({ slug, items }: { slug: string; items: Awaited<ReturnType<typ
       ))}
 
       <Link href={`/staff/${slug}/stock/other`} className="staff-something-else">
-        <span style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: 22, color: "var(--brass)" }}>
+        <span style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: 22, color: "var(--terracotta)" }}>
           +
         </span>
         <div style={{ flex: 1 }}>

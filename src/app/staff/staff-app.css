@@ -1,31 +1,37 @@
 /* Crescent Moon staff app — built to design/staff-app.html.
-   A dim room, wet hands, ten-second gaps: dimmed cream on warm black, brass for
-   the one action that matters, nothing that needs hover or precision.
+   A dim room, wet hands, ten-second gaps: dimmed cream on green-black, terracotta
+   for the one action that matters, nothing that needs hover or precision.
 
    Rules this file enforces:
-     · type is never pure white — #E8E0CF
-     · brass is the only fill, one filled control per screen
+     · type is never pure white — #EDE3D2
+     · terracotta is the only fill, one filled control per screen
      · elevation is a hairline and a half-step darker surface, never a shadow
      · no hover, no long-press, no swipe, no drag, no double-tap
+
+   Palette: the printed menu's (see src/app/site.css), taken dark. The green-
+   black ground and cream come from its deep green and cream; terracotta took
+   brass's place as the one fill.
 */
 
 .staff-root {
-  --screen: #14100f;
-  --raised: #1b1518;
-  --key: #1e1719;
-  --cream: #e8e0cf;
-  --brass: #a8875a;
+  --screen: #111A16;
+  --raised: #17221D;
+  --key: #1A2620;
+  --cream: #EDE3D2;
+  --terracotta: #CC7050;
   --sage: #6e7f68;
-  --rose: #b4596b;
-  --wine: #241019;
-  --hair: rgba(232, 224, 207, 0.1);
-  --hair-strong: rgba(232, 224, 207, 0.24);
-  --dim: rgba(232, 224, 207, 0.62);
-  /* The build spec puts mono labels at 55–60% cream. On #14100F that band is
-     also exactly where WCAG AA starts (0.55 → 4.99:1), so the spec's own floor
+  --rose: #D07A8A;
+  /* The lock screen's ground: the brand's deep green (#263931) one step darker,
+     because on the brand green itself the 55% labels fall to 4.07:1. */
+  --deep: #1B2A24;
+  --hair: rgba(237, 227, 210, 0.1);
+  --hair-strong: rgba(237, 227, 210, 0.24);
+  --dim: rgba(237, 227, 210, 0.62);
+  /* The build spec puts mono labels at 55–60% cream. On #111A16 that band is
+     also exactly where WCAG AA starts (0.55 → 5.03:1), so the spec's own floor
      is the accessible one: nothing a person has to read goes below --label. */
-  --label: rgba(232, 224, 207, 0.58);
-  --dimmer: rgba(232, 224, 207, 0.55);
+  --label: rgba(237, 227, 210, 0.58);
+  --dimmer: rgba(237, 227, 210, 0.55);
 
   min-height: 100vh;
   min-height: 100dvh;
@@ -80,10 +86,10 @@
 }
 
 /* ---- lock screen ---------------------------------------------------------- */
-/* The one place wine (#241019) is allowed — flat, because elevation here is a
+/* The one place the deep green (--deep) is allowed — flat, because elevation here is a
    hairline and a half-step darker surface, never a gradient. */
 .staff-lock {
-  background: var(--wine);
+  background: var(--deep);
   min-height: 100vh;
   min-height: 100dvh;
   display: flex;
@@ -109,6 +115,19 @@
   margin: 0;
 }
 
+/* The logo mark on the lock screen (not .staff-lock-mark, the padlock). */
+.staff-lock-logo {
+  display: block;
+  flex: none;
+  width: 47px;
+  height: 64px;
+  color: var(--terracotta);
+  transition: opacity 0.2s;
+}
+.staff-lock-logo.dim {
+  opacity: 0.45;
+}
+
 .staff-dots {
   display: flex;
   gap: 18px;
@@ -118,11 +137,11 @@
   width: 15px;
   height: 15px;
   border-radius: 50%;
-  border: 1px solid rgba(232, 224, 207, 0.28);
+  border: 1px solid rgba(237, 227, 210, 0.28);
 }
 .staff-dot.filled {
-  background: var(--brass);
-  border-color: var(--brass);
+  background: var(--terracotta);
+  border-color: var(--terracotta);
 }
 .staff-dots.wrong .staff-dot,
 .staff-dots.wrong .staff-dot.filled {
@@ -144,7 +163,7 @@
   font-family: "IBM Plex Mono", ui-monospace, monospace;
   font-size: 31px;
   background: var(--key);
-  border: 1px solid rgba(232, 224, 207, 0.09);
+  border: 1px solid rgba(237, 227, 210, 0.09);
   border-radius: 8px;
   color: var(--cream);
   padding: 0;
@@ -163,7 +182,7 @@
   color: var(--label);
 }
 .staff-key:active {
-  border-color: rgba(232, 224, 207, 0.3);
+  border-color: rgba(237, 227, 210, 0.3);
 }
 .staff-keypad.parked {
   opacity: 0.22;
@@ -174,7 +193,7 @@
   width: 100px;
   height: 100px;
   border-radius: 50%;
-  border: 1px solid rgba(180, 89, 107, 0.5);
+  border: 1px solid rgba(208, 122, 138, 0.5);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -210,9 +229,9 @@
   background: var(--raised);
   padding: 16px 20px;
 }
-.staff-panel.brass {
-  border-color: rgba(168, 135, 90, 0.38);
-  background: rgba(168, 135, 90, 0.07);
+.staff-panel.accent {
+  border-color: rgba(204, 112, 80, 0.38);
+  background: rgba(204, 112, 80, 0.07);
 }
 
 /* Every tappable label is at least 19px; every target at least 60px. */
@@ -238,7 +257,7 @@
   line-height: 1.25;
 }
 
-/* Brass is the only fill, so the resting button is outlined: present, not
+/* Terracotta is the only fill, so the resting button is outlined: present, not
    pushy. `.filled` is the single exception each screen is allowed. */
 .staff-button {
   height: 72px;
@@ -249,7 +268,7 @@
   gap: 12px;
   border: 1px solid var(--hair-strong);
   background: none;
-  color: rgba(232, 224, 207, 0.8);
+  color: rgba(237, 227, 210, 0.8);
   font-family: "IBM Plex Mono", ui-monospace, monospace;
   font-size: 13px;
   letter-spacing: 0.24em;
@@ -258,12 +277,12 @@
   touch-action: manipulation;
 }
 .staff-button.filled {
-  background: var(--brass);
-  border-color: var(--brass);
-  color: #14100f;
+  background: var(--terracotta);
+  border-color: var(--terracotta);
+  color: #111A16;
 }
 /* A disabled control is not "the one filled control this screen is allowed", so
-   it drops back to the outlined resting state rather than fading the brass —
+   it drops back to the outlined resting state rather than fading the terracotta —
    fading it puts the ink on it at 2.5:1 and the label stops being readable. */
 .staff-button:disabled {
   color: var(--label);
@@ -333,7 +352,7 @@
   align-items: center;
   justify-content: center;
   font-size: 26px;
-  color: rgba(232, 224, 207, 0.7);
+  color: rgba(237, 227, 210, 0.7);
 }
 .staff-topbar-title {
   flex: 1;
@@ -382,8 +401,8 @@
 .staff-band-mark.sage {
   background: var(--sage);
 }
-.staff-band-mark.brass {
-  background: var(--brass);
+.staff-band-mark.accent {
+  background: var(--terracotta);
 }
 .staff-band-mark.rose {
   background: var(--rose);
@@ -392,7 +411,7 @@
   flex: 1;
   font-size: 18px;
   line-height: 1.3;
-  color: rgba(232, 224, 207, 0.86);
+  color: rgba(237, 227, 210, 0.86);
 }
 .serif-note {
   font-family: "Cormorant", Georgia, serif;
@@ -410,7 +429,7 @@
 .staff-tile {
   height: 88px;
   background: var(--raised);
-  border: 1px solid rgba(232, 224, 207, 0.09);
+  border: 1px solid rgba(237, 227, 210, 0.09);
   padding: 14px;
   display: flex;
   flex-direction: column;
@@ -449,15 +468,15 @@
   color: var(--label);
 }
 .staff-toggle-opt.on {
-  background: rgba(168, 135, 90, 0.16);
-  border-color: var(--brass);
+  background: rgba(204, 112, 80, 0.16);
+  border-color: var(--terracotta);
   color: var(--cream);
 }
 
 .staff-week-label {
   font-size: 10.5px;
   padding-bottom: 10px;
-  border-bottom: 1px solid rgba(232, 224, 207, 0.12);
+  border-bottom: 1px solid rgba(237, 227, 210, 0.12);
 }
 
 .staff-rota-day {
@@ -467,7 +486,7 @@
   border-bottom: 1px solid var(--hair);
 }
 .staff-rota-day.today {
-  background: rgba(168, 135, 90, 0.05);
+  background: rgba(204, 112, 80, 0.05);
 }
 .staff-rota-date {
   flex: 0 0 62px;
@@ -475,7 +494,7 @@
   font-size: 12px;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: rgba(232, 224, 207, 0.62);
+  color: rgba(237, 227, 210, 0.62);
   padding-top: 6px;
   line-height: 1.5;
 }
@@ -484,12 +503,12 @@
   color: var(--dimmer);
 }
 .staff-rota-day.today .staff-rota-date {
-  color: var(--brass);
+  color: var(--terracotta);
 }
 .staff-rota-date .today-mark {
   font-size: 10px;
   letter-spacing: 0.14em;
-  color: var(--brass);
+  color: var(--terracotta);
 }
 .staff-slot-rule {
   height: 1px;
@@ -531,7 +550,7 @@
   color: var(--label);
 }
 .staff-team-day.today {
-  color: var(--brass);
+  color: var(--terracotta);
 }
 .staff-team-group {
   border-top: 1px solid var(--hair);
@@ -541,26 +560,26 @@
   align-items: center;
   gap: 12px;
   height: 62px;
-  border-bottom: 1px solid rgba(232, 224, 207, 0.08);
+  border-bottom: 1px solid rgba(237, 227, 210, 0.08);
 }
 .staff-team-times {
   font-family: "IBM Plex Mono", ui-monospace, monospace;
   font-size: 13px;
-  color: rgba(232, 224, 207, 0.72);
+  color: rgba(237, 227, 210, 0.72);
 }
 .staff-you {
   font-family: "IBM Plex Mono", ui-monospace, monospace;
   font-size: 10px;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--brass);
+  color: var(--terracotta);
   margin-left: 8px;
 }
 
 /* ---- lockdown checklist --------------------------------------------------- */
 .staff-progress {
   height: 5px;
-  background: rgba(232, 224, 207, 0.1);
+  background: rgba(237, 227, 210, 0.1);
   flex: 0 0 auto;
   margin-bottom: 4px;
 }
@@ -581,7 +600,7 @@
 }
 
 .staff-check-row {
-  border-bottom: 1px solid rgba(232, 224, 207, 0.08);
+  border-bottom: 1px solid rgba(237, 227, 210, 0.08);
   padding: 12px 0;
   display: flex;
   flex-wrap: wrap;
@@ -613,7 +632,7 @@
   width: 34px;
   height: 34px;
   flex: 0 0 auto;
-  border: 1.5px solid rgba(232, 224, 207, 0.34);
+  border: 1.5px solid rgba(237, 227, 210, 0.34);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -623,7 +642,7 @@
 .staff-box.done {
   background: var(--sage);
   border-color: var(--sage);
-  color: #14100f;
+  color: #111A16;
 }
 .staff-box.big {
   width: 38px;
@@ -661,13 +680,13 @@
 .staff-check-note {
   width: 100%;
   padding: 10px 12px;
-  background: rgba(232, 224, 207, 0.04);
-  border-left: 2px solid rgba(168, 135, 90, 0.5);
+  background: rgba(237, 227, 210, 0.04);
+  border-left: 2px solid rgba(204, 112, 80, 0.5);
   font-family: "Cormorant", Georgia, serif;
   font-style: italic;
   font-size: 18px;
   line-height: 1.35;
-  color: rgba(232, 224, 207, 0.72);
+  color: rgba(237, 227, 210, 0.72);
 }
 
 .staff-note-chip {
@@ -676,7 +695,7 @@
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--label);
-  border: 1px solid rgba(232, 224, 207, 0.16);
+  border: 1px solid rgba(237, 227, 210, 0.16);
   background: none;
   padding: 0 14px;
   height: 60px;
@@ -712,14 +731,14 @@
   letter-spacing: 0.2em;
   text-transform: uppercase;
   background: none;
-  border: 1px solid var(--brass);
-  color: var(--brass);
+  border: 1px solid var(--terracotta);
+  color: var(--terracotta);
   cursor: pointer;
   touch-action: manipulation;
 }
 .staff-note-cancel {
   border-color: var(--hair-strong);
-  color: rgba(232, 224, 207, 0.6);
+  color: rgba(237, 227, 210, 0.6);
 }
 .staff-note-hint {
   font-family: "IBM Plex Mono", ui-monospace, monospace;
@@ -742,7 +761,7 @@
 /* Visibly unavailable, not hidden: it says what's left rather than nothing. */
 .staff-button.waiting {
   border-style: dashed;
-  border-color: rgba(232, 224, 207, 0.2);
+  border-color: rgba(237, 227, 210, 0.2);
   color: var(--label);
   opacity: 1;
 }
@@ -770,7 +789,7 @@
   gap: 14px;
   min-height: 66px;
   padding: 8px 0;
-  border-bottom: 1px solid rgba(232, 224, 207, 0.08);
+  border-bottom: 1px solid rgba(237, 227, 210, 0.08);
   opacity: 0.62;
 }
 .staff-signature-by {
@@ -808,7 +827,7 @@
   width: 240px;
   height: 240px;
   border-radius: 50%;
-  border: 1.5px solid var(--brass);
+  border: 1.5px solid var(--terracotta);
   background: none;
   color: var(--cream);
   display: flex;
@@ -833,8 +852,8 @@
   text-transform: uppercase;
   color: var(--label);
 }
-.staff-dial-label.brass {
-  color: var(--brass);
+.staff-dial-label.accent {
+  color: var(--terracotta);
   letter-spacing: 0.2em;
 }
 
@@ -863,8 +882,8 @@
 /* What's already flagged sits above the pickable list, so nobody re-flags the
    Picpoul. */
 .staff-flagged-box {
-  border: 1px solid rgba(232, 224, 207, 0.12);
-  background: rgba(232, 224, 207, 0.03);
+  border: 1px solid rgba(237, 227, 210, 0.12);
+  background: rgba(237, 227, 210, 0.03);
 }
 .staff-flagged-row {
   display: flex;
@@ -872,7 +891,7 @@
   gap: 12px;
   min-height: 70px;
   padding: 12px 14px;
-  border-bottom: 1px solid rgba(232, 224, 207, 0.08);
+  border-bottom: 1px solid rgba(237, 227, 210, 0.08);
 }
 .staff-flagged-row:last-child {
   border-bottom: none;
@@ -882,7 +901,7 @@
   font-size: 10px;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: rgba(232, 224, 207, 0.4);
+  color: rgba(237, 227, 210, 0.4);
   margin-top: 3px;
 }
 .staff-flagged-note {
@@ -890,7 +909,7 @@
   font-style: italic;
   font-size: 17px;
   line-height: 1.35;
-  color: rgba(232, 224, 207, 0.7);
+  color: rgba(237, 227, 210, 0.7);
   margin-top: 6px;
 }
 
@@ -903,11 +922,11 @@
   flex: 0 0 auto;
 }
 .staff-level.low {
-  color: var(--brass);
-  border: 1px solid rgba(168, 135, 90, 0.6);
+  color: var(--terracotta);
+  border: 1px solid rgba(204, 112, 80, 0.6);
 }
 .staff-level.out {
-  color: #14100f;
+  color: #111A16;
   background: var(--rose);
 }
 
@@ -920,7 +939,7 @@
   gap: 12px;
   min-height: 66px;
   padding: 8px 0;
-  border-bottom: 1px solid rgba(232, 224, 207, 0.08);
+  border-bottom: 1px solid rgba(237, 227, 210, 0.08);
   color: var(--cream);
 }
 /* Dimmed and unpickable. The name stays in serif — only the label that says
@@ -941,7 +960,7 @@
   gap: 12px;
   min-height: 80px;
   margin-top: 12px;
-  border: 1px solid rgba(168, 135, 90, 0.45);
+  border: 1px solid rgba(204, 112, 80, 0.45);
   padding: 12px 16px;
   color: var(--cream);
 }
@@ -985,19 +1004,19 @@
   align-items: center;
   justify-content: center;
   gap: 6px;
-  border: 1px solid rgba(232, 224, 207, 0.16);
+  border: 1px solid rgba(237, 227, 210, 0.16);
   background: none;
-  color: rgba(232, 224, 207, 0.75);
+  color: rgba(237, 227, 210, 0.75);
   cursor: pointer;
   touch-action: manipulation;
 }
 .staff-level-choice.on {
-  background: rgba(168, 135, 90, 0.16);
-  border-color: var(--brass);
+  background: rgba(204, 112, 80, 0.16);
+  border-color: var(--terracotta);
   color: var(--cream);
 }
 .staff-level-choice.on.out {
-  background: rgba(180, 89, 107, 0.14);
+  background: rgba(208, 122, 138, 0.14);
   border-color: var(--rose);
 }
 .staff-level-hint {
@@ -1008,7 +1027,7 @@
   color: var(--label);
 }
 .staff-level-choice.on .staff-level-hint {
-  color: var(--brass);
+  color: var(--terracotta);
 }
 .staff-level-choice.on.out .staff-level-hint {
   color: var(--rose);
@@ -1023,7 +1042,7 @@
 .staff-textarea.note {
   min-height: 110px;
   background: none;
-  border-color: rgba(232, 224, 207, 0.16);
+  border-color: rgba(237, 227, 210, 0.16);
   font-family: "Cormorant", Georgia, serif;
   font-style: italic;
   font-size: 21px;
@@ -1041,7 +1060,7 @@
 
 /* ---- bookings ------------------------------------------------------------- */
 .staff-booking-list {
-  border-top: 1px solid rgba(232, 224, 207, 0.12);
+  border-top: 1px solid rgba(237, 227, 210, 0.12);
 }
 .staff-booking {
   display: flex;
@@ -1067,7 +1086,7 @@
 .staff-booking-party {
   font-family: "IBM Plex Mono", ui-monospace, monospace;
   font-size: 16px;
-  color: rgba(232, 224, 207, 0.7);
+  color: rgba(237, 227, 210, 0.7);
 }
 .staff-footnote {
   font-family: "IBM Plex Mono", ui-monospace, monospace;
@@ -1094,7 +1113,7 @@
   width: 16px;
   height: 16px;
   flex: 0 0 auto;
-  color: rgba(232, 224, 207, 0.7);
+  color: rgba(237, 227, 210, 0.7);
 }
 
 /* ---- iPad ----------------------------------------------------------------- */
@@ -1129,13 +1148,23 @@
   }
   .staff-rail {
     flex: 0 0 116px;
-    background: #100c0c;
-    border-right: 1px solid rgba(232, 224, 207, 0.09);
+    background: #0C1310;
+    border-right: 1px solid rgba(237, 227, 210, 0.09);
     display: flex;
     flex-direction: column;
     align-items: center;
     padding: 22px 0 20px;
     gap: 26px;
+  }
+  /* The logo mark at the top of the rail (not .staff-rail-mark, which is the
+     square beside each item). Sized on both axes: in a flex column an SVG
+     with only a viewBox does not size itself from its height. */
+  .staff-rail-logo {
+    display: block;
+    flex: none;
+    width: 28px;
+    height: 38px;
+    color: var(--terracotta);
   }
   .staff-rail-items {
     display: flex;
@@ -1155,26 +1184,27 @@
     font-size: 10px;
     letter-spacing: 0.14em;
     text-transform: uppercase;
-    color: rgba(232, 224, 207, 0.5);
+    color: rgba(237, 227, 210, 0.5);
   }
+  /* A cream wash: terracotta washed over the green reads as brown. */
   .staff-rail-item.active {
-    background: rgba(168, 135, 90, 0.14);
-    border-left: 2px solid var(--brass);
+    background: rgba(237, 227, 210, 0.06);
+    border-left: 2px solid var(--terracotta);
     color: var(--cream);
   }
   .staff-rail-mark {
     width: 13px;
     height: 13px;
-    border: 1.5px solid rgba(232, 224, 207, 0.4);
+    border: 1.5px solid rgba(237, 227, 210, 0.4);
   }
   .staff-rail-item.active .staff-rail-mark {
-    background: var(--brass);
-    border-color: var(--brass);
+    background: var(--terracotta);
+    border-color: var(--terracotta);
   }
   .staff-rail-lock {
     width: 84px;
     height: 84px;
-    border: 1px solid rgba(232, 224, 207, 0.22);
+    border: 1px solid rgba(237, 227, 210, 0.22);
     background: none;
     display: flex;
     flex-direction: column;
@@ -1185,7 +1215,7 @@
     font-size: 10px;
     letter-spacing: 0.16em;
     text-transform: uppercase;
-    color: rgba(232, 224, 207, 0.8);
+    color: rgba(237, 227, 210, 0.8);
     cursor: pointer;
   }
 
@@ -1275,14 +1305,14 @@
    system: the selection colour, the focus ring, and the numerals. */
 
 .staff-root ::selection {
-  background: rgba(168, 135, 90, 0.35);
+  background: rgba(204, 112, 80, 0.35);
   color: var(--cream);
 }
 
 /* The app is touch-first and rules out hover, but a keyboard still has to be
-   able to see where it is — brass, because that is the attention colour. */
+   able to see where it is — terracotta, because that is the attention colour. */
 .staff-root :focus-visible {
-  outline: 2px solid var(--brass);
+  outline: 2px solid var(--terracotta);
   outline-offset: 2px;
 }
 
@@ -1301,4 +1331,167 @@
 .staff-dial-label,
 .staff-band-detail {
   font-variant-numeric: tabular-nums;
+}
+
+/* ---- can't work & swaps --------------------------------------------------- */
+/* Outlined, never filled: the one filled control on these screens is Save. */
+.staff-inline-button {
+  min-width: 96px;
+  height: 56px;
+  padding: 0 16px;
+  border: 1px solid var(--hair-strong);
+  background: none;
+  color: rgba(237, 227, 210, 0.86);
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 12px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  cursor: pointer;
+  touch-action: manipulation;
+  flex: none;
+}
+
+.staff-form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  margin-top: 4px;
+}
+.staff-field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.staff-input {
+  width: 100%;
+  min-height: 56px;
+  background: var(--raised);
+  border: 1px solid var(--hair-strong);
+  border-radius: 0;
+  color: var(--cream);
+  font-family: "Hanken Grotesk", ui-sans-serif, sans-serif;
+  font-weight: 300;
+  font-size: 17px;
+  padding: 12px 14px;
+  color-scheme: dark;
+}
+.staff-input::placeholder {
+  color: var(--dimmer);
+}
+.staff-date-pair {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.staff-fieldset {
+  border: 0;
+  margin: 0;
+  padding: 0;
+  min-width: 0;
+}
+.staff-fieldset legend {
+  margin-bottom: 10px;
+}
+.staff-weekdays {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 6px;
+}
+/* A checkbox that looks like a key. The box is invisible but still covers the
+   chip, so the tap lands on it and it takes focus; the span after it draws the
+   key. Sibling selectors rather than :has(), so an older bar iPad still shows
+   which days are picked. */
+.staff-chip {
+  position: relative;
+  height: 64px;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+.staff-chip input {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  opacity: 0;
+  cursor: pointer;
+  z-index: 1;
+}
+.staff-chip span {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(237, 227, 210, 0.16);
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(237, 227, 210, 0.75);
+}
+.staff-chip input:checked + span {
+  background: rgba(204, 112, 80, 0.16);
+  border-color: var(--terracotta);
+  color: var(--cream);
+}
+.staff-chip input:focus-visible + span {
+  outline: 2px solid var(--terracotta);
+  outline-offset: 2px;
+}
+/* Already set as a weekly day: shown, not pickable twice. */
+.staff-chip.set span {
+  border-style: dashed;
+  color: var(--dimmer);
+}
+.staff-chip.set,
+.staff-chip.set input {
+  cursor: default;
+}
+
+.staff-swap-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 14px;
+  min-height: 78px;
+  padding: 16px 0;
+}
+.staff-swap-take {
+  display: flex;
+  gap: 8px;
+  flex: 1 1 100%;
+}
+.staff-swap-take select {
+  flex: 1;
+  min-width: 0;
+}
+
+.staff-rota-links {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+  margin: 0 0 18px;
+}
+.staff-rota-link {
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border: 1px solid var(--hair-strong);
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 12px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(237, 227, 210, 0.86);
+}
+.staff-rota-link b {
+  font-weight: 500;
+  color: var(--terracotta);
+}
+.staff-section-list > .staff-band-row,
+.staff-section-list > .staff-swap-row {
+  border-bottom: 1px solid var(--hair);
 }

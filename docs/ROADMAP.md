@@ -17,8 +17,8 @@ Everything in this section was checked against the tree, not recalled.
 
 | Area | Where | Notes |
 |---|---|---|
-| Public site | `src/app/page.tsx`, `src/lib/home-template.ts` | Static HTML fragments, auto-generated from `reference/legacy-site/`, injected via `dangerouslySetInnerHTML`. `home-template.ts` is ~38 KB of markup. |
-| Menu page | `src/app/menu/page.tsx`, `src/lib/menu-template.ts` | Same pattern. |
+| Public site | `src/app/page.tsx`, `src/app/home.css`, `src/components/booking-form.tsx` | JSX (the "Masthead" design, `design/home-options/c-masthead.html`). What's On is read from the database; the rest of the copy lives in `page.tsx`. *(Updated 26 September 2026; it was generated HTML fragments until then.)* |
+| Menu page | `src/app/menu/page.tsx`, `src/lib/menu.ts` | Rendered from typed data transcribed from the printed menu (`public/uploads/Crescent Moon Drinks Menu A5 16pp.pdf`), Masthead design. The homepage's wine facts and `scripts/seed-stock.ts` read the same data. *(Updated 26 September 2026; it was a generated HTML blob until then.)* |
 | Admin app | `src/app/admin/(app)/` | 10 sections: dashboard, what's on, rota, lockdown checklist, stock, clock, bookings, analytics, staff view/PINs, notifications. |
 | Staff app | `src/app/staff/[slug]/` | PIN entry, clock, rota, stock reporting, lockdown. |
 | Auth | `src/lib/auth.ts`, `session.ts`, `staff-pin.ts` | bcrypt admin password, `jose`-signed session cookie, HMAC-keyed staff PIN lookup with a throttle model. |
@@ -55,23 +55,22 @@ blocker to CRM and WhatsApp booking: there is no local record to attach a guest
 to, no booking history to count, and no way to answer "how many covers last
 Friday" without cal.diy being up.
 
-**3. The public site is a generated HTML blob.** Structuring the menu as data
-is not only a schema exercise — it means dismantling `menu-template.ts` and
-rendering from the database, which changes how the site is built and deployed.
+**3. The menu is data in code, not in the database.** `src/lib/menu.ts` is
+typed and already drives `/menu`, the homepage's wine facts and stock seeding,
+but changing a price still means a commit and a deploy. Moving it into the
+database is the Phase 3 item below.
 
 ### Confirmed gaps
 
-**Homepage date/time picker is inert.** `src/components/booking-widget.tsx`
-declares `state = { size, day, time }`, but only party size is ever written or
-read. `openBooking()` sends `metadata[partySize]` and `duration=90` and nothing
-else. The file's own header comment claims "day tiles and time slots become
-selectable" — no handler implements that. So the comment is stale as well as
-the feature being absent. The flow really is: pick party size → open cal.diy →
-pick the real date and time there.
+~~**Homepage date/time picker is inert.**~~ Resolved 26 September 2026: the
+homepage redesign replaced `booking-widget.tsx` with `booking-form.tsx`, which
+asks for party size only and says "Choose a time". The flow is unchanged: pick
+party size → open cal.diy (`metadata[partySize]`, `duration=90`) → pick the
+real date and time there.
 
-**Newsletter form cannot submit.** In `home-template.ts` the footer contains
-`<form onsubmit="return false">` wrapping an `<input type="email">`. Submission
-is actively blocked, and the string "newsletter" appears nowhere in the
+**Newsletter form cannot submit.** The homepage footer's `LetterForm`
+(`src/components/letter-form.tsx`) calls `preventDefault()` on submit, as the
+old `<form onsubmit="return false">` did. Submission is actively blocked, and the string "newsletter" appears nowhere in the
 repository. There is no model, no action, no provider integration.
 
 **No tests, no CI.** No `.github/` directory exists. `playwright` is in
@@ -213,12 +212,20 @@ at least once.*
 The PWA shell already exists — this phase is information architecture, not
 installability.
 
-- Replace the flat 10-link `AdminNav` with a mobile bottom bar (Home, Bookings,
-  Team, Customers, More) and a More sheet for the rest.
-- Rebuild the dashboard as a tonight-first summary: covers, bookings, staff on,
-  stock flags, unresolved closing notes, then large tap targets.
-- Audit every admin form for one-handed phone use. `admin.css` currently has a
-  single `@media (max-width: 720px)` block; that is responsive, not designed.
+*Progress (26 September 2026):* done ahead of Phase 1 at the owner's request —
+a phone bottom bar (Home, What's On, Rota, Stock, More) with a More sheet; a
+"Needs you" dashboard (stock flags ticked off in place, swaps approved in
+place, new can't-work days) followed by who's on tonight; a day-at-a-time rota
+on phones with the shift editor as a bottom sheet; 16px inputs so iOS doesn't
+zoom; wide tables scroll in their own box; an install card on the phone
+dashboard. Checked in a phone-sized browser with no page scrolling sideways on
+any admin route; not yet on real devices. Staff shift swaps and "can't work"
+days were added alongside (see README, Staff app). Remaining:
+
+- Bookings and customers on the bottom bar once those phases exist.
+- Covers and bookings in the tonight summary once Cal is connected.
+- Audit the remaining forms one by one (Lockdown editor, Staff app & PINs,
+  Clock corrections) for one-handed use.
 - Offline behaviour: decide deliberately what `admin-sw.js` caches.
 
 *Exit: every admin operation can be completed on a phone without pinch-zoom or
@@ -232,7 +239,8 @@ horizontal scroll, verified on a real iOS and a real Android device.*
   Wine needs the structured attributes the agent will query on: colour,
   sweetness, body, acidity, grape, region, glass and bottle price, availability.
 - Admin CRUD for all of it.
-- Migrate the current menu content out of `menu-template.ts` into the database.
+- Migrate the current menu content out of `src/lib/menu.ts` into the database
+  (the types there are a starting point for the models).
 - Render `/menu` from the database.
 - Link `StockItem` to `MenuItem`/`Wine` so stock and menu stop being separate
   name-matched worlds.
@@ -257,8 +265,6 @@ reflects it, with no code deploy.*
   system never asserts something the guest did not say.
 - Customers section in the owner app: history, visit count, preferences, notes,
   consent state.
-- Fix or remove the homepage date/time picker (see Part 1) so the site stops
-  implying functionality it lacks.
 - Resolve the newsletter per Decision C.
 
 *Exit: a returning guest is recognised across bookings, and the owner can see

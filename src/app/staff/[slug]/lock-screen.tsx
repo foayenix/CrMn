@@ -3,6 +3,7 @@
 import { useEffect, useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import { unlockAction } from "./actions";
+import { LogoMark } from "@/components/logo";
 
 // Screen 01 — PIN lock. Three states, all in here:
 //   1.1 resting     · logo, four dots, 92px keys (108 on iPad)
@@ -108,7 +109,7 @@ export function LockScreen({
             <div className="staff-serif" style={{ fontSize: 32, lineHeight: 1.15 }}>
               Three misses. Take a breath.
             </div>
-            <p style={{ margin: 0, fontSize: 16, lineHeight: 1.6, color: "rgba(232,224,207,.58)", maxWidth: "28ch" }}>
+            <p style={{ margin: 0, fontSize: 16, lineHeight: 1.6, color: "rgba(237,227,210,.58)", maxWidth: "28ch" }}>
               The pad comes back on its own. If your PIN has gone, a manager can
               reset it in seconds.
             </p>
@@ -165,7 +166,7 @@ export function LockScreen({
           <a
             href={`tel:${venuePhone.replace(/\s+/g, "")}`}
             className="staff-mono"
-            style={{ fontSize: 12, letterSpacing: ".22em", color: "rgba(232,224,207,.55)" }}
+            style={{ fontSize: 12, letterSpacing: ".22em", color: "rgba(237,227,210,.55)" }}
           >
             The room&nbsp;·&nbsp;{venuePhone}
           </a>
@@ -175,17 +176,7 @@ export function LockScreen({
   );
 }
 
+// The printed menu's mark; it dims while a wrong PIN is showing.
 function Moon({ dim }: { dim: boolean }) {
-  return (
-    <svg width="46" height="46" viewBox="0 0 100 100" fill="none" aria-hidden="true">
-      <path
-        d="M 52 8 A 42 42 0 1 0 52 92 A 31 42 0 1 1 52 8 Z"
-        fill="none"
-        stroke={dim ? "rgba(168,135,90,.45)" : "#A8875A"}
-        strokeWidth="4"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
-  );
+  return <LogoMark className={dim ? "staff-lock-logo dim" : "staff-lock-logo"} />;
 }

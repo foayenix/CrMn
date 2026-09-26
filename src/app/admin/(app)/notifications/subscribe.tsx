@@ -147,7 +147,7 @@ export function SubscribeButton({
 
   if (support === "needs-home-screen") {
     return (
-      <div className="alert" style={{ background: "rgba(168,135,90,.12)", border: "1px solid var(--gold)" }}>
+      <div className="alert" style={{ background: "rgba(204,112,80,.12)", border: "1px solid var(--terracotta)" }}>
         <strong>Add this to your Home Screen first.</strong>
         <p style={{ margin: "8px 0 0", fontSize: 12.5, lineHeight: 1.6 }}>
           On iPhone and iPad, Apple only allows notifications once a site has

@@ -1,0 +1,321 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Crescent Moon — Option C · Masthead</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:ital,wght@0,300;0,400;0,500;1,300&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  /* Option C — Masthead.
+     The homepage as a magazine cover and contents page. A full-width
+     nameplate, then an index where every row carries a real fact (a price,
+     a day, a capacity) instead of a page number. No serif at all: the brand's
+     own sans and mono do everything, with Hanken Grotesk pushed to display
+     sizes. Sand ground, ink type, the green for facts, wine only for Book. */
+  :root {
+    --sand: #EDE6D6;
+    --sand-2: #E3DAC5;
+    --ink: #1C1512;
+    --ink-soft: rgba(28, 21, 18, .70);
+    --rule: rgba(28, 21, 18, .22);
+    --green: #4E5C49;        /* the brand green, a step darker to clear AA at small sizes on sand */
+    --wine: #241019;
+    --on-wine: #F7F4EC;
+    --on-wine-soft: rgba(247, 244, 236, .72);
+    --brass: #A8875A;
+
+    --sans: 'Hanken Grotesk', 'Helvetica Neue', Arial, sans-serif;
+    --mono: 'IBM Plex Mono', ui-monospace, Menlo, monospace;
+    --gutter: clamp(18px, 3vw, 44px);
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    background: var(--sand); color: var(--ink);
+    font-family: var(--sans); font-weight: 300; font-size: 17px; line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: inherit; text-decoration: none; }
+  a:focus-visible, button:focus-visible, input:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
+  ::selection { background: var(--ink); color: var(--sand); }
+  p { margin: 0; }
+  h1, h2, h3 { margin: 0; font-weight: 400; letter-spacing: -.035em; text-wrap: balance; }
+
+  .page { padding-inline: var(--gutter); }
+  .mono { font-family: var(--mono); font-size: 12px; letter-spacing: .02em; }
+  .fact { font-family: var(--mono); font-size: 12px; color: var(--green); }
+
+  /* ---------- masthead ---------- */
+  .dateline {
+    display: flex; flex-wrap: wrap; justify-content: space-between; gap: 6px 24px;
+    padding-block: 16px; border-bottom: 1px solid var(--ink);
+  }
+  .nameplate {
+    font-size: clamp(48px, 12.6vw, 220px); line-height: .82; font-weight: 500; letter-spacing: -.055em;
+    padding-block: clamp(18px, 3vw, 40px) clamp(12px, 2vw, 28px); white-space: nowrap;
+  }
+  .nameplate .moon { display: inline-block; width: .5em; height: .5em; vertical-align: .08em; margin-left: .06em; }
+  .strap {
+    display: grid; grid-template-columns: 1fr 2fr 1fr; gap: 16px 32px; align-items: start;
+    padding-block: 18px clamp(56px, 8vw, 110px); border-top: 1px solid var(--ink);
+  }
+  .strap p { font-size: clamp(19px, 1.8vw, 24px); line-height: 1.35; font-weight: 300; max-width: 30ch; }
+  .strap nav { display: flex; flex-direction: column; align-items: flex-end; gap: 4px; font-size: 15px; font-weight: 400; }
+  .strap nav a:hover { text-decoration: underline; text-underline-offset: 4px; }
+
+  /* ---------- contents ---------- */
+  .contents { border-top: 1px solid var(--ink); }
+  .contents .mono { display: block; padding-block: 12px; }
+  .row {
+    display: grid; grid-template-columns: 5fr 5fr 3fr; gap: 8px 32px; align-items: baseline;
+    padding-block: clamp(16px, 2vw, 24px); border-top: 1px solid var(--rule); transition: background .2s;
+  }
+  .row:last-child { border-bottom: 1px solid var(--rule); }
+  .row h2 { font-size: clamp(30px, 4.2vw, 60px); line-height: 1; }
+  .row p { color: var(--ink-soft); font-size: 16px; max-width: 42ch; }
+  .row .fact { text-align: right; }
+  .row:hover h2 { font-style: italic; }
+
+  /* ---------- sections ---------- */
+  .sec { display: grid; grid-template-columns: 1fr 3fr; gap: 24px 32px; padding-block: clamp(80px, 11vw, 150px) 0; }
+  .sec > .side { border-top: 1px solid var(--ink); padding-top: 12px; }
+  .sec > .side .mono { display: block; }
+  .sec > .main { border-top: 1px solid var(--ink); padding-top: 12px; }
+  .sec h3 { font-size: clamp(40px, 6vw, 88px); line-height: .95; margin-top: 8px; }
+  .sec .body { margin-top: 24px; max-width: 46ch; font-size: clamp(17px, 1.4vw, 19px); color: var(--ink-soft); }
+  .two { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; margin-top: 44px; align-items: start; }
+
+  .ph { background: var(--sand-2); display: flex; align-items: flex-end; aspect-ratio: 1; }
+  .ph span { padding: 12px 14px; font-family: var(--mono); font-size: 11px; color: rgba(28,21,18,.5); }
+  .ph.wide { aspect-ratio: 16 / 9; margin-top: 44px; }
+
+  .price-list { border-top: 1px solid var(--rule); }
+  .price-list div { display: flex; justify-content: space-between; gap: 16px; padding: 12px 0; border-bottom: 1px solid var(--rule); font-size: 17px; font-weight: 400; }
+  .price-list .p { font-family: var(--mono); font-size: 13px; font-variant-numeric: tabular-nums; }
+  .under { margin-top: 16px; display: flex; flex-wrap: wrap; gap: 8px 24px; justify-content: space-between; }
+  .under a { font-weight: 500; font-size: 15px; border-bottom: 1px solid var(--ink); }
+
+  .events { margin-top: 36px; }
+  .ev { display: grid; grid-template-columns: 120px 1fr 1fr; gap: 6px 24px; align-items: baseline; padding: 18px 0; border-top: 1px solid var(--rule); }
+  .ev:last-child { border-bottom: 1px solid var(--rule); }
+  .ev h4 { margin: 0; font-size: clamp(22px, 2.2vw, 30px); font-weight: 400; letter-spacing: -.02em; line-height: 1.1; }
+  .ev p { color: var(--ink-soft); font-size: 15px; }
+  .small { margin-top: 16px; color: var(--ink-soft); font-size: 14px; }
+
+  .counter { list-style: none; padding: 0; margin: 0; border-top: 1px solid var(--rule); }
+  .counter li { padding: 10px 0; border-bottom: 1px solid var(--rule); font-size: 17px; font-weight: 400; }
+
+  /* ---------- booking ---------- */
+  .book { margin-top: clamp(80px, 11vw, 150px); background: var(--wine); color: var(--on-wine); padding: clamp(56px, 8vw, 110px) var(--gutter); margin-inline: calc(var(--gutter) * -1); }
+  .book .sec { padding: 0; }
+  .book .side, .book .main { border-color: rgba(247,244,236,.4); }
+  .book .fact { color: var(--brass); }
+  .book .body { color: var(--on-wine-soft); }
+  .book .body a { color: var(--on-wine); border-bottom: 1px solid var(--brass); }
+  .book fieldset { border: 0; padding: 0; margin: 44px 0 0; }
+  .book legend { padding: 0; margin-bottom: 14px; color: var(--brass); }
+  .sizes { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); border: 1px solid rgba(247,244,236,.3); max-width: 560px; }
+  .sizes > * + * { border-left: 1px solid rgba(247,244,236,.3); }
+  .sizes button { background: none; border-top: 0; border-bottom: 0; border-right: 0; color: var(--on-wine-soft); font: 400 26px var(--sans); letter-spacing: -.03em; padding: 16px 0; cursor: pointer; transition: background .2s, color .2s; }
+  .sizes button:first-child { border-left: 0; }
+  .sizes button:hover { color: var(--on-wine); }
+  .sizes button[aria-pressed="true"] { background: var(--on-wine); color: var(--wine); }
+  .sizes label { display: flex; align-items: center; justify-content: center; gap: 4px; font-family: var(--mono); font-size: 11px; color: var(--on-wine-soft); }
+  .sizes input { width: 34px; background: transparent; border: 0; border-bottom: 1px solid rgba(247,244,236,.4); color: var(--on-wine); font: 400 18px var(--sans); text-align: center; }
+  .sizes input::placeholder { color: rgba(247,244,236,.45); }
+  .book .mono.note { margin-top: 14px; color: var(--on-wine-soft); }
+  .hold { margin-top: 32px; display: inline-flex; gap: 40px; align-items: center; background: var(--brass); color: var(--wine); border: 0; cursor: pointer; font: 500 17px var(--sans); padding: 18px 22px; transition: background .2s; }
+  .hold:hover { background: #BC9C6F; }
+
+  /* ---------- footer ---------- */
+  footer { padding-block: clamp(56px, 7vw, 96px) 28px; }
+  .foot { display: grid; grid-template-columns: 2fr 1fr 1fr 1.4fr; gap: 32px; border-top: 1px solid var(--ink); padding-top: 14px; }
+  .foot .mono { display: block; color: var(--green); margin-bottom: 10px; }
+  .foot div { font-size: 15px; line-height: 1.8; }
+  .foot .big { font-size: clamp(28px, 3vw, 40px); font-weight: 500; letter-spacing: -.04em; line-height: 1; }
+  .foot form { display: flex; border-bottom: 1px solid var(--ink); margin-top: 8px; }
+  .foot input { flex: 1; min-width: 0; border: 0; background: transparent; font: inherit; color: var(--ink); padding: 6px 0; }
+  .foot input::placeholder { color: rgba(28,21,18,.5); }
+  .foot button { border: 0; background: none; font: 500 15px var(--sans); color: var(--ink); cursor: pointer; }
+  .base { margin-top: 56px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px; }
+
+  @media (max-width: 900px) {
+    .strap { grid-template-columns: 1fr; }
+    .strap nav { flex-direction: row; align-items: center; gap: 20px; }
+    .row { grid-template-columns: 1fr auto; }
+    .row p { grid-column: 1 / -1; grid-row: 2; }
+    .sec { grid-template-columns: 1fr; }
+    .sec > .main { border-top: 0; padding-top: 0; }
+    .foot { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 600px) {
+    .two { grid-template-columns: 1fr; }
+    .ev { grid-template-columns: 1fr; }
+    .foot { grid-template-columns: 1fr; }
+    .row { grid-template-columns: 1fr; }
+    .row .fact { text-align: left; }
+  }
+
+  .opt-back { position: fixed; left: 14px; bottom: calc(14px + env(safe-area-inset-bottom, 0px)); z-index: 10; font: 500 11px/1 var(--mono); letter-spacing: .06em; text-transform: uppercase; background: var(--ink); color: var(--sand); padding: 10px 14px; border-radius: 999px; }
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <header>
+    <div class="dateline mono">
+      <span>Wine bar · Est. April 2025</span>
+      <span>67 Crouch St, Colchester</span>
+      <span>Wed–Sat 12pm–12am · Sun 12–6pm</span>
+    </div>
+    <h1 class="nameplate">Crescent Moon<svg class="moon" viewBox="0 0 100 100" aria-hidden="true"><path d="M 52 8 A 42 42 0 1 0 52 92 A 31 42 0 1 1 52 8 Z" fill="var(--green)"/></svg></h1>
+    <div class="strap">
+      <span class="fact">A wine bar on Crouch Street</span>
+      <p>Thirty-five wines, chosen for character, poured slowly in a room built to keep you.</p>
+      <nav aria-label="Main">
+        <a href="#list">Menu</a>
+        <a href="#whats-on">What's On</a>
+        <a href="#book">Book a table</a>
+      </nav>
+    </div>
+  </header>
+
+  <nav class="contents" aria-label="On this page">
+    <span class="mono">On this page</span>
+    <a class="row" href="#list"><h2>The List</h2><p>Chosen for character, read and poured by a sommelier.</p><span class="fact">35 wines · glasses from £4.95</span></a>
+    <a class="row" href="#upstairs"><h2>Upstairs</h2><p>A lounge under the skylight that keeps its own hours.</p><span class="fact">The Lounge · up to 20</span></a>
+    <a class="row" href="#whats-on"><h2>What's On</h2><p>Soul Night, tastings, live music and socials.</p><span class="fact">Soul Night · Sundays</span></a>
+    <a class="row" href="#near"><h2>From near here</h2><p>English cheese and charcuterie, spirits from Bury St Edmunds.</p><span class="fact">From the counter</span></a>
+    <a class="row" href="#book"><h2>Book</h2><p>Tables go quickly. Pick a size, then a time.</p><span class="fact">Tables for 2–8</span></a>
+  </nav>
+
+  <section class="sec" id="list">
+    <div class="side"><span class="mono">The List</span></div>
+    <div class="main">
+      <h3>Chosen for character</h3>
+      <p class="body">Thirty-five wines: light and bright, bold and structured, orange, sparkling. Read and poured by a sommelier who tasted every one. Nothing here to fill a shelf.</p>
+      <div class="two">
+        <div>
+          <span class="fact">By the glass tonight</span>
+          <div class="price-list" style="margin-top:10px">
+            <div><span>Foncastel Picpoul de Pinet</span><span class="p">7.50</span></div>
+            <div><span>Balauri Pinot Noir</span><span class="p">6.50</span></div>
+            <div><span>Logan Clementine Orange</span><span class="p">8.95</span></div>
+            <div><span>Pirani Prosecco</span><span class="p">10.95</span></div>
+          </div>
+          <div class="under"><span class="fact">Cocktails £11.95 · spritz from £12.50</span><a href="#">Full menu →</a></div>
+        </div>
+        <div class="ph"><span>Photograph · a pour at the bar</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="upstairs">
+    <div class="side"><span class="mono">Upstairs</span></div>
+    <div class="main">
+      <h3>Under the skylight</h3>
+      <p class="body">A lounge that keeps its own hours. The light shifts across the afternoon and the room asks nothing of you. Second-glass territory.</p>
+      <div class="ph wide"><span>Photograph · the Lounge in afternoon light</span></div>
+    </div>
+  </section>
+
+  <section class="sec" id="whats-on">
+    <div class="side"><span class="mono">What's On</span></div>
+    <div class="main">
+      <h3>This month at the Moon</h3>
+      <div class="events">
+        <div class="ev"><span class="fact">Sundays</span><h4>Soul Night</h4><p>Records, low light, no rush.</p></div>
+        <div class="ev"><span class="fact">Monthly</span><h4>Guided wine tasting</h4><p>Six pours, one theme, led by the sommelier.</p></div>
+        <div class="ev"><span class="fact">Dates vary</span><h4>Live music &amp; themed nights</h4><p>Announced on Instagram first.</p></div>
+        <div class="ev"><span class="fact">Occasional</span><h4>Slow-dating socials</h4><p>With Everywhere We Meet, under the skylight.</p></div>
+      </div>
+      <p class="small">Dates land on <a href="https://www.instagram.com/crescentmoonbar" style="border-bottom:1px solid var(--ink)">Instagram</a> first, or call 01206 525566.</p>
+    </div>
+  </section>
+
+  <section class="sec" id="near">
+    <div class="side"><span class="mono">Local, on purpose</span></div>
+    <div class="main">
+      <h3>From near here</h3>
+      <p class="body">English cheese and charcuterie. Spirits distilled in Bury St Edmunds. A short kitchen and a list that knows exactly where it is.</p>
+      <div class="two">
+        <div class="ph"><span>Photograph · a cheese board</span></div>
+        <div>
+          <span class="fact">From the counter</span>
+          <ul class="counter" style="margin-top:10px">
+            <li>Cheese board</li>
+            <li>Charcuterie board</li>
+            <li>Giant pitted olives · Smoked almonds</li>
+            <li>Dingley Dell beer sticks</li>
+            <li>Weekend sausage rolls · Toasties</li>
+          </ul>
+          <p class="small">Seasonal. Ask the team.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="book" id="book">
+    <div class="sec">
+      <div class="side"><span class="mono fact">Book</span></div>
+      <form class="main" onsubmit="return false">
+        <h3>A table for the evening</h3>
+        <p class="body">Tables seat two to eight and go quickly. Booking out the whole Lounge? Email <a href="mailto:bookings@crescentmoonwinebar.co.uk">bookings@crescentmoonwinebar.co.uk</a>.</p>
+        <fieldset>
+          <legend class="mono">How many of you?</legend>
+          <div class="sizes" id="c-sizes">
+            <button type="button" aria-pressed="true">2</button>
+            <button type="button" aria-pressed="false">4</button>
+            <button type="button" aria-pressed="false">6</button>
+            <button type="button" aria-pressed="false">8</button>
+            <label for="c-other">Other <input id="c-other" type="number" min="1" max="50" placeholder="#"></label>
+          </div>
+        </fieldset>
+        <p class="mono note">Held 90 min · last booking 10pm · free cancellation up to 24h ahead</p>
+        <button class="hold" type="submit"><span>Choose a time</span><span aria-hidden="true">→</span></button>
+      </form>
+    </div>
+  </section>
+
+  <footer>
+    <div class="foot">
+      <div><span class="mono">Crescent Moon</span><span class="big">Wine bar,<br>Crouch Street</span></div>
+      <div><span class="mono">Find us</span>67 Crouch St<br>Colchester CO3 3EY<br>01206 525566</div>
+      <div><span class="mono">Hours</span>Wed–Sat 12pm–12am<br>Sun 12–6pm<br>Mon–Tue closed</div>
+      <div>
+        <span class="mono">The occasional letter</span>
+        New wines, quiet nights. No more than once a month.
+        <form onsubmit="return false">
+          <input type="email" id="c-email" placeholder="you@email" aria-label="Email address">
+          <button type="submit">Join</button>
+        </form>
+      </div>
+    </div>
+    <div class="base mono">
+      <span>© 2026 Crescent Moon Wine Bar</span>
+      <a href="https://www.instagram.com/crescentmoonbar">@crescentmoonbar ↗</a>
+    </div>
+  </footer>
+</div>
+
+<a class="opt-back" href="index.html">← All options</a>
+
+<script>
+  (function () {
+    var group = document.getElementById('c-sizes');
+    var other = document.getElementById('c-other');
+    group.addEventListener('click', function (e) {
+      var b = e.target.closest('button'); if (!b) return;
+      group.querySelectorAll('button').forEach(function (x) { x.setAttribute('aria-pressed', 'false'); });
+      b.setAttribute('aria-pressed', 'true'); other.value = '';
+    });
+    other.addEventListener('input', function () {
+      group.querySelectorAll('button').forEach(function (x) { x.setAttribute('aria-pressed', 'false'); });
+    });
+  })();
+</script>
+</body>
+</html>

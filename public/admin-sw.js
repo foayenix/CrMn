@@ -1,7 +1,8 @@
 // Service worker for the admin app only.
 //
 // It exists for one reason: to show the boss a notification when the floor
-// flags something low. It caches nothing and has no fetch handler, so even
+// flags something low, a swap needs approving, or someone adds days they
+// can't work. It caches nothing and has no fetch handler, so even
 // though it registers at the origin root (a worker can't take a scope above
 // its own path), it changes nothing about any page — and it only ever exists
 // in the browser of someone who turned notifications on from /admin.

@@ -1,0 +1,261 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Crescent Moon — Option B · Nocturne</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;1,6..96,400&family=Hanken+Grotesk:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  /* Option B — Nocturne.
+     The whole site after dark, set like a printed wine list: one centred
+     column, type only, no pictures. Bodoni Moda replaces Cormorant for a
+     sharper, more formal display voice; brass is the only colour. Dotted
+     leaders between name and price are the one borrowed menu convention. */
+  :root {
+    color-scheme: dark;
+    --ground: #1A0C13;
+    --ground-2: #221019;
+    --text: #F2ECDF;
+    --text-soft: rgba(242, 236, 223, .70);
+    --text-faint: rgba(242, 236, 223, .50);
+    --brass: #B8966A;
+    --rule: rgba(184, 150, 106, .28);
+
+    --display: 'Bodoni Moda', 'Didot', 'Bodoni 72', Georgia, serif;
+    --sans: 'Hanken Grotesk', 'Helvetica Neue', Arial, sans-serif;
+
+    --col: 620px;
+    --gutter: clamp(20px, 5vw, 48px);
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    background: var(--ground); color: var(--text);
+    font-family: var(--sans); font-weight: 300; font-size: 17px; line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: inherit; text-decoration: none; }
+  a:focus-visible, button:focus-visible, input:focus-visible { outline: 1px solid var(--brass); outline-offset: 4px; }
+  ::selection { background: var(--brass); color: var(--ground); }
+
+  .col { max-width: var(--col); margin: 0 auto; padding-inline: var(--gutter); text-align: center; }
+  h1, h2, h3 { font-family: var(--display); font-weight: 400; margin: 0; text-wrap: balance; }
+  p { margin: 0; }
+  .label { font-family: var(--sans); font-size: 11px; font-weight: 500; letter-spacing: .28em; text-transform: uppercase; color: var(--brass); }
+  .mark { display: block; margin: 0 auto; width: 30px; height: 30px; }
+
+  section { padding-block: clamp(88px, 12vw, 160px) 0; }
+  section > .col > .label { display: block; margin-bottom: 22px; }
+  h2 { font-size: clamp(38px, 5.2vw, 58px); line-height: 1.05; font-style: italic; }
+  .body { margin: 26px auto 0; max-width: 40ch; color: var(--text-soft); }
+
+  /* ---------- top ---------- */
+  .top { padding-top: clamp(22px, 3vw, 36px); display: flex; justify-content: center; gap: clamp(24px, 5vw, 56px); font-size: 11px; letter-spacing: .24em; text-transform: uppercase; color: var(--text-soft); }
+  .top a { transition: color .2s; }
+  .top a:hover { color: var(--text); }
+
+  .opener { padding-block: clamp(96px, 14vw, 180px) 0; }
+  .opener h1 { font-size: clamp(56px, 11vw, 132px); line-height: .95; letter-spacing: -.015em; font-weight: 400; }
+  .opener h1 i { display: block; font-style: italic; }
+  .opener .kicker { display: block; margin-bottom: 36px; }
+  .opener .body { margin-top: 36px; }
+  .opener .addr { margin-top: 40px; font-size: 13px; letter-spacing: .08em; color: var(--text-faint); }
+
+  .rule { width: 1px; height: clamp(64px, 9vw, 110px); background: var(--rule); margin: clamp(56px, 8vw, 96px) auto 0; }
+
+  /* ---------- list with leaders ---------- */
+  .wines { margin-top: 44px; text-align: left; }
+  .wine { display: flex; align-items: baseline; gap: 10px; padding: 10px 0; }
+  .wine .n { font-family: var(--display); font-size: clamp(19px, 2vw, 22px); }
+  .wine .dots { flex: 1; border-bottom: 1px dotted var(--rule); transform: translateY(-5px); min-width: 24px; }
+  .wine .p { font-variant-numeric: tabular-nums lining-nums; font-size: 15px; color: var(--text-soft); }
+  .wines-sub { margin-top: 22px; font-size: 13px; letter-spacing: .06em; color: var(--text-faint); }
+  .link { display: inline-block; margin-top: 30px; font-size: 11px; font-weight: 500; letter-spacing: .24em; text-transform: uppercase; border-bottom: 1px solid var(--brass); padding-bottom: 5px; }
+
+  /* ---------- what's on ---------- */
+  .events { margin-top: 48px; display: grid; gap: 40px; }
+  .ev .when { font-size: 11px; font-weight: 500; letter-spacing: .24em; text-transform: uppercase; color: var(--brass); }
+  .ev h3 { margin-top: 10px; font-size: clamp(28px, 3.4vw, 38px); line-height: 1.1; }
+  .ev.feature h3 { font-size: clamp(40px, 6vw, 68px); font-style: italic; }
+  .ev p { margin-top: 6px; color: var(--text-soft); }
+  .note { margin-top: 44px; font-size: 13px; color: var(--text-faint); }
+  .note a { color: var(--text-soft); border-bottom: 1px solid var(--rule); }
+
+  /* ---------- counter ---------- */
+  .counter { margin-top: 40px; font-family: var(--display); font-size: clamp(20px, 2.2vw, 24px); line-height: 2; }
+  .counter b { font-weight: 400; white-space: nowrap; }
+  .counter .sep { color: var(--brass); padding: 0 .3em; }
+
+  /* ---------- booking ---------- */
+  .book { margin-top: clamp(88px, 12vw, 160px); background: var(--ground-2); padding-block: clamp(80px, 11vw, 140px); border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); }
+  .book fieldset { border: 0; padding: 0; margin: 44px 0 0; }
+  .book legend { margin: 0 auto 20px; }
+  .sizes { display: flex; justify-content: center; flex-wrap: wrap; gap: 10px; }
+  .sizes button {
+    width: 56px; height: 56px; border-radius: 50%; border: 1px solid var(--rule); background: none;
+    color: var(--text-soft); font-family: var(--display); font-size: 22px; cursor: pointer; transition: border-color .2s, color .2s;
+  }
+  .sizes button:hover { border-color: var(--brass); color: var(--text); }
+  .sizes button[aria-pressed="true"] { border-color: var(--brass); background: var(--brass); color: var(--ground); }
+  .sizes label { display: flex; align-items: center; gap: 8px; padding: 0 16px; height: 56px; border: 1px solid var(--rule); border-radius: 999px; font-size: 13px; color: var(--text-soft); }
+  .sizes input { width: 36px; border: 0; background: transparent; color: var(--text); font: inherit; font-size: 18px; text-align: center; }
+  .sizes input::placeholder { color: var(--text-faint); }
+  .book .small { margin-top: 22px; font-size: 14px; color: var(--text-faint); }
+  .hold {
+    margin-top: 40px; background: none; border: 1px solid var(--brass); color: var(--text); cursor: pointer;
+    font-family: var(--sans); font-weight: 500; font-size: 12px; letter-spacing: .24em; text-transform: uppercase;
+    padding: 18px 34px; transition: background .2s, color .2s;
+  }
+  .hold:hover { background: var(--brass); color: var(--ground); }
+  .book .body a { color: var(--brass); }
+
+  /* ---------- footer ---------- */
+  footer { padding-block: clamp(80px, 10vw, 120px) 40px; }
+  footer .name { font-family: var(--display); font-style: italic; font-size: clamp(36px, 5vw, 52px); line-height: 1; }
+  .foot { margin-top: 36px; display: grid; grid-template-columns: 1fr 1fr; gap: 32px; font-size: 14px; line-height: 1.9; color: var(--text-soft); }
+  .foot .label { display: block; margin-bottom: 8px; }
+  .letter { margin-top: 48px; }
+  .letter p { font-size: 14px; color: var(--text-soft); }
+  .letter form { display: flex; max-width: 360px; margin: 16px auto 0; border-bottom: 1px solid var(--rule); }
+  .letter input { flex: 1; min-width: 0; background: transparent; border: 0; color: var(--text); font: inherit; font-size: 15px; padding: 10px 0; }
+  .letter input::placeholder { color: var(--text-faint); }
+  .letter button { background: none; border: 0; color: var(--brass); font: 500 11px var(--sans); letter-spacing: .2em; text-transform: uppercase; cursor: pointer; }
+  .base { margin-top: 64px; font-size: 12px; color: var(--text-faint); letter-spacing: .06em; }
+
+  @media (max-width: 480px) { .foot { grid-template-columns: 1fr; } }
+
+  .opt-back { position: fixed; left: 14px; bottom: calc(14px + env(safe-area-inset-bottom, 0px)); z-index: 10; font: 500 11px/1 var(--sans); letter-spacing: .1em; text-transform: uppercase; background: var(--text); color: var(--ground); padding: 10px 14px; border-radius: 999px; }
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="moon" viewBox="0 0 100 100"><path d="M 52 8 A 42 42 0 1 0 52 92 A 31 42 0 1 1 52 8 Z" fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/></symbol>
+</svg>
+
+<nav class="top" aria-label="Main">
+  <a href="#list">Menu</a>
+  <a href="#whats-on">What's On</a>
+  <a href="#book">Book</a>
+</nav>
+
+<header class="opener">
+  <div class="col">
+    <span class="label kicker">Wine Bar · Est. April 2025</span>
+    <h1>Crescent <i>Moon</i></h1>
+    <p class="body">Thirty-five wines, chosen for character, poured slowly in a room built to keep you.</p>
+    <p class="addr">67 Crouch Street, Colchester</p>
+  </div>
+  <div class="rule"></div>
+</header>
+
+<section id="list">
+  <div class="col">
+    <span class="label">The List</span>
+    <h2>Chosen for character</h2>
+    <p class="body">Light and bright, bold and structured, orange, sparkling. Read and poured by a sommelier who tasted every one. Nothing here to fill a shelf.</p>
+    <div class="wines" aria-label="By the glass tonight">
+      <div class="wine"><span class="n">Foncastel Picpoul de Pinet</span><span class="dots"></span><span class="p">7.50</span></div>
+      <div class="wine"><span class="n">Balauri Pinot Noir</span><span class="dots"></span><span class="p">6.50</span></div>
+      <div class="wine"><span class="n">Logan Clementine Orange</span><span class="dots"></span><span class="p">8.95</span></div>
+      <div class="wine"><span class="n">Pirani Prosecco</span><span class="dots"></span><span class="p">10.95</span></div>
+    </div>
+    <p class="wines-sub">By the glass tonight. Glasses from £4.95 · cocktails £11.95 · spritz from £12.50</p>
+    <a class="link" href="#">The full menu</a>
+  </div>
+</section>
+
+<section id="upstairs">
+  <div class="col">
+    <svg class="mark" style="color:var(--brass)"><use href="#moon"/></svg>
+    <span class="label" style="display:block;margin:22px 0">Upstairs</span>
+    <h2>Under the skylight</h2>
+    <p class="body">A lounge that keeps its own hours. The light shifts across the afternoon and the room asks nothing of you. Second-glass territory.</p>
+  </div>
+</section>
+
+<section id="whats-on">
+  <div class="col">
+    <span class="label">What's On</span>
+    <h2>This month at the Moon</h2>
+    <div class="events">
+      <div class="ev feature"><span class="when">Sundays</span><h3>Soul Night</h3><p>Records, low light, no rush.</p></div>
+      <div class="ev"><span class="when">Monthly</span><h3>Guided wine tasting</h3><p>Six pours, one theme, led by the sommelier.</p></div>
+      <div class="ev"><span class="when">Dates vary</span><h3>Live music &amp; themed nights</h3><p>Announced on Instagram first.</p></div>
+      <div class="ev"><span class="when">Occasional</span><h3>Slow-dating socials</h3><p>With Everywhere We Meet, under the skylight.</p></div>
+    </div>
+    <p class="note">Dates land on <a href="https://www.instagram.com/crescentmoonbar">Instagram</a> first, or call 01206 525566.</p>
+  </div>
+</section>
+
+<section id="near">
+  <div class="col">
+    <span class="label">Local, on purpose</span>
+    <h2>From near here</h2>
+    <p class="body">English cheese and charcuterie. Spirits distilled in Bury St Edmunds. A short kitchen and a list that knows exactly where it is.</p>
+    <p class="counter"><b>Cheese board</b><span class="sep"> · </span><b>Charcuterie board</b><span class="sep"> · </span><b>Giant pitted olives</b><span class="sep"> · </span><b>Smoked almonds</b><span class="sep"> · </span><b>Dingley Dell beer sticks</b><span class="sep"> · </span><b>Weekend sausage rolls</b><span class="sep"> · </span><b>Toasties</b></p>
+    <p class="note" style="margin-top:18px">Seasonal. Ask the team.</p>
+  </div>
+</section>
+
+<section class="book" id="book">
+  <form class="col" onsubmit="return false">
+    <span class="label" style="display:block;margin-bottom:22px">Reserve</span>
+    <h2>A table for the evening</h2>
+    <p class="body">Tables seat two to eight and go quickly. For the whole Lounge, email <a href="mailto:bookings@crescentmoonwinebar.co.uk">bookings@crescentmoonwinebar.co.uk</a>.</p>
+    <fieldset>
+      <legend class="label">How many of you?</legend>
+      <div class="sizes" id="b-sizes">
+        <button type="button" aria-pressed="true">2</button>
+        <button type="button" aria-pressed="false">4</button>
+        <button type="button" aria-pressed="false">6</button>
+        <button type="button" aria-pressed="false">8</button>
+        <label for="b-other">Other <input id="b-other" type="number" min="1" max="50" placeholder="#"></label>
+      </div>
+    </fieldset>
+    <button class="hold" type="submit">Choose a time</button>
+    <p class="small">Held for 90 minutes · last booking 10pm · free cancellation up to 24 hours ahead</p>
+  </form>
+</section>
+
+<footer>
+  <div class="col">
+    <svg class="mark" style="color:var(--brass);margin-bottom:28px"><use href="#moon"/></svg>
+    <div class="name">Crescent Moon</div>
+    <div class="foot">
+      <div><span class="label">Find us</span>67 Crouch St<br>Colchester CO3 3EY<br>01206 525566</div>
+      <div><span class="label">Hours</span>Wed–Sat 12pm–12am<br>Sun 12–6pm<br>Mon–Tue closed</div>
+    </div>
+    <div class="letter">
+      <span class="label">The occasional letter</span>
+      <p style="margin-top:10px">New wines, quiet nights. No more than once a month.</p>
+      <form onsubmit="return false">
+        <input type="email" id="b-email" placeholder="you@email" aria-label="Email address">
+        <button type="submit">Join</button>
+      </form>
+    </div>
+    <p class="base">© 2026 Crescent Moon Wine Bar · <a href="https://www.instagram.com/crescentmoonbar">@crescentmoonbar</a></p>
+  </div>
+</footer>
+
+<a class="opt-back" href="index.html">← All options</a>
+
+<script>
+  (function () {
+    var group = document.getElementById('b-sizes');
+    var other = document.getElementById('b-other');
+    group.addEventListener('click', function (e) {
+      var b = e.target.closest('button'); if (!b) return;
+      group.querySelectorAll('button').forEach(function (x) { x.setAttribute('aria-pressed', 'false'); });
+      b.setAttribute('aria-pressed', 'true'); other.value = '';
+    });
+    other.addEventListener('input', function () {
+      group.querySelectorAll('button').forEach(function (x) { x.setAttribute('aria-pressed', 'false'); });
+    });
+  })();
+</script>
+</body>
+</html>

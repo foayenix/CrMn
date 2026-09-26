@@ -1,14 +1,14 @@
 import type { Metadata } from "next";
 import Script from "next/script";
+import { MENU_FACTS, inWords } from "@/lib/menu";
 import "./globals.css";
 
 export const metadata: Metadata = {
   title: "Crescent Moon — Wine Bar, Colchester",
-  description:
-    "A wine bar on Crouch Street, Colchester. English cheese & charcuterie, a list that knows where it is, and a quiet room to linger in.",
+  description: `A wine bar on Crouch Street, Colchester. ${inWords(MENU_FACTS.wines)} wines, cocktails made by Edmunds of Bury St Edmunds, locally supplied food, and the Lounge upstairs for private hire.`,
   // Without these the browser probes /favicon.ico on every page load and gets a
-  // 404. The moon mark already ships for the admin PWA; it is the site's mark
-  // too, so it serves both rather than being duplicated.
+  // 404. They carry the printed menu's mark (the crescent over the waves) and
+  // serve the admin PWA and staff app too.
   icons: {
     icon: [
       { url: "/icon-192.png", type: "image/png", sizes: "192x192" },

@@ -2,6 +2,7 @@ import Link from "next/link";
 import { lockAction } from "./actions";
 import { IdleLock } from "./idle-lock";
 import { IPAD_IDLE_SECONDS } from "@/lib/staff-session";
+import { LogoMark } from "@/components/logo";
 
 export type Section = "home" | "bookings" | "rota" | "lockdown" | "stock" | "clock";
 
@@ -48,7 +49,8 @@ export function StaffShell({
   isPad,
   title,
   stat,
-  statBrass = true,
+  statAccent = true,
+  backHref,
   children,
 }: {
   slug: string;
@@ -57,7 +59,9 @@ export function StaffShell({
   // Phone header. Home passes none — it opens with the greeting instead.
   title?: string;
   stat?: string;
-  statBrass?: boolean;
+  statAccent?: boolean;
+  // Phone back arrow; Home unless the screen sits under another one.
+  backHref?: string;
   children: React.ReactNode;
 }) {
   return (
@@ -76,7 +80,7 @@ export function StaffShell({
             {stat && (
               <span
                 className="staff-topbar-stat"
-                style={statBrass ? { color: "var(--brass)" } : undefined}
+                style={statAccent ? { color: "var(--terracotta)" } : undefined}
               >
                 {stat}
               </span>
@@ -85,14 +89,18 @@ export function StaffShell({
         )}
         {!isPad && title && (
           <div className="staff-topbar">
-            <Link href={`/staff/${slug}`} className="staff-back" aria-label="Back to home">
+            <Link
+              href={backHref ?? `/staff/${slug}`}
+              className="staff-back"
+              aria-label={backHref ? "Back" : "Back to home"}
+            >
               ←
             </Link>
             <span className="staff-topbar-title">{title}</span>
             {stat && (
               <span
                 className="staff-topbar-stat"
-                style={statBrass ? { color: "var(--brass)" } : undefined}
+                style={statAccent ? { color: "var(--terracotta)" } : undefined}
               >
                 {stat}
               </span>
@@ -108,16 +116,7 @@ export function StaffShell({
 function Rail({ slug, section }: { slug: string; section: Section }) {
   return (
     <nav className="staff-rail">
-      <svg width="30" height="30" viewBox="0 0 100 100" fill="none" aria-hidden="true">
-        <path
-          d="M 52 8 A 42 42 0 1 0 52 92 A 31 42 0 1 1 52 8 Z"
-          fill="none"
-          stroke="#A8875A"
-          strokeWidth="4"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-      </svg>
+      <LogoMark className="staff-rail-logo" />
 
       <div className="staff-rail-items">
         {RAIL.map((item) => {

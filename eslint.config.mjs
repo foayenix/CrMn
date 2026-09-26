@@ -17,7 +17,7 @@ const config = [
     // Build output, and the two trees that are not ours to lint: `reference/`
     // holds the original design export the site was generated from (tsconfig
     // excludes it for the same reason), and `public/` holds plain browser
-    // scripts — a service worker and a theme toggle — that never went through
+    // scripts — the admin service worker — that never went through
     // the bundler and do not answer to Next's rules.
     ignores: [".next/**", "next-env.d.ts", "reference/**", "public/**"],
   },

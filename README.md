@@ -16,7 +16,7 @@ npm install
 cp .env.example .env          # then edit DATABASE_URL / SESSION_SECRET
 npx prisma db push            # create tables
 npm run seed                  # seed What's On + staff + checklist + admin login
-npm run seed-stock            # parse the menu into pickable low-stock items
+npm run seed-stock            # turn the menu's wines and food into pickable low-stock items
 npm run dev                   # http://localhost:3000
 ```
 Default seeded login: `boss@crescentmoonbar.co.uk` / `changeme123` — change it:
@@ -137,6 +137,8 @@ Screens so far:
 | --- | --- |
 | `/staff/<slug>` | Home — tonight's shift, one quiet nudge band, tiles |
 | `/staff/<slug>/rota` | your week in serif; `?view=team` for everyone's |
+| `/staff/<slug>/rota/cant-work` | days you can't work: dates, ranges, or the same weekday every week |
+| `/staff/<slug>/rota/swaps` | offer a shift, take a colleague's (as cover or in exchange), withdraw or back out |
 | `/staff/<slug>/bookings` | tonight's tables: time, name, party size, nothing else |
 | `/staff/<slug>/lockdown` | the closing checklist for tonight, then read-only once submitted |
 | `/staff/<slug>/stock` | what's already flagged, then the menu; free text for off-menu things |
@@ -156,15 +158,29 @@ made it, so a shared iPad passed between two people produces two names. Notes
 left on items escalate to the admin dashboard when the night is submitted, and
 a manager can reopen a submitted night without disturbing its signatures.
 
-Low stock is a list, not an order. The pickable items are **parsed from the live
-menu** (`npm run seed-stock` reads `src/lib/menu-template.ts`), so the names on
+Low stock is a list, not an order. The pickable items are **read from the live
+menu** (`npm run seed-stock` reads the wine and food groups of `src/lib/menu.ts`), so the names on
 the pad are the names on the list and a hand-typed copy can't drift; items that
 leave the menu are deactivated rather than deleted, so old reports keep pointing
 at something real. Off-menu things — tonic, till roll, blue roll — never become
 rows: they go through the free-text row, which is what it's for. What's already
-flagged sits above the list and is unpickable, so nobody re-flags the Picpoul.
+flagged sits above the list and is unpickable, so nobody re-flags the Gavi.
 The boss works through open reports in Admin → Low stock, which carries the
 count as a badge.
+
+**Can't work** is information, not a request: nothing to approve, nothing written
+to the rota. It shows as a hatched mark in the boss's rota grid (and on the
+phone's day view), as a warning in the shift editor for that day, and in
+Admin → Requests. `src/lib/availability.ts` decides which days a row covers.
+
+**Swaps** go offered → taken → approved. Anyone can offer one of their shifts
+from tonight up to six weeks out; a colleague takes it, optionally giving one of
+their own back; the boss approves or declines in Admin → Requests or straight
+from the dashboard, with any clash spelled out (the taker already works that
+day, or said they can't). Nothing on the rota moves until he approves, and if
+the rota changed after the swap was agreed it is declined rather than applied
+to shifts it wasn't about. Staff hear the outcome on their Home screen, since
+push is the boss's alone. `src/lib/swaps.ts` holds the rules.
 
 Clocking in is optional and nobody is chased for it. Forgetting to clock *out*
 costs nothing: `src/lib/clock.ts` closes a stale entry at that person's rostered
@@ -178,8 +194,9 @@ what gets paid, and the staff app says so on screen.
 ## Push notifications (the boss only)
 
 The staff app has **no** push, no badges and no counts — that rule is absolute.
-Push is a separate surface for a separate audience: one buzz on the boss's phone
-when the floor flags something low.
+Push is a separate surface for a separate audience: a buzz on the boss's phone
+when the floor flags something low, when a swap is waiting for his approval, or
+when someone adds days they can't work (`src/lib/notify.ts`).
 
 Web Push is implemented directly against RFC 8291 (message encryption), RFC 8188
 (aes128gcm) and RFC 8292 (VAPID) in `src/lib/web-push.ts`, using Node's crypto
@@ -192,8 +209,8 @@ the admin app has been added to the Home Screen (Apple has required that since
 iOS 16.4), and the Notifications page says so when it detects that case.
 
 If push never works — no keys, no permission, unsupported browser — nothing is
-lost: the count beside **Low stock** in the sidebar and the dashboard block are
-the same information, on every device, with no set-up. Push is the convenience;
+lost: the counts beside **Low stock** and **Requests** and the dashboard's
+"Needs you" block are the same information, on every device, with no set-up. Push is the convenience;
 the badge is the guarantee. Sending happens in `after()` with a 10-second
 timeout, so a push service having a bad night can never make someone on the
 floor wait for a screen.

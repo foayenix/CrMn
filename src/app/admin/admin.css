@@ -2,18 +2,24 @@
    clean, dense, utilitarian layout. */
 
 .admin-root {
-  --ink: #1c1512;
-  --line: rgba(28, 21, 18, 0.14);
-  --line-strong: rgba(28, 21, 18, 0.28);
-  --paper: #f7f4ec;
-  --sand: #ede6d6;
-  --gold: #a8875a;
+  --ink: #263931;
+  --line: rgba(38, 57, 49, 0.14);
+  --line-strong: rgba(38, 57, 49, 0.28);
+  --paper: #FFFBF4;
+  --sand: #FCF3E6;
+  /* The printed menu's palette (see src/app/site.css): deep green, cream,
+     terracotta. Terracotta itself is 3.2:1 on the cream, so it is a border and
+     fill colour here; text in it uses --terracotta-text (4.7:1), and a fill
+     with deep-green text on it uses --terracotta-light (4.8:1). */
+  --terracotta: #CC7050;
+  --terracotta-text: #A9553A;
+  --terracotta-light: #E08E6F;
   --green: #5c6b57;
-  --wine: #2b1420;
-  --danger: #9d3b2f;
-  /* Secondary ink. 0.5 put it at 3.25:1 on sand, under the 4.5:1 a paragraph
-     this size needs; 0.7 clears it at 6.02:1 without going to full ink. */
-  --ink-soft: rgba(28, 21, 18, 0.7);
+  --deep: #263931;
+  --danger: #9E2B3C;
+  /* Secondary ink. 0.5 puts it at 2.75:1 on sand, under the 4.5:1 a paragraph
+     this size needs; 0.7 clears it at 4.63:1 without going to full ink. */
+  --ink-soft: rgba(38, 57, 49, 0.7);
   /* Mono carries what gets scanned — labels, counts, times, table data. Prose
      is read, so it is set in the same sans the rest of the site reads in; the
      public site uses mono the same way, for labels and never for sentences. */
@@ -56,7 +62,7 @@
   min-height: 100vh;
 }
 .admin-sidebar {
-  background: var(--wine);
+  background: var(--deep);
   color: var(--paper);
   padding: 26px 18px;
   display: flex;
@@ -72,13 +78,20 @@
   line-height: 1.05;
   margin: 0 0 4px;
 }
+.admin-brand-mark {
+  display: block;
+  width: 33px;
+  height: 44px;
+  color: var(--terracotta);
+  margin-bottom: 14px;
+}
 .admin-brand small {
   display: block;
   font-family: "IBM Plex Mono", monospace;
   font-size: 9.5px;
   letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: rgba(247, 244, 236, 0.5);
+  color: rgba(252, 240, 224, 0.62);
   margin-top: 8px;
 }
 .admin-nav {
@@ -90,18 +103,21 @@
 .admin-nav a {
   display: block;
   padding: 10px 12px;
-  color: rgba(247, 244, 236, 0.82);
+  color: rgba(252, 240, 224, 0.82);
   font-size: 12px;
   letter-spacing: 0.06em;
   text-transform: uppercase;
   border-radius: 4px;
 }
 .admin-nav a:hover {
-  background: rgba(247, 244, 236, 0.08);
+  background: rgba(252, 240, 224, 0.08);
   color: #fff;
 }
+/* Terracotta washed over the deep green reads as brown, so the active item is
+   a cream wash with a terracotta edge instead. */
 .admin-nav a.active {
-  background: rgba(168, 135, 90, 0.22);
+  background: rgba(252, 240, 224, 0.1);
+  box-shadow: inset 3px 0 0 var(--terracotta-light);
   color: #fff;
 }
 /* The staff app never carries a badge. This one is the boss's, and it has to
@@ -112,8 +128,8 @@
   min-width: 18px;
   padding: 1px 5px;
   border-radius: 999px;
-  background: var(--gold);
-  color: var(--wine);
+  background: var(--terracotta-light);
+  color: var(--deep);
   font-size: 9.5px;
   line-height: 16px;
   text-align: center;
@@ -121,11 +137,14 @@
 .admin-sidebar-footer {
   margin-top: auto;
   padding-top: 18px;
-  border-top: 1px solid rgba(247, 244, 236, 0.14);
+  border-top: 1px solid rgba(252, 240, 224, 0.14);
 }
 .admin-main {
   padding: 34px clamp(20px, 4vw, 52px);
   max-width: 1200px;
+  /* A grid item's minimum is its content, so without this one wide table
+     pushes the whole page sideways instead of scrolling in its own box. */
+  min-width: 0;
 }
 .admin-h1 {
   font-family: "Cormorant", serif;
@@ -203,15 +222,15 @@ textarea {
   gap: 8px;
 }
 .btn:hover {
-  background: var(--wine);
-  border-color: var(--wine);
+  background: #1a2822;
+  border-color: #1a2822;
 }
 .btn.ghost {
   background: transparent;
   color: var(--ink);
 }
 .btn.ghost:hover {
-  background: rgba(28, 21, 18, 0.06);
+  background: rgba(38, 57, 49, 0.06);
   color: var(--ink);
 }
 .btn.danger {
@@ -260,8 +279,8 @@ table.grid th {
   margin-bottom: 16px;
 }
 .alert.error {
-  background: rgba(157, 59, 47, 0.1);
-  border: 1px solid rgba(157, 59, 47, 0.4);
+  background: rgba(158, 43, 60, 0.1);
+  border: 1px solid rgba(158, 43, 60, 0.4);
   color: var(--danger);
 }
 .alert.ok {
@@ -299,44 +318,30 @@ table.grid th {
   width: 100%;
   max-width: 380px;
 }
-
-@media (max-width: 720px) {
-  .admin-shell {
-    grid-template-columns: 1fr;
-  }
-  .admin-sidebar {
-    position: static;
-    height: auto;
-    flex-direction: row;
-    flex-wrap: wrap;
-    align-items: center;
-  }
-  .admin-nav {
-    margin-top: 0;
-    flex-direction: row;
-    flex-wrap: wrap;
-  }
-  .admin-sidebar-footer {
-    margin: 0;
-    padding: 0;
-    border: none;
-  }
+.login-logo {
+  display: block;
+  width: 88px;
+  height: 130px;
+  color: var(--deep);
+  margin-bottom: 14px;
 }
+
+
 
 /* ---- browser surfaces ---- */
 /* Selection, focus ring and figures ship with browser defaults that belong to
    no design system; they are part of the page too. */
 .admin-root ::selection {
-  background: rgba(168, 135, 90, 0.3);
+  background: rgba(204, 112, 80, 0.3);
   color: var(--ink);
 }
 .admin-root :focus-visible {
-  outline: 2px solid var(--gold);
+  outline: 2px solid var(--terracotta);
   outline-offset: 2px;
 }
 /* The browser's default placeholder grey belongs to no palette. */
 .admin-root ::placeholder {
-  color: rgba(28, 21, 18, 0.62);
+  color: rgba(38, 57, 49, 0.62);
   opacity: 1;
 }
 
@@ -372,4 +377,465 @@ table.grid th {
 .row-actions.quiet {
   gap: 12px;
   margin-top: 4px;
+}
+
+.install-card {
+  border-color: var(--terracotta);
+}
+.install-card p {
+  margin: 0 0 12px;
+  font-size: 14px;
+  line-height: 1.55;
+}
+
+/* ---- What's On entries ---- */
+.form-2col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+.form-2col.end {
+  align-items: end;
+}
+.wo-entry {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+}
+.wo-move {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.wo-text {
+  flex: 1;
+  min-width: 0;
+}
+
+/* ---- decisions: stock flags and swaps the boss acts on ---- */
+.decision-list,
+.plain-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.decision {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px 16px;
+  padding: 12px 0;
+  border-top: 1px solid var(--line);
+}
+.decision:first-child {
+  border-top: 0;
+}
+.decision-text {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  flex: 1 1 260px;
+  min-width: 0;
+  font-size: 14px;
+  line-height: 1.45;
+}
+.decision-text strong {
+  font-weight: 500;
+}
+.decision-warn {
+  font-size: 13px;
+  color: var(--danger);
+}
+.decision-actions {
+  display: flex;
+  gap: 8px;
+}
+.plain-list > li {
+  padding: 8px 0;
+  border-top: 1px solid var(--line);
+  font-size: 14px;
+  line-height: 1.5;
+}
+.plain-list > li:first-child {
+  border-top: 0;
+}
+.plain-list ul {
+  list-style: none;
+  margin: 4px 0 0;
+  padding: 0 0 0 12px;
+}
+.plain-list strong {
+  font-weight: 500;
+}
+.badge.ok {
+  color: var(--green);
+  border-color: var(--green);
+}
+.badge.new {
+  margin-left: 8px;
+  color: var(--terracotta-text);
+  border-color: var(--terracotta);
+}
+.badge.count {
+  vertical-align: middle;
+  background: var(--terracotta-light);
+  border-color: var(--terracotta-light);
+  color: var(--deep);
+}
+.needs-block {
+  margin-top: 18px;
+}
+.needs-block:first-of-type {
+  margin-top: 8px;
+}
+.needs-block h3 {
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--terracotta-text);
+  margin: 0 0 4px;
+}
+.needs-foot {
+  margin: 10px 0 0;
+  font-size: 13px;
+}
+.dash-tiles {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+/* ---- rota: can't-work markers and the phone's day view ---- */
+.cant-work-cell {
+  background: repeating-linear-gradient(135deg, rgba(204, 112, 80, 0.08) 0 6px, transparent 6px 12px);
+}
+.cant-work-tag {
+  display: block;
+  font-size: 10.5px;
+  line-height: 1.35;
+  color: var(--terracotta-text);
+  margin-bottom: 3px;
+}
+.rota-days {
+  display: none;
+}
+
+/* ---- sheets (the shift editor, the More menu) ---- */
+.sheet-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(38, 57, 49, 0.5);
+  display: grid;
+  place-items: center;
+  z-index: 1000;
+  padding: 20px;
+}
+.sheet {
+  max-width: 460px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  margin-bottom: 0;
+}
+
+/* Phone-only chrome, hidden on anything wider. */
+.admin-topbar,
+.admin-tabbar {
+  display: none;
+}
+
+/* ---- phone ---- */
+@media (max-width: 720px) {
+  .admin-shell {
+    display: block;
+  }
+  .admin-sidebar {
+    display: none;
+  }
+  .admin-topbar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    padding: calc(10px + env(safe-area-inset-top, 0px)) 18px 10px;
+    background: var(--deep);
+    color: var(--paper);
+    font-family: "Cormorant", serif;
+    font-size: 20px;
+  }
+  .admin-topbar-mark {
+    width: 20px;
+    height: 27px;
+    color: var(--terracotta);
+    flex: none;
+  }
+  .admin-main {
+    padding: 22px 16px calc(92px + env(safe-area-inset-bottom, 0px));
+  }
+  .admin-sub {
+    margin-bottom: 20px;
+  }
+  .card {
+    padding: 16px;
+    margin-bottom: 14px;
+  }
+
+  /* A table wider than the phone scrolls inside its own box, never the page. */
+  .admin-root table.grid {
+    display: block;
+    max-width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Thumb-sized controls. */
+  .admin-root .btn {
+    min-height: 44px;
+  }
+  .admin-root .btn.sm {
+    min-height: 40px;
+  }
+  /* Anything under 16px makes iOS zoom the page into the field. */
+  .admin-root input,
+  .admin-root textarea,
+  .admin-root select {
+    font-size: 16px;
+  }
+
+  .decision-actions {
+    width: 100%;
+  }
+
+  .form-2col {
+    grid-template-columns: 1fr;
+  }
+  /* Arrows and text on one line, the buttons on their own row beneath. */
+  .wo-entry {
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .wo-actions {
+    flex: 1 1 100%;
+  }
+  .decision-actions form {
+    flex: 1;
+  }
+  .decision-actions .btn {
+    width: 100%;
+    justify-content: center;
+  }
+  .dash-tiles {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 8px;
+  }
+  .dash-tiles .card {
+    padding: 12px;
+  }
+
+  /* Rota: the grid is a desktop tool; phones get one day at a time. */
+  .rota-table {
+    display: none;
+  }
+  .rota-days {
+    display: block;
+  }
+  .rota-day-tabs {
+    display: grid;
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+    gap: 4px;
+    margin-bottom: 10px;
+  }
+  .rota-day-tab {
+    position: relative;
+    height: 56px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+    border: 1px solid var(--line-strong);
+    background: var(--paper);
+    color: var(--ink);
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+    font-size: 11px;
+    cursor: pointer;
+  }
+  .rota-day-tab span:last-of-type {
+    font-size: 15px;
+  }
+  .rota-day-tab.on {
+    background: var(--deep);
+    border-color: var(--deep);
+    color: var(--paper);
+  }
+  .rota-day-tab i {
+    position: absolute;
+    bottom: 5px;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: var(--terracotta);
+  }
+  .rota-day-note {
+    font-size: 13px;
+    min-height: 22px;
+    margin-bottom: 6px;
+  }
+  .rota-day-note input {
+    width: 100%;
+  }
+  .rota-day-list {
+    list-style: none;
+    margin: 0 0 8px;
+    padding: 0;
+    border-top: 1px solid var(--line);
+  }
+  .rota-day-row {
+    width: 100%;
+    min-height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 10px 2px;
+    border: 0;
+    border-bottom: 1px solid var(--line);
+    background: none;
+    color: var(--ink);
+    font: inherit;
+    text-align: left;
+    cursor: pointer;
+  }
+  .rota-day-name {
+    font-weight: 500;
+    font-size: 15px;
+  }
+  .rota-day-shift {
+    text-align: right;
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+    font-size: 12.5px;
+  }
+  .rota-day-shift .cant-work-tag {
+    margin: 3px 0 0;
+  }
+
+  /* The shift editor becomes a bottom sheet. */
+  .sheet-backdrop {
+    place-items: end stretch;
+    padding: 0;
+  }
+  .sheet {
+    max-width: none;
+    max-height: 88vh;
+    padding-bottom: calc(22px + env(safe-area-inset-bottom, 0px));
+  }
+
+  .admin-tabbar {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 60;
+    padding: 6px 4px calc(6px + env(safe-area-inset-bottom, 0px));
+    background: var(--deep);
+    border-top: 1px solid rgba(252, 240, 224, 0.12);
+  }
+  .admin-tabbar .tab {
+    position: relative;
+    height: 54px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    border: 0;
+    background: none;
+    color: rgba(252, 240, 224, 0.7);
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+    font-size: 10px;
+    letter-spacing: 0.04em;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  .admin-tabbar .tab svg {
+    width: 22px;
+    height: 22px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.5;
+    stroke-linejoin: round;
+    stroke-linecap: round;
+  }
+  .admin-tabbar .tab circle {
+    fill: currentColor;
+    stroke: none;
+  }
+  .admin-tabbar .tab.active {
+    color: #fff;
+  }
+  .admin-tabbar .tab.active svg {
+    color: var(--terracotta-light);
+  }
+  .tab-badge {
+    position: absolute;
+    top: 3px;
+    left: calc(50% + 6px);
+    min-width: 17px;
+    height: 17px;
+    padding: 0 4px;
+    border-radius: 999px;
+    background: var(--terracotta-light);
+    color: var(--deep);
+    font-size: 10px;
+    font-weight: 500;
+    line-height: 17px;
+    text-align: center;
+  }
+  .tab-badge.inline {
+    position: static;
+    margin-left: 8px;
+  }
+
+  .sheet-backdrop.more {
+    z-index: 55;
+  }
+  .more-sheet {
+    background: var(--paper);
+    padding: 8px 0 calc(78px + env(safe-area-inset-bottom, 0px));
+    border-top: 1px solid var(--line);
+  }
+  .more-sheet ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .more-sheet a {
+    display: flex;
+    align-items: center;
+    min-height: 52px;
+    padding: 0 20px;
+    border-bottom: 1px solid var(--line);
+    color: var(--ink);
+    text-decoration: none;
+    font-size: 16px;
+  }
+  .more-sheet a.active {
+    box-shadow: inset 3px 0 0 var(--terracotta);
+  }
+  .more-foot {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 14px 20px 0;
+    font-size: 12px;
+  }
 }

@@ -3,11 +3,23 @@ import Link from "next/link";
 import { getStaffSlug } from "@/lib/settings";
 import { startOfWeekMonday, endOfWeekSunday } from "@/lib/dates";
 import { isPublicBookingConfigured } from "@/lib/cal-public";
+import { businessDateFor } from "@/lib/business-date";
+import { describeShift } from "@/lib/rota";
+import { describeUnavailability } from "@/lib/availability";
+import { addDays } from "@/lib/dates";
+import { resolveAll, resolveReport } from "./stock/actions";
+import { DecisionMessage, SwapDecisions, swapsAwaitingApproval } from "./requests/swap-list";
+import { InstallCard } from "./install-card";
 
 export const dynamic = "force-dynamic";
 
-export default async function Dashboard() {
+// Tonight first: what needs the boss, then who's on, then the rest. Built to be
+// read on his phone between other things, so everything he acts on can be done
+// from this page without going anywhere else.
+export default async function Dashboard({ searchParams }: { searchParams: Promise<{ m?: string }> }) {
+  const { m } = await searchParams;
   const now = new Date();
+  const tonight = businessDateFor(now);
   const weekStart = startOfWeekMonday(now);
   const weekEnd = endOfWeekSunday(now);
 
@@ -20,6 +32,9 @@ export default async function Dashboard() {
     checklistItems,
     openStock,
     lastNight,
+    swaps,
+    newUnavailable,
+    onTonight,
   ] = await Promise.all([
       prisma.whatsOnEntry.count({ where: { active: true } }),
       prisma.staffMember.count({ where: { active: true } }),
@@ -45,7 +60,22 @@ export default async function Dashboard() {
           },
         },
       }),
+      swapsAwaitingApproval(),
+      prisma.unavailability.findMany({
+        where: {
+          createdAt: { gte: addDays(now, -7) },
+          OR: [{ kind: "WEEKLY" }, { kind: "DATES", endDate: { gte: tonight } }],
+        },
+        include: { staffMember: { select: { name: true } } },
+        orderBy: { createdAt: "desc" },
+      }),
+      prisma.shift.findMany({
+        where: { date: tonight, kind: "WORKING", staffMember: { active: true } },
+        include: { staffMember: { select: { name: true } } },
+        orderBy: [{ startMinutes: "asc" }],
+      }),
     ]);
+  const needsYou = openStock.length + swaps.length + newUnavailable.length;
 
   const escalated = (lastNight?.checks ?? []).filter((c) => c.note);
 
@@ -64,19 +94,103 @@ export default async function Dashboard() {
   return (
     <div>
       <h1 className="admin-h1">Good day.</h1>
-      <p className="admin-sub">
-        Everything for Crescent Moon in one place — the website&apos;s What&apos;s On
-        section, the staff rota, table bookings and visitor stats.
-      </p>
+      <DecisionMessage m={m} />
+      <InstallCard />
 
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
-          gap: 16,
-          marginBottom: 24,
-        }}
-      >
+      <div className="card needs-you">
+        <h2>
+          Needs you{" "}
+          {needsYou > 0 && <span className="badge count">{needsYou}</span>}
+        </h2>
+        {needsYou === 0 && <p className="muted" style={{ margin: 0 }}>Nothing. Enjoy it.</p>}
+
+        {openStock.length > 0 && (
+          <section className="needs-block">
+            <h3>Flagged low</h3>
+            <ul className="decision-list">
+              {openStock.map((r) => (
+                <li key={r.id} className="decision">
+                  <div className="decision-text">
+                    <strong>
+                      {r.item?.name ?? r.freeText} — {r.level === "OUT" ? "out" : "low"}
+                    </strong>
+                    <span className="muted">
+                      {r.note ? `"${r.note}" · ` : ""}
+                      {r.reportedBy.name},{" "}
+                      {r.createdAt.toLocaleString("en-GB", {
+                        weekday: "short",
+                        hour: "2-digit",
+                        minute: "2-digit",
+                        timeZone: "UTC",
+                      })}
+                    </span>
+                  </div>
+                  <div className="decision-actions">
+                    <form action={resolveReport}>
+                      <input type="hidden" name="id" value={r.id} />
+                      <button className="btn" type="submit">
+                        Done
+                      </button>
+                    </form>
+                  </div>
+                </li>
+              ))}
+            </ul>
+            {openStock.length > 1 && (
+              <form action={resolveAll} className="needs-foot">
+                <button className="btn ghost sm" type="submit">
+                  Tick all {openStock.length} done
+                </button>
+              </form>
+            )}
+          </section>
+        )}
+
+        {swaps.length > 0 && (
+          <section className="needs-block">
+            <h3>Swaps to approve</h3>
+            <SwapDecisions swaps={swaps} back="/admin" />
+          </section>
+        )}
+
+        {newUnavailable.length > 0 && (
+          <section className="needs-block">
+            <h3>Can&apos;t work, added this week</h3>
+            <ul className="plain-list">
+              {newUnavailable.map((u) => (
+                <li key={u.id}>
+                  <strong>{u.staffMember.name}</strong> · {describeUnavailability(u)}
+                  {u.note && <span className="muted"> · {u.note}</span>}
+                </li>
+              ))}
+            </ul>
+            <p className="needs-foot">
+              <Link href="/admin/requests">All requests →</Link>
+            </p>
+          </section>
+        )}
+      </div>
+
+      <div className="card">
+        <h2>On tonight</h2>
+        {onTonight.length === 0 ? (
+          <p className="muted" style={{ margin: 0 }}>Nobody&apos;s on the rota tonight.</p>
+        ) : (
+          <ul className="plain-list">
+            {onTonight.map((s) => (
+              <li key={s.id}>
+                <strong>{s.staffMember.name}</strong> · {describeShift(s)}
+                {s.notes && <span className="muted"> · {s.notes}</span>}
+              </li>
+            ))}
+          </ul>
+        )}
+        <p className="needs-foot">
+          <Link href="/admin/rota">The rota →</Link>
+        </p>
+      </div>
+
+      <div className="dash-tiles">
         {tiles.map((t) => (
           <Link key={t.label} href={t.href} className="card" style={{ display: "block", marginBottom: 0 }}>
             <div style={{ fontSize: 40, fontFamily: "'Cormorant', serif" }}>{t.value}</div>
@@ -86,43 +200,6 @@ export default async function Dashboard() {
           </Link>
         ))}
       </div>
-
-      {openStock.length > 0 && (
-        <div className="card">
-          <h2>
-            Flagged low{" "}
-            <span className="badge" style={{ borderColor: "var(--danger)", color: "var(--danger)" }}>
-              {openStock.length}
-            </span>
-          </h2>
-          <ul style={{ margin: "0 0 10px", paddingLeft: 18, lineHeight: 1.8, fontSize: 13 }}>
-            {openStock.slice(0, 6).map((r) => (
-              <li key={r.id}>
-                <strong>{r.item?.name ?? r.freeText}</strong> — {r.level === "OUT" ? "out" : "low"}
-                {r.note ? `, "${r.note}"` : ""}{" "}
-                <span className="muted">
-                  ({r.reportedBy.name},{" "}
-                  {r.createdAt.toLocaleString("en-GB", {
-                    weekday: "short",
-                    hour: "2-digit",
-                    minute: "2-digit",
-                    timeZone: "UTC",
-                  })}
-                  )
-                </span>
-              </li>
-            ))}
-          </ul>
-          {openStock.length > 6 && (
-            <p className="muted" style={{ fontSize: 12, margin: "0 0 10px" }}>
-              …and {openStock.length - 6} more.
-            </p>
-          )}
-          <p style={{ margin: 0, fontSize: 12 }}>
-            <Link href="/admin/stock">Work through the list →</Link>
-          </p>
-        </div>
-      )}
 
       <div className="card">
         <h2>Last night&apos;s lockdown</h2>
