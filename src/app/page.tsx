@@ -1,21 +1,17 @@
 import { prisma } from "@/lib/prisma";
 import { BookingForm } from "@/components/booking-form";
-import { LetterForm } from "@/components/letter-form";
+import { Dateline, INSTAGRAM, MoonMark, SiteFooter } from "@/components/site-chrome";
+import { MENU_FACTS, featuredByTheGlass, inWords } from "@/lib/menu";
+import Link from "next/link";
 import Script from "next/script";
-import "./home.css";
+import "./site.css";
 
 // Read live at request time so the boss's What's On edits appear immediately,
 // with no redeploy.
 export const dynamic = "force-dynamic";
 
-const INSTAGRAM = "https://www.instagram.com/crescentmoonbar";
-
-const BY_THE_GLASS = [
-  ["Foncastel Picpoul de Pinet", "7.50"],
-  ["Balauri Pinot Noir", "6.50"],
-  ["Logan Clementine Orange", "8.95"],
-  ["Pirani Prosecco", "10.95"],
-] as const;
+const BY_THE_GLASS = featuredByTheGlass();
+const WINES = inWords(MENU_FACTS.wines);
 
 const COUNTER = [
   "Cheese board",
@@ -38,22 +34,16 @@ export default async function HomePage() {
   return (
     <div className="cmh" data-screen-label="Home">
       <header>
-        <div className="cmh-dateline cmh-mono">
-          <span>Wine bar · Est. April 2025</span>
-          <span>67 Crouch St, Colchester</span>
-          <span>Wed–Sat 12pm–12am · Sun 12–6pm</span>
-        </div>
+        <Dateline />
         <h1 className="cmh-nameplate">
           Crescent Moon
-          <svg viewBox="0 0 100 100" aria-hidden="true">
-            <path d="M 52 8 A 42 42 0 1 0 52 92 A 31 42 0 1 1 52 8 Z" fill="var(--cmh-green)" />
-          </svg>
+          <MoonMark />
         </h1>
         <div className="cmh-strap">
           <span className="cmh-fact">A wine bar on Crouch Street</span>
-          <p>Thirty-five wines, chosen for character, poured slowly in a room built to keep you.</p>
+          <p>{WINES} wines, chosen for character, poured slowly in a room built to keep you.</p>
           <nav aria-label="Main">
-            <a href="/menu">Menu</a>
+            <Link href="/menu">Menu</Link>
             <a href="#whats-on">What&apos;s On</a>
             <a href="#book">Book a table</a>
           </nav>
@@ -65,7 +55,7 @@ export default async function HomePage() {
         <a className="cmh-row" href="#list">
           <span className="cmh-row-title">The List</span>
           <p>Chosen for character, read and poured by a sommelier.</p>
-          <span className="cmh-fact">35 wines · glasses from £4.95</span>
+          <span className="cmh-fact">{MENU_FACTS.wines} wines · glasses from £{MENU_FACTS.glassFrom}</span>
         </a>
         <a className="cmh-row" href="#upstairs">
           <span className="cmh-row-title">Upstairs</span>
@@ -96,22 +86,27 @@ export default async function HomePage() {
         <div className="cmh-main">
           <h2>Chosen for character</h2>
           <p className="cmh-body">
-            Thirty-five wines: light and bright, bold and structured, orange, sparkling. Read and
-            poured by a sommelier who tasted every one. Nothing here to fill a shelf.
+            {WINES} wines: light and bright, bold and structured, orange, sparkling. Read and poured
+            by a sommelier who tasted every one. Nothing here to fill a shelf.
           </p>
           <div className="cmh-block">
             <span className="cmh-fact">By the glass tonight</span>
             <ul className="cmh-list">
-              {BY_THE_GLASS.map(([name, price]) => (
+              {BY_THE_GLASS.map(({ name, measure, price }) => (
                 <li key={name}>
                   <span>{name}</span>
-                  <span className="cmh-price">{price}</span>
+                  <span className="cmh-price">
+                    <span className="cmh-measure">{measure}</span> {price}
+                  </span>
                 </li>
               ))}
             </ul>
             <div className="cmh-under">
-              <span className="cmh-fact">Glasses from £4.95 · cocktails £11.95 · spritz from £12.50</span>
-              <a href="/menu"><span className="cmh-ul">The full menu</span> →</a>
+              <span className="cmh-fact">
+                Glasses from £{MENU_FACTS.glassFrom} · cocktails £{MENU_FACTS.cocktailPrice} · spritz
+                from £{MENU_FACTS.spritzFrom}
+              </span>
+              <Link href="/menu"><span className="cmh-ul">The full menu</span> →</Link>
             </div>
           </div>
         </div>
@@ -176,31 +171,7 @@ export default async function HomePage() {
         </div>
       </section>
 
-      <footer className="cmh-foot">
-        <div className="cmh-foot-grid">
-          <div>
-            <span className="cmh-mono">Crescent Moon</span>
-            <span className="cmh-foot-big">Wine bar,<br />Crouch Street</span>
-          </div>
-          <div>
-            <span className="cmh-mono">Find us</span>
-            67 Crouch St<br />Colchester CO3 3EY<br />01206 525566
-          </div>
-          <div>
-            <span className="cmh-mono">Hours</span>
-            Wed–Sat 12pm–12am<br />Sun 12–6pm<br />Mon–Tue closed
-          </div>
-          <div>
-            <span className="cmh-mono">The occasional letter</span>
-            New wines, quiet nights. No more than once a month.
-            <LetterForm />
-          </div>
-        </div>
-        <div className="cmh-base cmh-mono">
-          <span>© 2026 Crescent Moon Wine Bar</span>
-          <a href={INSTAGRAM} target="_blank" rel="noopener">@crescentmoonbar ↗</a>
-        </div>
-      </footer>
+      <SiteFooter />
 
       {/* The Wine / Navy / Green switcher; here it recolours the booking band. */}
       <Script src="/legacy/theme-toggle.js" strategy="afterInteractive" />

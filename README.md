@@ -16,7 +16,7 @@ npm install
 cp .env.example .env          # then edit DATABASE_URL / SESSION_SECRET
 npx prisma db push            # create tables
 npm run seed                  # seed What's On + staff + checklist + admin login
-npm run seed-stock            # parse the menu into pickable low-stock items
+npm run seed-stock            # turn the menu's wines and food into pickable low-stock items
 npm run dev                   # http://localhost:3000
 ```
 Default seeded login: `boss@crescentmoonbar.co.uk` / `changeme123` — change it:
@@ -156,13 +156,13 @@ made it, so a shared iPad passed between two people produces two names. Notes
 left on items escalate to the admin dashboard when the night is submitted, and
 a manager can reopen a submitted night without disturbing its signatures.
 
-Low stock is a list, not an order. The pickable items are **parsed from the live
-menu** (`npm run seed-stock` reads `src/lib/menu-template.ts`), so the names on
+Low stock is a list, not an order. The pickable items are **read from the live
+menu** (`npm run seed-stock` reads the wine and food groups of `src/lib/menu.ts`), so the names on
 the pad are the names on the list and a hand-typed copy can't drift; items that
 leave the menu are deactivated rather than deleted, so old reports keep pointing
 at something real. Off-menu things — tonic, till roll, blue roll — never become
 rows: they go through the free-text row, which is what it's for. What's already
-flagged sits above the list and is unpickable, so nobody re-flags the Picpoul.
+flagged sits above the list and is unpickable, so nobody re-flags the Gavi.
 The boss works through open reports in Admin → Low stock, which carries the
 count as a badge.
 

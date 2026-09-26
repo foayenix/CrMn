@@ -18,7 +18,7 @@ Everything in this section was checked against the tree, not recalled.
 | Area | Where | Notes |
 |---|---|---|
 | Public site | `src/app/page.tsx`, `src/app/home.css`, `src/components/booking-form.tsx` | JSX (the "Masthead" design, `design/home-options/c-masthead.html`). What's On is read from the database; the rest of the copy lives in `page.tsx`. *(Updated 26 September 2026; it was generated HTML fragments until then.)* |
-| Menu page | `src/app/menu/page.tsx`, `src/lib/menu-template.ts` | Static HTML auto-generated from `reference/legacy-site/`, injected via `dangerouslySetInnerHTML`. Still in the original illustrated design. |
+| Menu page | `src/app/menu/page.tsx`, `src/lib/menu.ts` | Rendered from typed data transcribed from the printed menu (`public/uploads/Crescent Moon Drinks Menu A5 16pp.pdf`), Masthead design. The homepage's wine facts and `scripts/seed-stock.ts` read the same data. *(Updated 26 September 2026; it was a generated HTML blob until then.)* |
 | Admin app | `src/app/admin/(app)/` | 10 sections: dashboard, what's on, rota, lockdown checklist, stock, clock, bookings, analytics, staff view/PINs, notifications. |
 | Staff app | `src/app/staff/[slug]/` | PIN entry, clock, rota, stock reporting, lockdown. |
 | Auth | `src/lib/auth.ts`, `session.ts`, `staff-pin.ts` | bcrypt admin password, `jose`-signed session cookie, HMAC-keyed staff PIN lookup with a throttle model. |
@@ -55,9 +55,10 @@ blocker to CRM and WhatsApp booking: there is no local record to attach a guest
 to, no booking history to count, and no way to answer "how many covers last
 Friday" without cal.diy being up.
 
-**3. The menu is a generated HTML blob.** Structuring the menu as data
-is not only a schema exercise — it means dismantling `menu-template.ts` and
-rendering from the database, which changes how the site is built and deployed.
+**3. The menu is data in code, not in the database.** `src/lib/menu.ts` is
+typed and already drives `/menu`, the homepage's wine facts and stock seeding,
+but changing a price still means a commit and a deploy. Moving it into the
+database is the Phase 3 item below.
 
 ### Confirmed gaps
 
@@ -230,7 +231,8 @@ horizontal scroll, verified on a real iOS and a real Android device.*
   Wine needs the structured attributes the agent will query on: colour,
   sweetness, body, acidity, grape, region, glass and bottle price, availability.
 - Admin CRUD for all of it.
-- Migrate the current menu content out of `menu-template.ts` into the database.
+- Migrate the current menu content out of `src/lib/menu.ts` into the database
+  (the types there are a starting point for the models).
 - Render `/menu` from the database.
 - Link `StockItem` to `MenuItem`/`Wine` so stock and menu stop being separate
   name-matched worlds.
