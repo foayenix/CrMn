@@ -67,7 +67,7 @@ export const MENU: MenuSection[] = [
         columns: GLASS,
         stocked: true,
         items: [
-          { name: "Viña Palomeras Navarra Blanco", tags: ["VE"], origin: "Spain", key: "1", cells: ["6.00", "11.95", "29.95"], featured: true,
+          { name: "Viña Palomeras Navarra Blanco", tags: ["VE"], origin: "Spain", key: "1", cells: ["6.00", "11.95", "29.95"],
             note: "A great little house white made in Navarra, just North of Rioja. Super fresh and easy drinking with pear drop and apple notes.",
             award: "SWA Bronze Award" },
           { name: "Sereno Catarratto Pinot Grigio", tags: ["V"], origin: "Italy", key: "2", cells: ["6.50", "12.95", "32.50"],
@@ -80,7 +80,7 @@ export const MENU: MenuSection[] = [
           { name: "3 Passo Bianco Chardonnay Fiano", tags: ["VE", "ORG"], origin: "Italy", key: "2", cells: ["7.50", "14.95", "37.50"],
             note: "Are you an ABC? Will you drink Anything But Chardonnay? You need to try this. There’s not a lot of oak in this organic Italian blend of Chardonnay and Fiano so it’s star bright with citrus notes, grapefruit and pineapple that all culminate to a long finish.",
             award: "Global Organic & Vegan Masters Gold Award" },
-          { name: "Long White Cloud Sauvignon Blanc", tags: ["VE"], origin: "New Zealand", key: "2", cells: ["8.00", "15.95", "39.95"],
+          { name: "Long White Cloud Sauvignon Blanc", tags: ["VE"], origin: "New Zealand", key: "2", cells: ["8.00", "15.95", "39.95"], featured: true,
             note: "Once described as ‘being slapped in the face by a passionfruit’, The Long White Cloud is an absolute benchmark Marlborough; the passionfruit flavours are supported by a cornucopia of gooseberry, elderflower, grapefruit and hints of freshly mown grass." },
           { name: "Teixadal Albariño Treixadura", origin: "Spain", key: "2", cells: ["8.00", "15.95", "39.95"],
             note: "Class in glass from North West Spain. A stone-fruit scented beauty from the shores of the Atlantic. If you were in Galicia you would be sipping this on the beach with your freshly barbecued sardines. Lovely." },
@@ -500,6 +500,11 @@ export function featuredByTheGlass(): { name: string; measure: string; price: st
         return { name: i.name, measure: g.columns[at], price: i.cells![at]! };
       }),
   );
+}
+
+/** The food and snacks, as named on the printed menu. */
+export function fromTheCounter(): string[] {
+  return (section("food")?.groups ?? []).flatMap((g) => g.items.map((i) => i.name));
 }
 
 const ONES = ["", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten",

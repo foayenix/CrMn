@@ -6,36 +6,3 @@
   a { color: #5C6B57; text-decoration: none; transition: color .25s ease; }
   a:hover { color: #1C1512; }
   ::selection { background: #A8875A; color: #F7F4EC; }
-
-  :root {
-    /* #A8875A is the brand accent and clears AA on every dark surface it sits on
-       (5.1-5.4:1), but reaches only 2.7:1 on sand and 3.0:1 on paper. This is the
-       same brass taken down to where it clears 4.5:1 on both, for text on light;
-       the accent itself is unchanged everywhere it already passes. */
-    --cm-brass-on-light: #796141;
-
-    --cm-dark-hero: #241019;
-    --cm-dark-line: #2B1420;
-    --cm-dark-line-rgb: 43, 20, 32;
-    --cm-dark-deep: #1d0e16;
-  }
-  html[data-cm-theme="navy"] {
-    --cm-dark-hero: #0E1E33;
-    --cm-dark-line: #14294A;
-    --cm-dark-line-rgb: 20, 41, 74;
-    --cm-dark-deep: #0A1626;
-  }
-  html[data-cm-theme="green"] {
-    --cm-dark-hero: #10241B;
-    --cm-dark-line: #15392A;
-    --cm-dark-line-rgb: 21, 57, 42;
-    --cm-dark-deep: #0A1F15;
-  }
-  #cm-theme-switcher { position: fixed; right: clamp(14px,2vw,26px); bottom: clamp(14px,2vw,26px); z-index: 999999; display: flex; align-items: center; gap: 8px; background: #F7F4EC; border: 1px solid rgba(28,21,18,.15); border-radius: 999px; padding: 6px 10px 6px 12px; box-shadow: 0 12px 30px rgba(28,21,18,.22); font-family: 'IBM Plex Mono', monospace; }
-  #cm-theme-switcher span { font-size: 10px; letter-spacing: .08em; text-transform: uppercase; color: #1C1512; user-select: none; }
-  #cm-theme-switcher button { width: 24px; height: 24px; border-radius: 50%; border: 2px solid transparent; cursor: pointer; padding: 0; }
-  #cm-theme-switcher button[data-active="true"] { border-color: #1C1512; }
-  #cm-theme-switcher button[data-swatch="wine"] { background: #241019; }
-  #cm-theme-switcher button[data-swatch="navy"] { background: #0E1E33; }
-  #cm-theme-switcher button[data-swatch="green"] { background: #10241B; }
-

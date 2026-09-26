@@ -1,4 +1,5 @@
 import { LetterForm } from "@/components/letter-form";
+import { LogoLockup } from "@/components/logo";
 
 export const INSTAGRAM = "https://www.instagram.com/crescentmoonbar";
 
@@ -13,20 +14,12 @@ export function Dateline() {
   );
 }
 
-export function MoonMark() {
-  return (
-    <svg viewBox="0 0 100 100" aria-hidden="true">
-      <path d="M 52 8 A 42 42 0 1 0 52 92 A 31 42 0 1 1 52 8 Z" fill="var(--cmh-green)" />
-    </svg>
-  );
-}
-
 export function SiteFooter() {
   return (
     <footer className="cmh-foot">
       <div className="cmh-foot-grid">
         <div>
-          <span className="cmh-mono">Crescent Moon</span>
+          <LogoLockup className="cmh-foot-logo" title="Crescent Moon" />
           <span className="cmh-foot-big">Wine bar,<br />Crouch Street</span>
         </div>
         <div>
@@ -39,7 +32,7 @@ export function SiteFooter() {
         </div>
         <div>
           <span className="cmh-mono">The occasional letter</span>
-          New wines, quiet nights. No more than once a month.
+          New wines, good nights and the odd bit of news. Once a month, tops.
           <LetterForm />
         </div>
       </div>

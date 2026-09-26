@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import Script from "next/script";
 import type { CSSProperties } from "react";
-import { Dateline, MoonMark, SiteFooter } from "@/components/site-chrome";
+import { Dateline, SiteFooter } from "@/components/site-chrome";
+import { LogoMark } from "@/components/logo";
 import { BOOKINGS_EMAIL } from "@/lib/cal-public";
 import { MENU, MENU_FACTS, type MenuGroup, type MenuItem } from "@/lib/menu";
 import "../site.css";
@@ -106,7 +106,7 @@ export default function MenuPage() {
         <div className="cmh-topbar">
           <Link className="cmh-wordmark" href="/">
             Crescent Moon
-            <MoonMark />
+            <LogoMark />
           </Link>
           <nav aria-label="Main">
             <Link href="/">Home</Link>
@@ -185,9 +185,6 @@ export default function MenuPage() {
       </section>
 
       <SiteFooter />
-
-      {/* The Wine / Navy / Green switcher; here it recolours the Lounge band. */}
-      <Script src="/legacy/theme-toggle.js" strategy="afterInteractive" />
     </div>
   );
 }

@@ -41,9 +41,10 @@ export function BookingForm() {
 
   return (
     <form className="cmh-main" onSubmit={openBooking}>
-      <h2>A table for the evening</h2>
+      <h2>Fancy a table?</h2>
       <p className="cmh-body">
-        Tables seat two to eight and go quickly. Booking out the whole Lounge? Email{" "}
+        Tables seat two to eight and go quickly, so don&apos;t leave it to chance. Want the whole
+        Lounge to yourselves? Email{" "}
         <a href={`mailto:${BOOKINGS_EMAIL}`}>{BOOKINGS_EMAIL}</a>.
       </p>
       <fieldset>

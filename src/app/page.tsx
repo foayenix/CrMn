@@ -1,9 +1,9 @@
 import { prisma } from "@/lib/prisma";
 import { BookingForm } from "@/components/booking-form";
-import { Dateline, INSTAGRAM, MoonMark, SiteFooter } from "@/components/site-chrome";
-import { MENU_FACTS, featuredByTheGlass, inWords } from "@/lib/menu";
+import { Dateline, INSTAGRAM, SiteFooter } from "@/components/site-chrome";
+import { LogoMark } from "@/components/logo";
+import { MENU_FACTS, featuredByTheGlass, fromTheCounter, inWords } from "@/lib/menu";
 import Link from "next/link";
-import Script from "next/script";
 import "./site.css";
 
 // Read live at request time so the boss's What's On edits appear immediately,
@@ -11,15 +11,12 @@ import "./site.css";
 export const dynamic = "force-dynamic";
 
 const BY_THE_GLASS = featuredByTheGlass();
+const COUNTER = fromTheCounter();
 const WINES = inWords(MENU_FACTS.wines);
+const COCKTAILS = inWords(MENU_FACTS.cocktailCount).toLowerCase();
 
-const COUNTER = [
-  "Cheese board",
-  "Charcuterie board",
-  "Giant pitted olives · Smoked almonds",
-  "Dingley Dell beer sticks",
-  "Weekend sausage rolls · Toasties",
-];
+// The copy follows the printed menu's voice: talks to you, has opinions, keeps
+// it short. Every claim in it is on the menu or was already on the site.
 
 // The homepage as a magazine cover and contents page ("Masthead", see
 // design/home-options/). Each contents row carries a real fact rather than a
@@ -37,11 +34,11 @@ export default async function HomePage() {
         <Dateline />
         <h1 className="cmh-nameplate">
           Crescent Moon
-          <MoonMark />
+          <LogoMark />
         </h1>
         <div className="cmh-strap">
           <span className="cmh-fact">A wine bar on Crouch Street</span>
-          <p>{WINES} wines, chosen for character, poured slowly in a room built to keep you.</p>
+          <p>{WINES} wines, {COCKTAILS} cocktails and a room you won&apos;t want to leave. Pull up a chair.</p>
           <nav aria-label="Main">
             <Link href="/menu">Menu</Link>
             <a href="#whats-on">What&apos;s On</a>
@@ -54,29 +51,29 @@ export default async function HomePage() {
         <span className="cmh-mono">On this page</span>
         <a className="cmh-row" href="#list">
           <span className="cmh-row-title">The List</span>
-          <p>Chosen for character, read and poured by a sommelier.</p>
+          <p>The perfect pour, whatever you&apos;re after.</p>
           <span className="cmh-fact">{MENU_FACTS.wines} wines · glasses from £{MENU_FACTS.glassFrom}</span>
         </a>
         <a className="cmh-row" href="#upstairs">
           <span className="cmh-row-title">Upstairs</span>
-          <p>A lounge under the skylight that keeps its own hours.</p>
-          <span className="cmh-fact">The Lounge · up to 20</span>
+          <p>The Lounge, under the skylight. Yours to hire.</p>
+          <span className="cmh-fact">Private hire · up to 20</span>
         </a>
         <a className="cmh-row" href="#whats-on">
           <span className="cmh-row-title">What&apos;s On</span>
-          <p>Nights, tastings and music, as they are announced.</p>
+          <p>What&apos;s coming up at the Moon.</p>
           <span className="cmh-fact">
             {lead ? `${lead.title} · ${lead.schedule}` : "Dates on Instagram"}
           </span>
         </a>
         <a className="cmh-row" href="#near">
-          <span className="cmh-row-title">From near here</span>
-          <p>English cheese and charcuterie, spirits from Bury St Edmunds.</p>
-          <span className="cmh-fact">From the counter</span>
+          <span className="cmh-row-title">From up the road</span>
+          <p>Cocktails from Bury St Edmunds, beer from Suffolk, food from nearby.</p>
+          <span className="cmh-fact">Locally supplied</span>
         </a>
         <a className="cmh-row" href="#book">
           <span className="cmh-row-title">Book</span>
-          <p>Tables go quickly. Pick a size, then a time.</p>
+          <p>Tables go quickly. Don&apos;t leave it to chance.</p>
           <span className="cmh-fact">Tables for 2–8</span>
         </a>
       </nav>
@@ -84,13 +81,14 @@ export default async function HomePage() {
       <section className="cmh-sec" id="list">
         <div className="cmh-side"><span className="cmh-mono">The List</span></div>
         <div className="cmh-main">
-          <h2>Chosen for character</h2>
+          <h2>The perfect pour</h2>
           <p className="cmh-body">
-            {WINES} wines: light and bright, bold and structured, orange, sparkling. Read and poured
-            by a sommelier who tasted every one. Nothing here to fill a shelf.
+            {WINES} wines, from a great little house white all the way to Champagne, and every one
+            tasted by our sommelier. A few have the medals to prove it. Not sure where to start? Ask
+            us. That&apos;s what we&apos;re here for.
           </p>
           <div className="cmh-block">
-            <span className="cmh-fact">By the glass tonight</span>
+            <span className="cmh-fact">By the glass</span>
             <ul className="cmh-list">
               {BY_THE_GLASS.map(({ name, measure, price }) => (
                 <li key={name}>
@@ -117,8 +115,9 @@ export default async function HomePage() {
         <div className="cmh-main">
           <h2>Under the skylight</h2>
           <p className="cmh-body">
-            A lounge that keeps its own hours. The light shifts across the afternoon and the room
-            asks nothing of you. Second-glass territory.
+            Upstairs is the Lounge, our first-floor room under the skylight. Perfect for a second
+            glass. Got something to celebrate? It&apos;s available to hire for up to 20. Just ask the
+            team.
           </p>
         </div>
       </section>
@@ -129,7 +128,7 @@ export default async function HomePage() {
           <h2>This month at the Moon</h2>
           <div className="cmh-events">
             {entries.length === 0 && (
-              <p className="cmh-empty">Nothing listed just now. Check back soon.</p>
+              <p className="cmh-empty">Nothing on the calendar just yet. Watch this space.</p>
             )}
             {entries.map((e) => (
               <div className="cmh-ev" key={e.id}>
@@ -140,8 +139,8 @@ export default async function HomePage() {
             ))}
           </div>
           <p className="cmh-small">
-            Dates land on <a className="cmh-ul" href={INSTAGRAM} target="_blank" rel="noopener">Instagram</a> first,
-            or call 01206 525566.
+            Dates land on <a className="cmh-ul" href={INSTAGRAM} target="_blank" rel="noopener">Instagram</a> first.
+            Or give us a ring on 01206 525566.
           </p>
         </div>
       </section>
@@ -149,17 +148,18 @@ export default async function HomePage() {
       <section className="cmh-sec" id="near">
         <div className="cmh-side"><span className="cmh-mono">Local, on purpose</span></div>
         <div className="cmh-main">
-          <h2>From near here</h2>
+          <h2>From up the road</h2>
           <p className="cmh-body">
-            English cheese and charcuterie. Spirits distilled in Bury St Edmunds. A short kitchen and
-            a list that knows exactly where it is.
+            Our cocktails are made by Edmunds, expert mixologists from Bury St Edmunds. The Adnams
+            comes from up the road in Suffolk. And the food is locally supplied, so it changes with
+            the seasons.
           </p>
           <div className="cmh-block">
             <span className="cmh-fact">From the counter</span>
             <ul className="cmh-list">
               {COUNTER.map((item) => <li key={item}>{item}</li>)}
             </ul>
-            <p className="cmh-small">Seasonal. Ask the team.</p>
+            <p className="cmh-small">Check out our specials board or ask the team for seasonal options.</p>
           </div>
         </div>
       </section>
@@ -172,9 +172,6 @@ export default async function HomePage() {
       </section>
 
       <SiteFooter />
-
-      {/* The Wine / Navy / Green switcher; here it recolours the booking band. */}
-      <Script src="/legacy/theme-toggle.js" strategy="afterInteractive" />
     </div>
   );
 }
